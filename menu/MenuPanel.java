@@ -13,7 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import main.Main;
+import constants.Constants;
 
 public class MenuPanel extends JPanel implements ActionListener {
 
@@ -23,14 +23,14 @@ public class MenuPanel extends JPanel implements ActionListener {
 
 	protected static JLabel titleLabel;
 
-	protected static int panelWidth = Main.WINDOW_WIDTH;
-	protected static int panelHeight = Main.WINDOW_HEIGHT;
+	protected static int panelWidth = Constants.WINDOW_WIDTH;
+	protected static int panelHeight = Constants.WINDOW_HEIGHT;
 
 	protected static int distanceBetweenButtons = 20;
 	protected static int buttonHeight = 60;
 	protected static int buttonWidth = 200;
 
-	protected static Image backgroundImage = new ImageIcon("menu/menuBackground.jpeg").getImage();
+	protected static Image backgroundImage = new ImageIcon("assets/menuBackground.jpeg").getImage();
 
 	public MenuPanel() {
 		this.addMouseListener(null);
