@@ -30,7 +30,7 @@ public class GamePanel extends JPanel implements Runnable{
             // needs to update and display
             update();
 
-            repaint(); // this actually calls paintComponent method -> do not ask me.
+            repaint(); // this actually calls paintComponent
 
         }
 
