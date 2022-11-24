@@ -10,10 +10,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import constants.Constants;
+import main.GamePanel;
 
 public class MenuPanel extends JPanel implements ActionListener {
 
@@ -32,10 +34,14 @@ public class MenuPanel extends JPanel implements ActionListener {
 
 	protected static Image backgroundImage = new ImageIcon("assets/menuBackground.jpeg").getImage();
 
-	public MenuPanel() {
+	JFrame frame;
+
+	public MenuPanel(JFrame f) {
 		this.addMouseListener(null);
 
 		this.setPreferredSize(new Dimension(panelWidth, panelHeight));
+
+		this.frame = f;
 
 		setLayout(null);
 
@@ -72,7 +78,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 		playButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				playButtonAction();
 			}
 		});
 		playButton.setBounds((panelWidth - buttonWidth) / 2, (panelHeight - buttonHeight) / 2 - buttonHeight,
@@ -101,6 +107,19 @@ public class MenuPanel extends JPanel implements ActionListener {
 		this.add(playButton);
 		this.add(infoButton);
 		this.add(exitButton);
+	}
+
+	protected void playButtonAction() {
+
+		GamePanel gamePanel = new GamePanel();
+
+		frame.add(gamePanel);
+		gamePanel.setBounds(0, 0, panelWidth, panelHeight);
+
+		gamePanel.startGame();
+
+		frame.remove(this);
+
 	}
 
 }
