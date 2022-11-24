@@ -58,10 +58,9 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void paintComponent(Graphics g) {
-        System.out.println("backgorund: "+getBackground());
         g.setColor(getBackground());
 
         player.draw(g);
-        g.dispose();
+        //g.dispose();
     }
 }
