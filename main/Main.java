@@ -1,8 +1,6 @@
 package main;
 
-import javax.swing.JFrame;
-
-import menu.MenuPanel;
+import javax.swing.*;
 
 public class Main {
 
@@ -13,8 +11,9 @@ public class Main {
 		window.setTitle("Escape Koc");
 
 		GamePanel gamePanel = new GamePanel();
-		MenuPanel menuPanel = new MenuPanel();
-		window.add(menuPanel);
+		//MenuPanel menuPanel = new MenuPanel();
+		//window.add(menuPanel);
+		window.add(gamePanel);
 		window.pack();
 
 		window.setLocationRelativeTo(null);
