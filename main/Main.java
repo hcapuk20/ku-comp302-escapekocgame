@@ -12,14 +12,12 @@ public class Main {
 		window.setResizable(false);
 		window.setTitle("Escape Koc");
 
-		GamePanel gamePanel = new GamePanel();
-		MenuPanel menuPanel = new MenuPanel();
+		MenuPanel menuPanel = new MenuPanel(window);
 		window.add(menuPanel);
 		window.pack();
 
 		window.setLocationRelativeTo(null);
 		window.setVisible(true);
 
-		gamePanel.startGame();
 	}
 }
