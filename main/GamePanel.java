@@ -1,7 +1,7 @@
 package main;
 
-import main.controllers.PlayerController;
-import main.models.Player;
+import main.controllers.CharacterController;
+import main.models.Character;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,19 +13,19 @@ public class GamePanel extends JPanel implements Runnable{
 
     final int tileSize = originalTileSize * scale; // keep this for now
     Thread gameThread;
-    Player player;
-    PlayerController playerController;
+    Character character;
+    CharacterController characterController;
     KeyEventHandler keyListener;
 
     public GamePanel(){
         this.setPreferredSize(new Dimension(768, 576));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
-        player = new Player(100,100,100,100,10);
-        keyListener = new KeyEventHandler(player);
+        character = new Character(100,100,100,100,10);
+        keyListener = new KeyEventHandler(character);
         this.addKeyListener(keyListener);
         this.setFocusable(true);
-        this.playerController = new PlayerController(player);
+        this.characterController = new CharacterController(character);
     }
 
     public void startGame(){
@@ -35,7 +35,6 @@ public class GamePanel extends JPanel implements Runnable{
 
     @Override
     public void run() {
-
         double delta = 0;
         long lastRunTime = System.nanoTime();
         long currentRunTime;
@@ -49,21 +48,19 @@ public class GamePanel extends JPanel implements Runnable{
 
             if (delta > 1){
                 update();
-                repaint(); // this actually calls paintComponent
+                repaint(); // this calls paintComponent
                 delta--;
             }
         }
-
     }
 
     public void update(){
-        playerController.move();
+        characterController.move();
     }
 
     public void paintComponent(Graphics g) {
         g.setColor(getBackground());
-
-        playerController.draw(g);
+        characterController.draw(g);
         //g.dispose();
     }
 }
