@@ -1,5 +1,6 @@
 package main;
 
+import main.controllers.PlayerController;
 import main.models.Player;
 
 import javax.swing.*;
@@ -13,6 +14,7 @@ public class GamePanel extends JPanel implements Runnable{
     final int tileSize = originalTileSize * scale; // keep this for now
     Thread gameThread;
     Player player;
+    PlayerController playerController;
     KeyEventHandler keyListener;
 
     public GamePanel(){
@@ -23,6 +25,7 @@ public class GamePanel extends JPanel implements Runnable{
         keyListener = new KeyEventHandler(player);
         this.addKeyListener(keyListener);
         this.setFocusable(true);
+        this.playerController = new PlayerController(player);
     }
 
     public void startGame(){
@@ -54,13 +57,13 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void update(){
-        player.move();
+        playerController.move();
     }
 
     public void paintComponent(Graphics g) {
         g.setColor(getBackground());
 
-        player.draw(g);
+        playerController.draw(g);
         //g.dispose();
     }
 }
