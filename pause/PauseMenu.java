@@ -6,8 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import constants.Constants;
-import main.GamePanel;
-
 
 
 public class PauseMenu extends JPanel implements ActionListener {
