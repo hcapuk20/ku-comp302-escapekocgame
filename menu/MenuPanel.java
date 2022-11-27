@@ -1,21 +1,12 @@
 package menu;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
+import constants.Constants;
+import main.controllers.GameController;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
-import constants.Constants;
-import main.GamePanel;
 
 public class MenuPanel extends JPanel implements ActionListener {
 
@@ -111,12 +102,12 @@ public class MenuPanel extends JPanel implements ActionListener {
 
 	protected void playButtonAction() {
 
-		GamePanel gamePanel = new GamePanel();
+		GameController gameController = new GameController();
 
-		frame.add(gamePanel);
-		gamePanel.setBounds(0, 0, panelWidth, panelHeight);
+		frame.add(gameController);
+		gameController.setBounds(0, 0, panelWidth, panelHeight);
 
-		gamePanel.startGame();
+		gameController.startGame();
 
 		frame.remove(this);
 

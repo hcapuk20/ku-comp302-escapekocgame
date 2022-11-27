@@ -1,12 +1,12 @@
-package main;
+package main.controllers;
 
-import main.controllers.CharacterController;
+import main.KeyEventHandler;
 import main.models.Character;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class GamePanel extends JPanel implements Runnable{
+public class GameController extends JPanel implements Runnable{
 
     final int originalTileSize = 16;
     final int scale = 3;
@@ -17,7 +17,7 @@ public class GamePanel extends JPanel implements Runnable{
     CharacterController characterController;
     KeyEventHandler keyListener;
 
-    public GamePanel(){
+    public GameController(){
         this.setPreferredSize(new Dimension(768, 576));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
