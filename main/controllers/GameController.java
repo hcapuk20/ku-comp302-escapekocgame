@@ -18,6 +18,8 @@ public class GameController extends JPanel implements Runnable{
     KeyEventHandler keyListener;
     MapController mapController;
 
+    RoomController roomController;
+
     public GameController(){
         this.setPreferredSize(new Dimension(768, 576));
         this.setBackground(Color.BLACK);
@@ -28,7 +30,11 @@ public class GameController extends JPanel implements Runnable{
         this.setFocusable(true);
         this.characterController = new CharacterController(character);
         this.mapController = new MapController(this);
-        mapController.initializeWalls();
+        //mapController.initializeWalls();
+
+        this.roomController = new RoomController(this, 1 ,1, 1, 1);
+
+
     }
 
     public void startGame(){
@@ -64,7 +70,8 @@ public class GameController extends JPanel implements Runnable{
     public void paintComponent(Graphics g) {
         g.setColor(getBackground());
         characterController.draw(g);
-        mapController.draw(g);
+        //mapController.draw(g);
+        roomController.draw(g);
         //g.dispose();
     }
 }

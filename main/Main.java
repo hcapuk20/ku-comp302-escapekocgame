@@ -1,8 +1,8 @@
 package main;
 
-import javax.swing.JFrame;
-
 import menu.MenuPanel;
+
+import javax.swing.*;
 
 public class Main {
 
