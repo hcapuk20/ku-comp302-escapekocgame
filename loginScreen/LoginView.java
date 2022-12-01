@@ -31,7 +31,7 @@ public class LoginView extends JFrame {
 
     private JButton loginButton;
     private JButton signUpButton;
-    private JLabel usernameCheck;
+    private JLabel passwordCheck;
     private JLabel titleEscape;
     private JLabel titleKoç;
     private JLabel accountDeleteCheck;
@@ -63,7 +63,7 @@ public class LoginView extends JFrame {
         emailSeparator = new JSeparator();
         loginButton = new JButton();
         signUpButton = new JButton();
-        usernameCheck = new JLabel();
+        passwordCheck = new JLabel();
         accountDeleteCheck = new JLabel();
         exitButton = new JLabel();
          
@@ -171,20 +171,25 @@ public class LoginView extends JFrame {
         signUpButton.setFont(new Font("Dialog", 0, 12));
         signUpButton.setForeground(new Color(255, 255, 255));
         signUpButton.setText("Sign Up");
-
-        usernameCheck.setFont(new Font("Segoe UI", 1, 12));
-        usernameCheck.setForeground(new Color(255, 255, 255));
-        usernameCheck.setText("Forgot username?");
-        usernameCheck.setHorizontalTextPosition(SwingConstants.CENTER);
-        usernameCheck.addMouseListener(new MouseAdapter() {
+        signUpButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                usernameCheckMouseClicked(evt);
+                signUpButtonMouseClicked(evt);
+            }
+        });
+
+        passwordCheck.setFont(new Font("Segoe UI", 1, 12));
+        passwordCheck.setForeground(new Color(255, 255, 255));
+        passwordCheck.setText("Forgot username?");
+        passwordCheck.setHorizontalTextPosition(SwingConstants.CENTER);
+        passwordCheck.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                passwordCheckMouseClicked(evt);
             }
             public void mouseEntered(MouseEvent evt) {
-                usernameCheckMouseEntered(evt);
+                passwordCheckMouseEntered(evt);
             }
             public void mouseExited(MouseEvent evt) {
-                usernameCheckMouseExited(evt);
+                passwordCheckMouseExited(evt);
             }
         });
 
@@ -197,6 +202,9 @@ public class LoginView extends JFrame {
             }
             public void mouseExited(MouseEvent evt) {
                 accountDeleteCheckMouseExited(evt);
+            }
+            public void mouseClicked(MouseEvent evt) {
+            	accountDeleteCheckMouseClicked(evt);
             }
         });
 
@@ -242,7 +250,7 @@ public class LoginView extends JFrame {
                         .addComponent(accountDeleteCheck, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
                         .addGap(161, 161, 161))
                     .addGroup(GroupLayout.Alignment.TRAILING, inputScreenLayout.createSequentialGroup()
-                        .addComponent(usernameCheck, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(passwordCheck, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
                         .addGap(170, 170, 170))))
         );
         inputScreenLayout.setVerticalGroup(
@@ -263,7 +271,7 @@ public class LoginView extends JFrame {
                     .addComponent(loginButton, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
                     .addComponent(signUpButton, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
                 .addGap(92, 92, 92)
-                .addComponent(usernameCheck, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+                .addComponent(passwordCheck, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(accountDeleteCheck)
                 .addContainerGap(26, Short.MAX_VALUE))
@@ -301,17 +309,29 @@ public class LoginView extends JFrame {
         this.setLocation(x-xx, y-yy);
     }                                 
 
-    private void usernameCheckMouseClicked(MouseEvent evt) {                                     
-
+    private void accountDeleteCheckMouseClicked(MouseEvent evt) {
+    	DeleteAccountWindow deleteAccount = new DeleteAccountWindow();
+    	deleteAccount.setVisible(true);
+    }
+    
+    
+    private void passwordCheckMouseClicked(MouseEvent evt) {                                     
+    	ForgotPasswordWindow forgotPassword = new ForgotPasswordWindow();
+    	forgotPassword.setVisible(true);
+    }                      
+    
+    private void signUpButtonMouseClicked(MouseEvent evt) {
+    	SignUpMenu signUpMenu = new SignUpMenu();
+    	signUpMenu.setVisible(true);
+    }
+    
+    private void passwordCheckMouseEntered(MouseEvent evt) {                                     
+        passwordCheck.setText("<HTML><u>Forgot username?</u></HTML>");
+        passwordCheck.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }                                    
 
-    private void usernameCheckMouseEntered(MouseEvent evt) {                                     
-        usernameCheck.setText("<HTML><u>Forgot username?</u></HTML>");
-        usernameCheck.setCursor(new Cursor(Cursor.HAND_CURSOR));
-    }                                    
-
-    private void usernameCheckMouseExited(MouseEvent evt) {                                    
-        usernameCheck.setText("Forgot username?");
+    private void passwordCheckMouseExited(MouseEvent evt) {                                    
+        passwordCheck.setText("Forgot username?");
     }                                   
 
     private void accountDeleteCheckMouseEntered(MouseEvent evt) {                                     
