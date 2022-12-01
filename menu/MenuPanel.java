@@ -1,6 +1,7 @@
 package menu;
 
 import constants.Constants;
+import main.controllers.BuildingMode;
 import main.controllers.GameController;
 
 import javax.swing.*;
@@ -79,7 +80,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 		infoButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				infoButtonAction();
 			}
 		});
 		infoButton.setBounds((panelWidth - buttonWidth) / 2, (panelHeight - buttonHeight) / 2, buttonWidth,
@@ -108,6 +109,19 @@ public class MenuPanel extends JPanel implements ActionListener {
 		gameController.setBounds(0, 0, panelWidth, panelHeight);
 
 		gameController.startGame();
+
+		frame.remove(this);
+
+	}
+
+	protected void infoButtonAction() {
+
+		BuildingMode buildingMode = new BuildingMode();
+
+		frame.add(buildingMode);
+		buildingMode.setBounds(0, 0, panelWidth, panelHeight);
+
+		buildingMode.startGame();
 
 		frame.remove(this);
 
