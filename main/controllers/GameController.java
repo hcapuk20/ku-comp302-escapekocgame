@@ -27,8 +27,8 @@ public class GameController extends JPanel implements Runnable{
         this.addKeyListener(keyListener);
         this.setFocusable(true);
         this.characterController = new CharacterController(character);
-        this.mapController = new MapController();
-
+        this.mapController = new MapController(this);
+        mapController.initializeWalls();
     }
 
     public void startGame(){
