@@ -24,6 +24,8 @@ public class BuildingMode extends JPanel implements Runnable, MouseListener {
 
     BuildingsDataSource buildingsDataSource = new BuildingsDataSource();
 
+    FurniturePlacementController furniturePlacementController = new FurniturePlacementController();
+
     int currentBuilding = 0;
     Image nextImage = new ImageIcon("assets/arrow.png").getImage();
 
@@ -79,6 +81,7 @@ public class BuildingMode extends JPanel implements Runnable, MouseListener {
             BuildingsDataSource.buildings[currentBuilding].draw(g);
         }
         paintNextPageButton(g);
+        furniturePlacementController.draw((Graphics2D) g);
         //g.dispose();
     }
 
