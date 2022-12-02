@@ -11,6 +11,7 @@ public class Wall extends GameObject {
         this.locationY = locationY;
         this.height = height;
         this.width = width;
+        this.collidable = true;
         try {
             this.image = ImageIO.read(new File("assets/wall.png"));
         }
