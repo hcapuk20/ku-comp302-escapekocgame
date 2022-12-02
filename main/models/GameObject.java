@@ -1,5 +1,6 @@
 package main.models;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public abstract class GameObject {
@@ -10,5 +11,8 @@ public abstract class GameObject {
     public int width;
     public int height;
     public BufferedImage image;
-
+    public int speed;
+    public String direction;
+    public boolean collidable = false;
+    public Rectangle collisionArea;
 }

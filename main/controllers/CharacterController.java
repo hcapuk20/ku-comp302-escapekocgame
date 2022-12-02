@@ -1,5 +1,6 @@
 package main.controllers;
 
+import main.CollisionChecker;
 import main.models.Character;
 
 import java.awt.*;
@@ -8,14 +9,32 @@ public class CharacterController {
     Character character;
     public int counter;
     public int animationCount;
-    public CharacterController(Character character){
+    CollisionChecker collisionChecker;
+    public CharacterController(Character character, CollisionChecker collisionChecker){
         this.character = character;
         this.counter = 0;
         this.animationCount = 1;
+        this.collisionChecker = collisionChecker;
     }
     public void move(){
-        character.locationX += character.stepX;
-        character.locationY += character.stepY;
+        //System.out.printf("x: %d y: %d\n",character.locationX,character.locationY);
+        if (character.moving &&  character.direction.equals("up")){
+            if (!collisionChecker.checkCollision(character)){
+                character.locationY -= character.speed;
+            }
+        } else if (character.moving && character.direction.equals("down")){
+            if (!collisionChecker.checkCollision(character)){
+                character.locationY += character.speed;
+            }
+        } else if (character.moving && character.direction.equals("left")){
+            if (!collisionChecker.checkCollision(character)){
+                character.locationX -= character.speed;
+            }
+        } else if (character.moving && character.direction.equals("right")){
+            if (!collisionChecker.checkCollision(character)){
+                character.locationX += character.speed;
+            }
+        }
         counter++;
         if(counter > 15){
             if(animationCount == 1) animationCount = 2;
@@ -43,6 +62,6 @@ public class CharacterController {
                 else character.image = character.right2;
             }
         }
-        g2.drawImage(character.image, character.locationX, character.locationY,50,50,null);
+        g2.drawImage(character.image, character.locationX, character.locationY,48,48,null);
     }
 }

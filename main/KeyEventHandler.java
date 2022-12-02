@@ -19,22 +19,18 @@ public class KeyEventHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
         if (key == KeyEvent.VK_RIGHT) {
-            character.stepX = character.speed;
             character.direction = "right";
             character.moving = true;
         }
-        if (key == KeyEvent.VK_LEFT) {
-            character.stepX = -character.speed;
+        else if (key == KeyEvent.VK_LEFT) {
             character.direction = "left";
             character.moving = true;
         }
-        if (key == KeyEvent.VK_UP) {
-            character.stepY = -character.speed;
+        else if (key == KeyEvent.VK_UP) {
             character.direction = "up";
             character.moving = true;
         }
-        if (key == KeyEvent.VK_DOWN) {
-            character.stepY = character.speed;
+        else if (key == KeyEvent.VK_DOWN) {
             character.direction = "down";
             character.moving = true;
         }
@@ -44,19 +40,15 @@ public class KeyEventHandler implements KeyListener {
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
         if(key == KeyEvent.VK_RIGHT){
-            character.stepX = 0;
             character.moving = false;
         }
-        if(key == KeyEvent.VK_LEFT){
-            character.stepX = 0;
+        else if(key == KeyEvent.VK_LEFT){
             character.moving = false;
         }
-        if(key == KeyEvent.VK_UP){
-            character.stepY = 0;
+        else if(key == KeyEvent.VK_UP){
             character.moving = false;
         }
-        if(key == KeyEvent.VK_DOWN){
-            character.stepY = 0;
+        else if(key == KeyEvent.VK_DOWN){
             character.moving = false;
         }
     }

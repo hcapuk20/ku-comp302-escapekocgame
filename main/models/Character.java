@@ -1,15 +1,12 @@
 package main.models;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
 public class Character extends GameObject{
-    public int speed;
-    public int stepX;
-    public int stepY;
     public BufferedImage up1,up2,down1,down2,left1,left2,right1,right2;
-    public String direction;
     public boolean moving;
 
     public Character(int x, int y, int height, int width, int speed){
@@ -18,8 +15,6 @@ public class Character extends GameObject{
         this.height = height;
         this.width = width;
         this.speed = speed;
-        this.stepX = 0;
-        this.stepY = 0;
         try {
             this.up1 = ImageIO.read(new File("assets/character_move/boy_up_1.png"));
             this.up2 = ImageIO.read(new File("assets/character_move/boy_up_2.png"));
@@ -36,5 +31,7 @@ public class Character extends GameObject{
         this.direction = "down";
         this.moving = false;
         this.image = down1;
+        this.collidable = true;
+        this.collisionArea = new Rectangle(8,8,32,32);
     }
 }

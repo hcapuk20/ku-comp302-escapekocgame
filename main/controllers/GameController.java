@@ -1,5 +1,6 @@
 package main.controllers;
 
+import main.CollisionChecker;
 import main.KeyEventHandler;
 import main.models.Character;
 
@@ -7,15 +8,14 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GameController extends JPanel implements Runnable{
-
     final int originalTileSize = 16;
     final int scale = 3;
-
     final int tileSize = originalTileSize * scale; // keep this for now
     Thread gameThread;
     Character character;
     CharacterController characterController;
     KeyEventHandler keyListener;
+    CollisionChecker collisionChecker;
     MapController mapController;
 
     RoomCreator roomCreator;
@@ -24,13 +24,15 @@ public class GameController extends JPanel implements Runnable{
         this.setPreferredSize(new Dimension(768, 576));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
-        character = new Character(100,100,100,100,10);
+        character = new Character(150,150,48,48,6);
         keyListener = new KeyEventHandler(character);
         this.addKeyListener(keyListener);
         this.setFocusable(true);
-        this.characterController = new CharacterController(character);
         this.mapController = new MapController(this);
         mapController.initializeWalls();
+
+        this.collisionChecker = new CollisionChecker(mapController);
+        this.characterController = new CharacterController(character, collisionChecker);
 
 
     }
