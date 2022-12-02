@@ -18,6 +18,8 @@ public class GameController extends JPanel implements Runnable{
     CollisionChecker collisionChecker;
     MapController mapController;
 
+    RoomCreator roomCreator;
+
     public GameController(){
         this.setPreferredSize(new Dimension(768, 576));
         this.setBackground(Color.BLACK);
@@ -28,8 +30,10 @@ public class GameController extends JPanel implements Runnable{
         this.setFocusable(true);
         this.mapController = new MapController(this);
         mapController.initializeWalls();
+
         this.collisionChecker = new CollisionChecker(mapController);
         this.characterController = new CharacterController(character, collisionChecker);
+
 
     }
 
