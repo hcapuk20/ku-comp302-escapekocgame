@@ -43,7 +43,7 @@ public class LoginView extends JFrame {
     private JSeparator usernameSeparator;
     private JSeparator emailSeparator;
     private JTextField jTextField1;
-    private JTextField jTextField2;
+    private JTextField passwordField;
     
     public LoginView() {
         initComponents();
@@ -58,7 +58,7 @@ public class LoginView extends JFrame {
         titleFrom = new JLabel();
         inputScreen = new JPanel();
         jTextField1 = new JTextField();
-        jTextField2 = new JTextField();
+        passwordField = new JTextField();
         usernameSeparator = new JSeparator();
         emailSeparator = new JSeparator();
         loginButton = new JButton();
@@ -145,14 +145,14 @@ public class LoginView extends JFrame {
             }
         });
 
-        jTextField2.setBackground(new Color(51, 51, 51));
-        jTextField2.setFont(new Font("Dialog", 0, 12));
-        jTextField2.setForeground(new Color(204, 204, 204));
-        jTextField2.setText("Email");
-        jTextField2.setBorder(null);
-        jTextField2.addActionListener(new ActionListener() {
+        passwordField.setBackground(new Color(51, 51, 51));
+        passwordField.setFont(new Font("Dialog", 0, 12));
+        passwordField.setForeground(new Color(204, 204, 204));
+        passwordField.setText("Password");
+        passwordField.setBorder(null);
+        passwordField.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                passwordFieldActionPerformed(evt);
             }
         });
 
@@ -179,7 +179,7 @@ public class LoginView extends JFrame {
 
         passwordCheck.setFont(new Font("Segoe UI", 1, 12));
         passwordCheck.setForeground(new Color(255, 255, 255));
-        passwordCheck.setText("Forgot username?");
+        passwordCheck.setText("Forgot password?");
         passwordCheck.setHorizontalTextPosition(SwingConstants.CENTER);
         passwordCheck.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
@@ -232,7 +232,7 @@ public class LoginView extends JFrame {
                     .addGroup(inputScreenLayout.createSequentialGroup()
                         .addGap(120, 120, 120)
                         .addGroup(inputScreenLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
                             .addComponent(emailSeparator, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
                             .addGroup(inputScreenLayout.createSequentialGroup()
                                 .addComponent(loginButton, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
@@ -251,7 +251,7 @@ public class LoginView extends JFrame {
                         .addGap(161, 161, 161))
                     .addGroup(GroupLayout.Alignment.TRAILING, inputScreenLayout.createSequentialGroup()
                         .addComponent(passwordCheck, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
-                        .addGap(170, 170, 170))))
+                        .addGap(167, 167, 167))))
         );
         inputScreenLayout.setVerticalGroup(
             inputScreenLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -263,7 +263,7 @@ public class LoginView extends JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(usernameSeparator, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
-                .addComponent(jTextField2, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                .addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(emailSeparator, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50)
@@ -297,7 +297,7 @@ public class LoginView extends JFrame {
     }                      
 
     private void jTextField1ActionPerformed(ActionEvent evt) {}                                           
-    private void jTextField2ActionPerformed(ActionEvent evt) {}                                           
+    private void passwordFieldActionPerformed(ActionEvent evt) {}                                           
 
     private void exitButtonMouseClicked(MouseEvent evt) {                                     
         System.exit(0);
@@ -326,12 +326,12 @@ public class LoginView extends JFrame {
     }
     
     private void passwordCheckMouseEntered(MouseEvent evt) {                                     
-        passwordCheck.setText("<HTML><u>Forgot username?</u></HTML>");
+        passwordCheck.setText("<HTML><u>Forgot password?</u></HTML>");
         passwordCheck.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }                                    
 
     private void passwordCheckMouseExited(MouseEvent evt) {                                    
-        passwordCheck.setText("Forgot username?");
+        passwordCheck.setText("Forgot password?");
     }                                   
 
     private void accountDeleteCheckMouseEntered(MouseEvent evt) {                                     
