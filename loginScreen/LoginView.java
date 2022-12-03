@@ -91,7 +91,7 @@ public class LoginView extends JFrame {
         titleKoç.setHorizontalAlignment(SwingConstants.CENTER);
         titleKoç.setText("KOÇ");
 
-        logoGame.setIcon(new ImageIcon(Paths.get("").resolve("assets/logo.png").toAbsolutePath().toString()));
+        logoGame.setIcon(new ImageIcon(getClass().getResource("/assets/logo.png")));
         logoGame.setText("logoGame");
 
         titleFrom.setFont(new Font("GeoSlab703 Md BT", 0, 48));
