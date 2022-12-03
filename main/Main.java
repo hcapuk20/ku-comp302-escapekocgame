@@ -1,6 +1,7 @@
 package main;
 
 import menu.MenuPanel;
+import pause.PausePanel;
 
 import javax.swing.*;
 
@@ -15,6 +16,9 @@ public class Main {
 		MenuPanel menuPanel = new MenuPanel(window);
 		window.add(menuPanel);
 		window.pack();
+
+
+
 
 		window.setLocationRelativeTo(null);
 		window.setVisible(true);

@@ -1,13 +1,17 @@
 package main.controllers;
 
+import constants.Constants;
 import main.CollisionChecker;
 import main.KeyEventHandler;
 import main.models.Character;
+import pause.PausePanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-public class GameController extends JPanel implements Runnable{
+public class GameController extends JPanel implements Runnable, KeyListener{
     final int originalTileSize = 16;
     final int scale = 3;
     final int tileSize = originalTileSize * scale; // keep this for now
@@ -19,11 +23,14 @@ public class GameController extends JPanel implements Runnable{
     MapController mapController;
 
     RoomCreator roomCreator;
+    public boolean exit = false;
+    JFrame frame;
 
-    public GameController(){
+    public GameController(JFrame f){
         this.setPreferredSize(new Dimension(768, 576));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
+        this.addKeyListener(this);
         character = new Character(150,150,48,48,6);
         keyListener = new KeyEventHandler(character);
         this.addKeyListener(keyListener);
@@ -33,7 +40,7 @@ public class GameController extends JPanel implements Runnable{
 
         this.collisionChecker = new CollisionChecker(mapController);
         this.characterController = new CharacterController(character, collisionChecker);
-
+        this.frame = f;
 
     }
 
@@ -50,6 +57,8 @@ public class GameController extends JPanel implements Runnable{
 
         while(gameThread != null){
             // main game loop
+            if(exit){ continue; }
+
             currentRunTime = System.nanoTime();
             delta += (currentRunTime - lastRunTime) / (double) (1000000000/60);
 
@@ -62,9 +71,32 @@ public class GameController extends JPanel implements Runnable{
             }
         }
     }
-
+    public void stop() {
+        pauseMenu();
+        changeExit();
+        System.out.println("stop");
+    }
     public void update(){
         characterController.move();
+    }
+
+    protected void pauseMenu() {
+
+        PausePanel pausePanel = new PausePanel(frame, this);
+
+        frame.add(pausePanel);
+        pausePanel.setBounds(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
+        frame.remove(this);
+        frame.repaint();
+
+    }
+
+    public void changeExit(){
+        if(exit){
+            exit = false;
+        } else {
+            exit = true;
+        }
     }
 
     public void paintComponent(Graphics g) {
@@ -72,5 +104,26 @@ public class GameController extends JPanel implements Runnable{
         characterController.draw(g);
         mapController.draw(g);
         //g.dispose();
+    }
+
+
+
+
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+            stop();
+        }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent keyEvent) {
+
     }
 }

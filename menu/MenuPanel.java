@@ -103,7 +103,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 
 	protected void playButtonAction() {
 
-		GameController gameController = new GameController();
+		GameController gameController = new GameController(frame);
 
 		frame.add(gameController);
 		gameController.setBounds(0, 0, panelWidth, panelHeight);
