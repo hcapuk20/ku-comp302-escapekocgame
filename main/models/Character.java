@@ -32,6 +32,7 @@ public class Character extends GameObject{
         this.moving = false;
         this.image = down1;
         this.collidable = true;
-        this.collisionArea = new Rectangle(8,8,32,32);
+        int hitBoxDim = height - (2* height / 6);
+        this.collisionArea = new Rectangle(height/6,width/6,hitBoxDim,hitBoxDim);
     }
 }

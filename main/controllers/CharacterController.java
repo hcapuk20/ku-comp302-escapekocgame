@@ -62,6 +62,6 @@ public class CharacterController {
                 else character.image = character.right2;
             }
         }
-        g2.drawImage(character.image, character.locationX, character.locationY,48,48,null);
+        g2.drawImage(character.image, character.locationX, character.locationY,character.width,character.height,null);
     }
 }
