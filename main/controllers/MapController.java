@@ -9,29 +9,43 @@ public class MapController {
     public GameObject[][] tileMap;
     GameController gameController;
 
-    int tileSize = GameController.tileSize;
     public MapController(GameController gameController){
         this.gameController = gameController;
-        int tileCountHorizontal = gameController.gamePanelWidth/tileSize; // 16
-        int tileCountVertical = gameController.gamePanelHeight/tileSize; // 12
+        int tileCountHorizontal = 768/gameController.tileSize; // 16
+        int tileCountVertical = 576/gameController.tileSize; // 12
         this.tileMap = new GameObject[tileCountVertical][tileCountHorizontal];
     }
     public void initializeWalls(){
-        int tileSize = GameController.tileSize;
-        int tileCountHorizontal = gameController.gamePanelWidth/tileSize; // 16
-        int tileCountVertical = gameController.gamePanelHeight/tileSize; // 12
+        int tileSize = gameController.tileSize;
+        int tileCountHorizontal = 768/tileSize; // 16
+        int tileCountVertical = 576/tileSize; // 12
         for (int i = 0; i < tileCountVertical; i++){
             for (int j = 0; j < tileCountHorizontal; j++){
                 if (i == 0){
                     tileMap[i][j] = new Wall(j*tileSize,0,tileSize,tileSize);
                 } else if (i == tileCountVertical-1){
-                    tileMap[i][j] = new Wall(j*tileSize, gameController.gamePanelHeight -tileSize,tileSize,tileSize);
+                    tileMap[i][j] = new Wall(j*tileSize,576-tileSize,tileSize,tileSize);
                 } else if (j == 0){
                     tileMap[i][j] = new Wall(0,i*tileSize,tileSize,tileSize);
                 } else if (j == tileCountHorizontal - 1){
-                    tileMap[i][j] = new Wall(gameController.gamePanelWidth -tileSize,i*tileSize,tileSize,tileSize);
+                    tileMap[i][j] = new Wall(768-tileSize,i*tileSize,tileSize,tileSize);
                 }
             }
+            /*
+            Wall wall = new Wall(i*tileSize,0,tileSize,tileSize);
+            Wall wall2 = new Wall(i*tileSize,576-tileSize,tileSize,tileSize);
+            tileMap[0][i] = wall;
+            tileMap[tileCountVertical-1][i] = wall2;
+            if (i == 0 || i == tileCountHorizontal-1){
+                for (int j = 1; j < tileCountVertical; j++){
+                    Wall wall3 = new Wall(0,j*tileSize, tileSize, tileSize);
+                    Wall wall4 = new Wall(768-tileSize,j*tileSize,tileSize,tileSize);
+                    tileMap[j][0] = wall3;
+                    tileMap[j][tileCountHorizontal-1] = wall4;
+                }
+            }
+
+             */
         }
         printMapGrid();
     }

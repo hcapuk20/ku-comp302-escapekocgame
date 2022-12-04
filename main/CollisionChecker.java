@@ -1,6 +1,5 @@
 package main;
 
-import main.controllers.GameController;
 import main.controllers.MapController;
 import main.models.GameObject;
 
@@ -12,21 +11,20 @@ public class CollisionChecker {
     }
 
     public boolean checkCollision(GameObject object){
-        int tileSize = GameController.tileSize;
         // coordinates of the objects hit-box (collisionArea)
         int collisionLeftX = object.locationX + object.collisionArea.x;
         int collisionRightX = object.locationX + object.collisionArea.x + object.collisionArea.width;
         int collisionTopY = object.locationY + object.collisionArea.y;
         int collisionBottomY = object.locationY + object.collisionArea.y + object.collisionArea.height;
 
-        int collisionLeftTile = collisionLeftX / tileSize;
-        int collisionRightTile = collisionRightX / tileSize;
-        int collisionTopTile = collisionTopY / tileSize;
-        int collisionBottomTile = collisionBottomY / tileSize;
+        int collisionLeftTile = collisionLeftX / 48;
+        int collisionRightTile = collisionRightX / 48;
+        int collisionTopTile = collisionTopY / 48;
+        int collisionBottomTile = collisionBottomY / 48;
 
         if (object.direction.equals("up")){
             // target movement location
-            collisionTopTile = (collisionTopY - object.speed) / tileSize;
+            collisionTopTile = (collisionTopY - object.speed) / 48;
             if (mapController.tileMap[collisionTopTile][collisionLeftTile] == null||
                     mapController.tileMap[collisionTopTile][collisionRightTile] == null
             ){
@@ -39,7 +37,7 @@ public class CollisionChecker {
             }
             return false;
         } else if (object.direction.equals("down")){
-            collisionBottomTile = (collisionBottomY + object.speed) / tileSize;
+            collisionBottomTile = (collisionBottomY + object.speed) / 48;
             if (mapController.tileMap[collisionBottomTile][collisionLeftTile] == null ||
                     mapController.tileMap[collisionBottomTile][collisionRightTile] == null
             ){
@@ -52,7 +50,7 @@ public class CollisionChecker {
             }
             return false;
         } else if (object.direction.equals("left")){
-            collisionLeftTile = (collisionLeftX - object.speed) / tileSize;
+            collisionLeftTile = (collisionLeftX - object.speed) / 48;
             if (mapController.tileMap[collisionTopTile][collisionLeftTile] == null ||
                     mapController.tileMap[collisionBottomTile][collisionLeftTile] == null
             ) {
@@ -65,7 +63,7 @@ public class CollisionChecker {
             }
             return false;
         } else { // object.direction.equals("right")
-            collisionRightTile = (collisionRightX + object.speed) / tileSize;
+            collisionRightTile = (collisionRightX + object.speed) / 48;
             if (mapController.tileMap[collisionTopTile][collisionRightTile] == null ||
                     mapController.tileMap[collisionBottomTile][collisionRightTile] == null
             ) {
