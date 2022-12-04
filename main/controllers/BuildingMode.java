@@ -8,18 +8,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
 
 public class BuildingMode extends JPanel implements Runnable, MouseListener {
-
-    final int originalTileSize = Constants.originalTileSize;
-    final int scale = Constants.scale;
 
     final int tileSize = Constants.tileSize; // keep this for now
     Thread buildingModeThread;
     CharacterController characterController;
     MapController mapController;
-
     RoomCreator roomCreator;
 
     BuildingsDataSource buildingsDataSource = new BuildingsDataSource();
