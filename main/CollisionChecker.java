@@ -4,6 +4,9 @@ import constants.Constants;
 import main.models.GameObject;
 import main.models.Room;
 
+import static constants.Constants.WINDOW_HEIGHT;
+import static constants.Constants.WINDOW_WIDTH;
+
 public class CollisionChecker {
     Room mapController;
 
@@ -38,7 +41,12 @@ public class CollisionChecker {
             }
             return false;
         } else if (object.direction.equals("down")){
+            System.out.println(collisionLeftTile);
+            System.out.println(collisionBottomTile);
             collisionBottomTile = (collisionBottomY + object.speed) / tileSize;
+            if (collisionBottomTile >= (WINDOW_HEIGHT / tileSize)){
+                return false;
+            }
             if (mapController.tileMap[collisionLeftTile][collisionBottomTile] == null ||
                     mapController.tileMap[collisionRightTile][collisionBottomTile] == null
             ){
@@ -65,6 +73,9 @@ public class CollisionChecker {
             return false;
         } else { // object.direction.equals("right")
             collisionRightTile = (collisionRightX + object.speed) / tileSize;
+            if (collisionRightTile >= (WINDOW_WIDTH / tileSize)){
+                return false;
+            }
             if (mapController.tileMap[collisionRightTile][collisionTopTile] == null ||
                     mapController.tileMap[collisionRightTile][collisionBottomTile] == null
             ) {
