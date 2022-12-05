@@ -1,5 +1,7 @@
 package main.controllers;
 
+import constants.Constants;
+import main.models.Furniture;
 import main.models.GameObject;
 import main.models.Wall;
 
@@ -11,42 +13,31 @@ public class MapController {
 
     public MapController(GameController gameController){
         this.gameController = gameController;
-        int tileCountHorizontal = 768/gameController.tileSize; // 16
-        int tileCountVertical = 576/gameController.tileSize; // 12
+        int tileCountHorizontal = Constants.WINDOW_WIDTH/Constants.tileSize; //
+        int tileCountVertical = Constants.WINDOW_HEIGHT/Constants.tileSize; // 32 x 18
         this.tileMap = new GameObject[tileCountVertical][tileCountHorizontal];
     }
     public void initializeWalls(){
-        int tileSize = gameController.tileSize;
-        int tileCountHorizontal = 768/tileSize; // 16
-        int tileCountVertical = 576/tileSize; // 12
+        int tileSize = Constants.tileSize;
+        int tileCountHorizontal = Constants.WINDOW_WIDTH/tileSize; // 16
+        int tileCountVertical = Constants.WINDOW_HEIGHT/tileSize; // 12
         for (int i = 0; i < tileCountVertical; i++){
             for (int j = 0; j < tileCountHorizontal; j++){
                 if (i == 0){
                     tileMap[i][j] = new Wall(j*tileSize,0,tileSize,tileSize);
                 } else if (i == tileCountVertical-1){
-                    tileMap[i][j] = new Wall(j*tileSize,576-tileSize,tileSize,tileSize);
+                    tileMap[i][j] = new Wall(j*tileSize,Constants.WINDOW_HEIGHT-tileSize,tileSize,tileSize);
                 } else if (j == 0){
                     tileMap[i][j] = new Wall(0,i*tileSize,tileSize,tileSize);
                 } else if (j == tileCountHorizontal - 1){
-                    tileMap[i][j] = new Wall(768-tileSize,i*tileSize,tileSize,tileSize);
+                    tileMap[i][j] = new Wall(Constants.WINDOW_WIDTH-tileSize,i*tileSize,tileSize,tileSize);
                 }
             }
-            /*
-            Wall wall = new Wall(i*tileSize,0,tileSize,tileSize);
-            Wall wall2 = new Wall(i*tileSize,576-tileSize,tileSize,tileSize);
-            tileMap[0][i] = wall;
-            tileMap[tileCountVertical-1][i] = wall2;
-            if (i == 0 || i == tileCountHorizontal-1){
-                for (int j = 1; j < tileCountVertical; j++){
-                    Wall wall3 = new Wall(0,j*tileSize, tileSize, tileSize);
-                    Wall wall4 = new Wall(768-tileSize,j*tileSize,tileSize,tileSize);
-                    tileMap[j][0] = wall3;
-                    tileMap[j][tileCountHorizontal-1] = wall4;
-                }
-            }
-
-             */
         }
+        tileMap[3][5] = new Furniture(3*tileSize,5*tileSize,tileSize,tileSize,1);
+        tileMap[12][3] = new Furniture(12*tileSize,3*tileSize,tileSize,tileSize,1);
+        tileMap[7][9] = new Furniture(7*tileSize,9*tileSize,tileSize,tileSize,1);
+        System.out.println(" "+3*tileSize+" "+5*tileSize);
         printMapGrid();
     }
     public void printMapGrid(){
@@ -55,7 +46,11 @@ public class MapController {
         for (int i = 0; i < tileMap.length; i ++){
             for (int j = 0; j < tileMap[0].length; j++){
                 if (tileMap[i][j] != null ){
-                    System.out.print("1 ");
+                    if (tileMap[i][j].interactable){
+                        System.out.print("2 ");
+                    } else {
+                        System.out.print("1 ");
+                    }
                 } else {
                     System.out.print("0 ");
                 }

@@ -3,18 +3,20 @@ package main.controllers;
 import constants.Constants;
 import main.CollisionChecker;
 import main.KeyEventHandler;
+import main.models.Building;
+import main.models.BuildingsDataSource;
 import main.models.Character;
 import pause.PausePanel;
+import main.models.Room;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class GameController extends JPanel implements Runnable, KeyListener{
-    final int originalTileSize = 16;
-    final int scale = 3;
-    final int tileSize = originalTileSize * scale; // keep this for now
+
+public class GameController extends JPanel implements Runnable{
+
     Thread gameThread;
     Character character;
     CharacterController characterController;
@@ -26,22 +28,25 @@ public class GameController extends JPanel implements Runnable, KeyListener{
     public boolean exit = false;
     JFrame frame;
 
-    public GameController(JFrame f){
-        this.setPreferredSize(new Dimension(768, 576));
+
+    BuildingsDataSource buildingsDataSource = new BuildingsDataSource();
+
+    Building currentBuilding = BuildingsDataSource.buildings[5];
+    int roomCountX = 1;
+    int roomCountY = 1;
+    Room currentRoom = currentBuilding.rooms[roomCountX][roomCountY];
+
+    public GameController(){
+        this.setPreferredSize(new Dimension(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
-        this.addKeyListener(this);
-        character = new Character(150,150,48,48,6);
+        character = new Character(150,150,Constants.tileSize,Constants.tileSize,6);
         keyListener = new KeyEventHandler(character);
         this.addKeyListener(keyListener);
         this.setFocusable(true);
         this.mapController = new MapController(this);
-        mapController.initializeWalls();
-
-        this.collisionChecker = new CollisionChecker(mapController);
-        this.characterController = new CharacterController(character, collisionChecker);
-        this.frame = f;
-
+        this.collisionChecker = new CollisionChecker(currentRoom);
+        this.characterController = new CharacterController(character, collisionChecker,this);
     }
 
     public void startGame(){
@@ -77,6 +82,7 @@ public class GameController extends JPanel implements Runnable, KeyListener{
     }
     public void update(){
         characterController.move();
+        currentRoom = currentBuilding.rooms[roomCountX][roomCountY];
     }
 
     protected void pauseMenu() {
@@ -101,7 +107,8 @@ public class GameController extends JPanel implements Runnable, KeyListener{
     public void paintComponent(Graphics g) {
         g.setColor(getBackground());
         characterController.draw(g);
-        mapController.draw(g);
+        //mapController.draw(g);
+        currentRoom.draw(g);
         //g.dispose();
     }
 

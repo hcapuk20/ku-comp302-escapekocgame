@@ -5,16 +5,21 @@ import main.models.Character;
 
 import java.awt.*;
 
+import static constants.Constants.WINDOW_HEIGHT;
+import static constants.Constants.WINDOW_WIDTH;
+
 public class CharacterController {
     Character character;
     public int counter;
     public int animationCount;
     CollisionChecker collisionChecker;
-    public CharacterController(Character character, CollisionChecker collisionChecker){
+    GameController gameController;
+    public CharacterController(Character character, CollisionChecker collisionChecker,GameController gameController){
         this.character = character;
         this.counter = 0;
         this.animationCount = 1;
         this.collisionChecker = collisionChecker;
+        this.gameController = gameController;
     }
     public void move(){
         //System.out.printf("x: %d y: %d\n",character.locationX,character.locationY);
@@ -34,6 +39,28 @@ public class CharacterController {
             if (!collisionChecker.checkCollision(character)){
                 character.locationX += character.speed;
             }
+        }
+        //System.out.println(character.locationY);
+        if (character.locationX < 0){
+            character.locationX = WINDOW_WIDTH - 50;
+            gameController.roomCountX-=1;
+            //mapController.roomsX-=1;
+            //mapController.initializeRoom();
+        }
+        else if (character.locationX > WINDOW_WIDTH) {
+            character.locationX = 50;
+            gameController.roomCountX+=1;
+            //mapController.roomsX+=1;
+        }
+        else if (character.locationY < 0) {
+            character.locationY = WINDOW_HEIGHT - 50;
+            gameController.roomCountY-=1;
+            //mapController.roomsY-=1;
+        }
+        else if (character.locationY > WINDOW_HEIGHT) {
+            character.locationY = 50;
+            gameController.roomCountY+=1;
+            //mapController.roomsY+=1;
         }
         counter++;
         if(counter > 15){
@@ -62,6 +89,6 @@ public class CharacterController {
                 else character.image = character.right2;
             }
         }
-        g2.drawImage(character.image, character.locationX, character.locationY,48,48,null);
+        g2.drawImage(character.image, character.locationX, character.locationY,character.width,character.height,null);
     }
 }
