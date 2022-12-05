@@ -32,7 +32,6 @@ public class MapController {
                     tileMap[i][j] = new Wall(Constants.WINDOW_WIDTH-tileSize,i*tileSize,tileSize,tileSize);
                 }
             }
-
         }
         printMapGrid();
     }

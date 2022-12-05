@@ -3,7 +3,9 @@ package main.controllers;
 import constants.Constants;
 import main.CollisionChecker;
 import main.KeyEventHandler;
+import main.models.BuildingsDataSource;
 import main.models.Character;
+import main.models.Room;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,6 +21,10 @@ public class GameController extends JPanel implements Runnable{
 
     RoomCreator roomCreator;
 
+    BuildingsDataSource buildingsDataSource = new BuildingsDataSource();
+    Room currentRoom = BuildingsDataSource.buildings[0].rooms[1][0];
+
+
     public GameController(){
         this.setPreferredSize(new Dimension(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT));
         this.setBackground(Color.BLACK);
@@ -28,9 +34,8 @@ public class GameController extends JPanel implements Runnable{
         this.addKeyListener(keyListener);
         this.setFocusable(true);
         this.mapController = new MapController(this);
-        mapController.initializeWalls();
 
-        this.collisionChecker = new CollisionChecker(mapController);
+        this.collisionChecker = new CollisionChecker(currentRoom);
         this.characterController = new CharacterController(character, collisionChecker);
 
 
@@ -69,7 +74,8 @@ public class GameController extends JPanel implements Runnable{
     public void paintComponent(Graphics g) {
         g.setColor(getBackground());
         characterController.draw(g);
-        mapController.draw(g);
+        //mapController.draw(g);
+        currentRoom.draw(g);
         //g.dispose();
     }
 }

@@ -1,13 +1,13 @@
 package main;
 
 import constants.Constants;
-import main.controllers.MapController;
 import main.models.GameObject;
+import main.models.Room;
 
 public class CollisionChecker {
-    MapController mapController;
+    Room mapController;
 
-    public CollisionChecker(MapController mapController){
+    public CollisionChecker(Room mapController){
         this.mapController = mapController;
     }
 
@@ -26,52 +26,52 @@ public class CollisionChecker {
         if (object.direction.equals("up")){
             // target movement location
             collisionTopTile = (collisionTopY - object.speed) / tileSize;
-            if (mapController.tileMap[collisionTopTile][collisionLeftTile] == null||
-                    mapController.tileMap[collisionTopTile][collisionRightTile] == null
+            if (mapController.tileMap[collisionLeftTile][collisionTopTile] == null||
+                    mapController.tileMap[collisionRightTile][collisionTopTile] == null
             ){
                 return false;
             }
-            if (mapController.tileMap[collisionTopTile][collisionLeftTile].collidable||
-                mapController.tileMap[collisionTopTile][collisionRightTile].collidable
+            if (mapController.tileMap[collisionLeftTile][collisionTopTile].collidable||
+                mapController.tileMap[collisionRightTile][collisionTopTile].collidable
             ){
                 return true;
             }
             return false;
         } else if (object.direction.equals("down")){
             collisionBottomTile = (collisionBottomY + object.speed) / tileSize;
-            if (mapController.tileMap[collisionBottomTile][collisionLeftTile] == null ||
-                    mapController.tileMap[collisionBottomTile][collisionRightTile] == null
+            if (mapController.tileMap[collisionLeftTile][collisionBottomTile] == null ||
+                    mapController.tileMap[collisionRightTile][collisionBottomTile] == null
             ){
                 return false;
             }
-            if (mapController.tileMap[collisionBottomTile][collisionLeftTile].collidable ||
-                mapController.tileMap[collisionBottomTile][collisionRightTile].collidable
+            if (mapController.tileMap[collisionLeftTile][collisionBottomTile].collidable ||
+                mapController.tileMap[collisionRightTile][collisionBottomTile].collidable
             ){
                 return true;
             }
             return false;
         } else if (object.direction.equals("left")){
             collisionLeftTile = (collisionLeftX - object.speed) / tileSize;
-            if (mapController.tileMap[collisionTopTile][collisionLeftTile] == null ||
-                    mapController.tileMap[collisionBottomTile][collisionLeftTile] == null
+            if (mapController.tileMap[collisionLeftTile][collisionTopTile] == null ||
+                    mapController.tileMap[collisionLeftTile][collisionBottomTile] == null
             ) {
                 return false;
             }
-            if (mapController.tileMap[collisionTopTile][collisionLeftTile].collidable||
-                mapController.tileMap[collisionBottomTile][collisionLeftTile].collidable
+            if (mapController.tileMap[collisionLeftTile][collisionTopTile].collidable||
+                mapController.tileMap[collisionLeftTile][collisionBottomTile].collidable
             ) {
                 return true;
             }
             return false;
         } else { // object.direction.equals("right")
             collisionRightTile = (collisionRightX + object.speed) / tileSize;
-            if (mapController.tileMap[collisionTopTile][collisionRightTile] == null ||
-                    mapController.tileMap[collisionBottomTile][collisionRightTile] == null
+            if (mapController.tileMap[collisionRightTile][collisionTopTile] == null ||
+                    mapController.tileMap[collisionRightTile][collisionBottomTile] == null
             ) {
                 return false;
             }
-            if (mapController.tileMap[collisionTopTile][collisionRightTile].collidable ||
-                mapController.tileMap[collisionBottomTile][collisionRightTile].collidable
+            if (mapController.tileMap[collisionRightTile][collisionTopTile].collidable ||
+                mapController.tileMap[collisionRightTile][collisionBottomTile].collidable
             ) {
                 return true;
             }
