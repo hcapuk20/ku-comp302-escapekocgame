@@ -1,21 +1,67 @@
 package main.controllers;
 
+import main.CollisionChecker;
 import main.models.Character;
 
 import java.awt.*;
+
+import static constants.Constants.WINDOW_HEIGHT;
+import static constants.Constants.WINDOW_WIDTH;
 
 public class CharacterController {
     Character character;
     public int counter;
     public int animationCount;
-    public CharacterController(Character character){
+    CollisionChecker collisionChecker;
+    GameController gameController;
+    public CharacterController(Character character, CollisionChecker collisionChecker,GameController gameController){
         this.character = character;
         this.counter = 0;
         this.animationCount = 1;
+        this.collisionChecker = collisionChecker;
+        this.gameController = gameController;
     }
     public void move(){
-        character.locationX += character.stepX;
-        character.locationY += character.stepY;
+        //System.out.printf("x: %d y: %d\n",character.locationX,character.locationY);
+        if (character.moving &&  character.direction.equals("up")){
+            if (!collisionChecker.checkCollision(character)){
+                character.locationY -= character.speed;
+            }
+        } else if (character.moving && character.direction.equals("down")){
+            if (!collisionChecker.checkCollision(character)){
+                character.locationY += character.speed;
+            }
+        } else if (character.moving && character.direction.equals("left")){
+            if (!collisionChecker.checkCollision(character)){
+                character.locationX -= character.speed;
+            }
+        } else if (character.moving && character.direction.equals("right")){
+            if (!collisionChecker.checkCollision(character)){
+                character.locationX += character.speed;
+            }
+        }
+        //System.out.println(character.locationY);
+        if (character.locationX < 0){
+            character.locationX = WINDOW_WIDTH - 50;
+            gameController.roomCountX-=1;
+            //mapController.roomsX-=1;
+            //mapController.initializeRoom();
+        }
+        else if (character.locationX > WINDOW_WIDTH) {
+            character.locationX = 50;
+            gameController.roomCountX+=1;
+            //mapController.roomsX+=1;
+        }
+        else if (character.locationY < 0) {
+            character.locationY = WINDOW_HEIGHT - 50;
+            gameController.roomCountY-=1;
+            //mapController.roomsY-=1;
+        }
+        else if (character.locationY > WINDOW_HEIGHT) {
+            character.locationY = 50;
+            gameController.roomCountY+=1;
+            //mapController.roomsY+=1;
+        }
         counter++;
         if(counter > 15){
             if(animationCount == 1) animationCount = 2;
@@ -43,6 +89,6 @@ public class CharacterController {
                 else character.image = character.right2;
             }
         }
-        g2.drawImage(character.image, character.locationX, character.locationY,50,50,null);
+        g2.drawImage(character.image, character.locationX, character.locationY,character.width,character.height,null);
     }
 }

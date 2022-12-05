@@ -7,11 +7,9 @@ import main.models.Wall;
 
 public class RoomCreator {
 
-    int tileCountHorizontal = 768/ Constants.tileSize;
-    int tileCountVertical = 576/Constants.tileSize;
-
+    int tileCountHorizontal = Constants.WINDOW_WIDTH/ Constants.tileSize;
+    int tileCountVertical = Constants.WINDOW_HEIGHT/Constants.tileSize;
     int tileSize = Constants.tileSize;
-
 
     public RoomCreator(){
 
