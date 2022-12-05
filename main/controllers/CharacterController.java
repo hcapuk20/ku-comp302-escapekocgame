@@ -40,7 +40,7 @@ public class CharacterController {
                 character.locationX += character.speed;
             }
         }
-        System.out.println(character.locationY);
+        //System.out.println(character.locationY);
         if (character.locationX < 0){
             character.locationX = WINDOW_WIDTH - 50;
             gameController.roomCountX-=1;

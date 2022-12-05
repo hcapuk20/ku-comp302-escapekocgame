@@ -1,6 +1,7 @@
 package main.controllers;
 
 import constants.Constants;
+import main.models.Furniture;
 import main.models.GameObject;
 import main.models.Wall;
 
@@ -12,8 +13,8 @@ public class MapController {
 
     public MapController(GameController gameController){
         this.gameController = gameController;
-        int tileCountHorizontal = Constants.WINDOW_WIDTH/Constants.tileSize; // 16
-        int tileCountVertical = Constants.WINDOW_HEIGHT/Constants.tileSize; // 12
+        int tileCountHorizontal = Constants.WINDOW_WIDTH/Constants.tileSize; //
+        int tileCountVertical = Constants.WINDOW_HEIGHT/Constants.tileSize; // 32 x 18
         this.tileMap = new GameObject[tileCountVertical][tileCountHorizontal];
     }
     public void initializeWalls(){
@@ -33,6 +34,10 @@ public class MapController {
                 }
             }
         }
+        tileMap[3][5] = new Furniture(3*tileSize,5*tileSize,tileSize,tileSize,1);
+        tileMap[12][3] = new Furniture(12*tileSize,3*tileSize,tileSize,tileSize,1);
+        tileMap[7][9] = new Furniture(7*tileSize,9*tileSize,tileSize,tileSize,1);
+        System.out.println(" "+3*tileSize+" "+5*tileSize);
         printMapGrid();
     }
     public void printMapGrid(){
@@ -41,7 +46,11 @@ public class MapController {
         for (int i = 0; i < tileMap.length; i ++){
             for (int j = 0; j < tileMap[0].length; j++){
                 if (tileMap[i][j] != null ){
-                    System.out.print("1 ");
+                    if (tileMap[i][j].interactable){
+                        System.out.print("2 ");
+                    } else {
+                        System.out.print("1 ");
+                    }
                 } else {
                     System.out.print("0 ");
                 }

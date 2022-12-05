@@ -8,6 +8,7 @@ import java.io.File;
 public class Character extends GameObject{
     public BufferedImage up1,up2,down1,down2,left1,left2,right1,right2;
     public boolean moving;
+    public boolean hasKey;
 
     public Character(int x, int y, int height, int width, int speed){
         this.locationX = x;
@@ -32,6 +33,7 @@ public class Character extends GameObject{
         this.moving = false;
         this.image = down1;
         this.collidable = true;
+        this.hasKey = false;
         int hitBoxIndex = width/6;
         int hitBoxSize = width - (2 * hitBoxIndex);
         this.collisionArea = new Rectangle(hitBoxIndex,hitBoxIndex,hitBoxSize,hitBoxSize);
