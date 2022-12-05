@@ -2,11 +2,10 @@ package main.controllers;
 
 import constants.Constants;
 import main.CollisionChecker;
+import main.ItemInteractionHandler;
 import main.KeyEventHandler;
-import main.models.Building;
-import main.models.BuildingsDataSource;
+import main.models.*;
 import main.models.Character;
-import main.models.Room;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +13,7 @@ import java.awt.*;
 public class GameController extends JPanel implements Runnable{
 
     Thread gameThread;
-    Character character;
+    public Character character;
     CharacterController characterController;
     KeyEventHandler keyListener;
     CollisionChecker collisionChecker;
@@ -24,10 +23,12 @@ public class GameController extends JPanel implements Runnable{
 
     BuildingsDataSource buildingsDataSource = new BuildingsDataSource();
 
+    ItemInteractionHandler itemInteractionHandler;
+
     Building currentBuilding = BuildingsDataSource.buildings[5];
     int roomCountX = 1;
     int roomCountY = 1;
-    Room currentRoom = currentBuilding.rooms[roomCountX][roomCountY];
+    public Room currentRoom = currentBuilding.rooms[roomCountX][roomCountY];
 
     public GameController(){
         this.setPreferredSize(new Dimension(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT));
@@ -40,6 +41,9 @@ public class GameController extends JPanel implements Runnable{
         this.mapController = new MapController(this);
         this.collisionChecker = new CollisionChecker(currentRoom);
         this.characterController = new CharacterController(character, collisionChecker,this);
+        this.itemInteractionHandler = new ItemInteractionHandler(this);
+        this.addMouseListener(itemInteractionHandler);
+        currentRoom.tileMap[12][12] = new Furniture(12*Constants.tileSize,12*Constants.tileSize,Constants.tileSize,Constants.tileSize,1);
 
     }
 
