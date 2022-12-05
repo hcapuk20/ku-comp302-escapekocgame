@@ -24,8 +24,12 @@ public class BuildingMode extends JPanel implements Runnable, MouseListener {
     int currentBuilding = 0;
     Image nextImage = new ImageIcon("assets/arrow.png").getImage();
 
+    int imageSize = Constants.WINDOW_WIDTH/(Constants.buildingModeDivider*4);
+
+    boolean notEnoughFurnitures = false;
     Room room;
-    public BuildingMode(){
+    JFrame frame;
+    public BuildingMode(JFrame f){
         this.setPreferredSize(new Dimension(768, 576));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
@@ -33,6 +37,7 @@ public class BuildingMode extends JPanel implements Runnable, MouseListener {
         //this.characterController = new CharacterController(character);
         //mapController.initializeWalls();
         this.addMouseListener(this);
+        this.frame = f;
 
         this.roomCreator = new RoomCreator();
         this.room = roomCreator.createRoom(1, 1, 1, 1);
@@ -81,20 +86,30 @@ public class BuildingMode extends JPanel implements Runnable, MouseListener {
     }
 
     private void paintNextPageButton(Graphics g){
-        int imageSize = tileSize*3/2;
+
         g.drawImage(nextImage, Constants.WINDOW_WIDTH*7/8 - imageSize/2,
                 Constants.WINDOW_HEIGHT*7/8 - imageSize,
                 imageSize, imageSize, this);
+        if(notEnoughFurnitures){
+            BuildingsDataSource.buildings[currentBuilding].drawMinCountLabel(g);
+        }
     }
 
     private void checkCollisions(Rectangle mouse){
-        int imageSize = tileSize*3/2;
+
         Rectangle next = new Rectangle(Constants.WINDOW_WIDTH*7/8 - imageSize/2,
                 Constants.WINDOW_HEIGHT*7/8 - imageSize, imageSize, imageSize);
         if (mouse.intersects(next)) {
-            if(currentBuilding < 5) {
-                currentBuilding += 1;
-                repaint();
+            if(BuildingsDataSource.buildings[currentBuilding].enoughFurnituresPlaced()) {
+                if (currentBuilding < 5) {
+                    currentBuilding += 1;
+                    notEnoughFurnitures = false;
+                    repaint();
+                } else {
+                    startRunningMode();
+                }
+            } else {
+                notEnoughFurnitures = true;
             }
         }
     }
@@ -106,6 +121,7 @@ public class BuildingMode extends JPanel implements Runnable, MouseListener {
         Rectangle mouse = new Rectangle(mouseX, mouseY, 1, 1);
         checkCollisions(mouse);
         furniturePlacementController.selectFurniture(mouse);
+        furniturePlacementController.addFurnitureToRoom(mouse, currentBuilding);
     }
 
     @Override
@@ -125,6 +141,19 @@ public class BuildingMode extends JPanel implements Runnable, MouseListener {
 
     @Override
     public void mouseExited(MouseEvent e) {
+
+    }
+
+    protected void startRunningMode() {
+
+        GameController gameController = new GameController();
+
+        frame.add(gameController);
+        gameController.setBounds(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
+
+        gameController.startGame();
+
+        frame.remove(this);
 
     }
 }

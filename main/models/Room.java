@@ -3,6 +3,7 @@ package main.models;
 import constants.Constants;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Room {
 
@@ -16,6 +17,8 @@ public class Room {
 
     int tileSize = Constants.tileSize;
     int objSize = tileSize/divider;
+
+    public ArrayList<Furniture> furnitures = new ArrayList<Furniture>();
 
     public void draw(Graphics g){
         Graphics2D g2 = (Graphics2D) g;
@@ -45,21 +48,5 @@ public class Room {
         }
     }
 
-    public void addFurnitureToTile(Rectangle mouse, Furniture furniture){
-        int width = Constants.WINDOW_WIDTH / divider;
-        int height = Constants.WINDOW_HEIGHT / divider;
-        for (int i = 0; i< tileMap.length; i++){
-            for(int j = 0; j<tileMap[0].length; j++){
-                if (tileMap[i][j] == null){
-                    Rectangle roomRect = new Rectangle(width*i + (i*objSize)/divider ,
-                            height/2 + height*(j) + (j*objSize)/divider,
-                            objSize,objSize);
-                    if(mouse.intersects(roomRect)){
-                        System.out.println("i and j => " + i + j);
-                    }
-                }
-            }
-        }
-    }
 
 }

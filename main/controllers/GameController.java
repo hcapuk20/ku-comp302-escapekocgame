@@ -22,8 +22,6 @@ public class GameController extends JPanel implements Runnable{
 
     RoomCreator roomCreator;
 
-    BuildingsDataSource buildingsDataSource = new BuildingsDataSource();
-
     Building currentBuilding = BuildingsDataSource.buildings[5];
     int roomCountX = 1;
     int roomCountY = 1;
