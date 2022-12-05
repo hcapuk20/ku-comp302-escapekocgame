@@ -1,7 +1,6 @@
 package main;
 
 import menu.MenuPanel;
-import pause.PausePanel;
 
 import javax.swing.*;
 

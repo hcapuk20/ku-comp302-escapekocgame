@@ -72,9 +72,8 @@ public class GameController extends JPanel implements Runnable, KeyListener{
         }
     }
     public void stop() {
-        pauseMenu();
         changeExit();
-        System.out.println("stop");
+        pauseMenu();
     }
     public void update(){
         characterController.move();
