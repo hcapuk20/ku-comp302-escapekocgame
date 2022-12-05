@@ -92,8 +92,7 @@ public class BuildingMode extends JPanel implements Runnable, MouseListener {
                 imageSize, imageSize, this);
     }
 
-    private void checkCollisions(int mouseX, int mouseY){
-        Rectangle mouse = new Rectangle(mouseX, mouseY, 1, 1);
+    private void checkCollisions(Rectangle mouse){
         int imageSize = tileSize*3/2;
         Rectangle next = new Rectangle(Constants.WINDOW_WIDTH*7/8 - imageSize/2,
                 Constants.WINDOW_HEIGHT*7/8 - imageSize, imageSize, imageSize);
@@ -109,7 +108,9 @@ public class BuildingMode extends JPanel implements Runnable, MouseListener {
     public void mouseClicked(MouseEvent e) {
         int mouseX = e.getX();
         int mouseY = e.getY();
-        checkCollisions(mouseX, mouseY);
+        Rectangle mouse = new Rectangle(mouseX, mouseY, 1, 1);
+        checkCollisions(mouse);
+        furniturePlacementController.selectFurniture(mouse);
     }
 
     @Override
