@@ -18,7 +18,7 @@ public class Furniture extends GameObject{
         this.width = width;
         this.collidable = false;
         this.interactable = true;
-
+        this.hasKey = false;
         try {
             this.image = ImageIO.read(new File(imageNames[type]));
         }
