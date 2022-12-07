@@ -1,7 +1,6 @@
 package loginScreen;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,15 +16,15 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 public class ForgotPasswordWindow extends JFrame {
-    
+
 	 private JButton submitButton;
 	 private JButton exitButton;
 	 private JLabel emailPrompt;
+	 private JLabel passwordStatus;
 	 private JPanel menuPanel;
 	 private JPanel screenDeco1;
 	 private JPanel screenDeco2;
@@ -40,8 +39,8 @@ public class ForgotPasswordWindow extends JFrame {
 	 private JPanel screenDeco11;
 	 private JPanel screenDeco12;
 	 private JSeparator emailSeparator;
-	 private JTextField emailField;
-
+	 private JTextField emailField; 
+	
     public ForgotPasswordWindow() {
         initComponents();
     }
@@ -66,10 +65,16 @@ public class ForgotPasswordWindow extends JFrame {
         screenDeco7 = new JPanel();
         screenDeco8 = new JPanel();
         exitButton = new JButton();
+        passwordStatus = new JLabel();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Forgot Password");
         setUndecorated(true);
+        addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
 
         menuPanel.setBackground(new Color(51, 51, 51));
         menuPanel.setBorder(BorderFactory.createLineBorder(new Color(255, 255, 255)));
@@ -81,6 +86,11 @@ public class ForgotPasswordWindow extends JFrame {
         submitButton.setBackground(new Color(51, 51, 51));
         submitButton.setForeground(new Color(255, 255, 255));
         submitButton.setText("Submit");
+        submitButton.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                submitButtonMouseClicked(evt);
+            }
+        });
         submitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 submitButtonActionPerformed(evt);
@@ -92,6 +102,11 @@ public class ForgotPasswordWindow extends JFrame {
         emailField.setForeground(new Color(204, 204, 204));
         emailField.setText("Email");
         emailField.setBorder(null);
+        emailField.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                emailFieldMouseClicked(evt);
+            }
+        });
         emailField.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 emailFieldActionPerformed(evt);
@@ -271,6 +286,11 @@ public class ForgotPasswordWindow extends JFrame {
             }
         });
 
+        passwordStatus.setFont(new Font("Segoe UI", 3, 12)); 
+        passwordStatus.setForeground(new Color(255, 51, 51));
+        passwordStatus.setHorizontalAlignment(SwingConstants.CENTER);
+        passwordStatus.setHorizontalTextPosition(SwingConstants.RIGHT);
+
         GroupLayout menuPanelLayout = new GroupLayout(menuPanel);
         menuPanel.setLayout(menuPanelLayout);
         menuPanelLayout.setHorizontalGroup(
@@ -282,7 +302,9 @@ public class ForgotPasswordWindow extends JFrame {
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(menuPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(menuPanelLayout.createSequentialGroup()
-                        .addGap(438, 438, 438)
+                        .addGap(127, 127, 127)
+                        .addComponent(passwordStatus, GroupLayout.PREFERRED_SIZE, 180, GroupLayout.PREFERRED_SIZE)
+                        .addGap(131, 131, 131)
                         .addComponent(screenDeco8, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(screenDeco9, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
@@ -316,11 +338,11 @@ public class ForgotPasswordWindow extends JFrame {
                             .addComponent(emailSeparator, GroupLayout.PREFERRED_SIZE, 312, GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(menuPanelLayout.createSequentialGroup()
-                        .addGap(9, 9, 9)
+                        .addGap(8, 8, 8)
                         .addComponent(submitButton)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(exitButton)
-                        .addGap(121, 121, 121))))
+                        .addGap(123, 123, 123))))
         );
         menuPanelLayout.setVerticalGroup(
             menuPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -368,7 +390,9 @@ public class ForgotPasswordWindow extends JFrame {
                                 .addGroup(menuPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                     .addComponent(submitButton)
                                     .addComponent(exitButton))
-                                .addGap(53, 53, 53))))))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(passwordStatus, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12))))))
         );
 
         GroupLayout layout = new GroupLayout(getContentPane());
@@ -384,9 +408,9 @@ public class ForgotPasswordWindow extends JFrame {
 
         pack();
         setLocationRelativeTo(null);
-    }                    
+    }                       
 
-    private void submitButtonActionPerformed(ActionEvent evt) {}                                       
+    private void submitButtonActionPerformed(ActionEvent evt) {}                                        
     private void emailFieldActionPerformed(ActionEvent evt) {}                                           
     private void exitButtonActionPerformed(ActionEvent evt) {}                                        
 
@@ -394,5 +418,19 @@ public class ForgotPasswordWindow extends JFrame {
         this.setVisible(false);
     }                                     
 
-                                       
+    private void emailFieldMouseClicked(MouseEvent evt) {                                         
+        if (emailField.getText().equals("Email")) {
+            emailField.setText("");
+        }
+    }                                        
+
+    private void formMouseClicked(MouseEvent evt) {                                  
+        if (emailField.getText().equals("")) {
+            emailField.setText("Email");
+        }
+    }                                 
+
+    private void submitButtonMouseClicked(MouseEvent evt) {                                      
+        
+    }                                                             
 }
