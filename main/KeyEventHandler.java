@@ -1,5 +1,6 @@
 package main;
 
+import main.controllers.GameController;
 import main.models.Character;
 
 import java.awt.event.KeyEvent;
@@ -7,8 +8,10 @@ import java.awt.event.KeyListener;
 
 public class KeyEventHandler implements KeyListener {
     final private Character character;
-    public KeyEventHandler(Character character){
+    private GameController gameController;
+    public KeyEventHandler(GameController gameController, Character character){
         this.character = character;
+        this.gameController = gameController;
     }
     @Override
     public void keyTyped(KeyEvent e) {
@@ -33,6 +36,11 @@ public class KeyEventHandler implements KeyListener {
         else if (key == KeyEvent.VK_DOWN) {
             character.direction = "down";
             character.moving = true;
+        }
+        else if(key == KeyEvent.VK_ESCAPE){
+            System.out.println("pressed escape.");
+            gameController.paused = !gameController.paused;
+            gameController.stop();
         }
     }
 

@@ -3,6 +3,7 @@ package main.models;
 import constants.Constants;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Room {
 
@@ -13,6 +14,11 @@ public class Room {
     }
 
     int divider = Constants.buildingModeDivider;
+
+    int tileSize = Constants.tileSize;
+    int objSize = tileSize/divider;
+
+    public ArrayList<Furniture> furnitures = new ArrayList<Furniture>();
 
     public void draw(Graphics g){
         Graphics2D g2 = (Graphics2D) g;
@@ -41,5 +47,6 @@ public class Room {
             }
         }
     }
+
 
 }

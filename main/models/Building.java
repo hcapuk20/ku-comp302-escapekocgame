@@ -9,10 +9,32 @@ public class Building {
 
     public Room[][] rooms = new Room[3][3];
     String name;
-    public Building(String name) {
+
+    int minFurniture;
+    public Building(String name, int minFurniture) {
         this.name = name;
+        this.minFurniture = minFurniture;
     }
 
+
+    public int getTotalFurnitures(){
+        int total = 0;
+        for(int i = 0; i<3; i++){
+            for(int a = 0; a<3; a++){
+                if(rooms[i][a] != null){
+                    total += rooms[i][a].furnitures.size();
+                }
+            }
+        }
+        return total;
+    }
+
+    public boolean enoughFurnituresPlaced(){
+        if(getTotalFurnitures() >= minFurniture){
+            return true;
+        }
+        return false;
+    }
 
     public void draw(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
@@ -31,6 +53,13 @@ public class Building {
         g.setColor(Color.white);
         g.setFont(new Font("Segoe Script", Font.BOLD, 20));
         g.drawString(name, 20, 40);
+    }
+
+    public void drawMinCountLabel(Graphics g){
+        String txt = "You must place " + minFurniture + " furnitures before you continue";
+        g.setColor(Color.white);
+        g.setFont(new Font("Segoe Script", Font.ITALIC, 15));
+        g.drawString(txt, 20, Constants.WINDOW_HEIGHT-40);
     }
 
 

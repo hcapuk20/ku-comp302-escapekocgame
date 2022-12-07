@@ -3,6 +3,7 @@ package menu;
 import constants.Constants;
 import main.controllers.BuildingMode;
 import main.controllers.GameController;
+import main.models.BuildingsDataSource;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,6 +27,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 
 	protected static Image backgroundImage = new ImageIcon("assets/menuBackground.jpeg").getImage();
 
+	BuildingsDataSource buildingsDataSource = new BuildingsDataSource();
 	JFrame frame;
 
 	public MenuPanel(JFrame f) {
@@ -116,7 +118,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 
 	protected void infoButtonAction() {
 
-		BuildingMode buildingMode = new BuildingMode();
+		BuildingMode buildingMode = new BuildingMode(frame);
 
 		frame.add(buildingMode);
 		buildingMode.setBounds(0, 0, panelWidth, panelHeight);

@@ -48,7 +48,6 @@ public class PausePanel extends JPanel implements ActionListener {
     @Override
     protected void paintComponent(Graphics g) {
         //g.drawImage(backgroundImage, 0, 0, panelWidth, panelHeight, this);
-        this.setBackground(Color.BLACK);
     }
 
     @Override
@@ -106,7 +105,7 @@ public class PausePanel extends JPanel implements ActionListener {
     }
 
     protected void resumeButtonAction() {
-        panel.changeExit();
+        panel.paused = false;
         frame.add(panel);
         panel.setBounds(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
         frame.remove(this);
