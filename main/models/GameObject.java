@@ -14,7 +14,6 @@ public abstract class GameObject {
     public int speed;
     public String direction;
     public boolean collidable = false;
-
     public boolean interactable = false;
     public Rectangle collisionArea;
 

@@ -37,7 +37,7 @@ public class MapController {
         tileMap[3][5] = new Furniture(3*tileSize,5*tileSize,tileSize,tileSize,1);
         tileMap[12][3] = new Furniture(12*tileSize,3*tileSize,tileSize,tileSize,1);
         tileMap[7][9] = new Furniture(7*tileSize,9*tileSize,tileSize,tileSize,1);
-        System.out.println(" "+3*tileSize+" "+5*tileSize);
+        //System.out.println(" "+3*tileSize+" "+5*tileSize);
         printMapGrid();
     }
     public void printMapGrid(){

@@ -16,9 +16,6 @@ public class Main {
 		window.add(menuPanel);
 		window.pack();
 
-
-
-
 		window.setLocationRelativeTo(null);
 		window.setVisible(true);
 
