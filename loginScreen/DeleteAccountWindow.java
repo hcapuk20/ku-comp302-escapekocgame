@@ -1,7 +1,6 @@
 package loginScreen;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,35 +16,15 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 public class DeleteAccountWindow extends JFrame {
-    
-	private JButton submitButton;
-    private JButton exitButton;
-    private JLabel emailPrompt;
-    private JPanel menuPanel;
-    private JPanel screenDeco1;
-    private JPanel screenDeco2;
-    private JPanel screenDeco3;
-    private JPanel screenDeco4;
-    private JPanel screenDeco5;
-    private JPanel screenDeco6;
-    private JPanel screenDeco9;
-    private JPanel screenDeco7;
-    private JPanel screenDeco8;
-    private JPanel screenDeco10;
-    private JPanel screenDeco11;
-    private JPanel screenDeco12;
-    private JSeparator emailSeparator;
-    private JTextField emailField;
-	
+
     public DeleteAccountWindow() {
         initComponents();
     }
-                   
+                       
     private void initComponents() {
 
         menuPanel = new JPanel();
@@ -66,10 +45,16 @@ public class DeleteAccountWindow extends JFrame {
         screenDeco7 = new JPanel();
         screenDeco8 = new JPanel();
         exitButton = new JButton();
+        deleteStatus = new JLabel();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Delete User");
         setUndecorated(true);
+        addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
 
         menuPanel.setBackground(new Color(51, 51, 51));
         menuPanel.setBorder(BorderFactory.createLineBorder(new Color(255, 255, 255)));
@@ -81,6 +66,11 @@ public class DeleteAccountWindow extends JFrame {
         submitButton.setBackground(new Color(51, 51, 51));
         submitButton.setForeground(new Color(255, 255, 255));
         submitButton.setText("Submit");
+        submitButton.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                submitButtonMouseClicked(evt);
+            }
+        });
         submitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 submitButtonActionPerformed(evt);
@@ -92,6 +82,11 @@ public class DeleteAccountWindow extends JFrame {
         emailField.setForeground(new Color(204, 204, 204));
         emailField.setText("Email");
         emailField.setBorder(null);
+        emailField.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                emailFieldMouseClicked(evt);
+            }
+        });
         emailField.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 emailFieldActionPerformed(evt);
@@ -271,6 +266,11 @@ public class DeleteAccountWindow extends JFrame {
             }
         });
 
+        deleteStatus.setFont(new Font("Segoe UI", 3, 12)); 
+        deleteStatus.setForeground(new Color(255, 51, 51));
+        deleteStatus.setHorizontalAlignment(SwingConstants.CENTER);
+        deleteStatus.setHorizontalTextPosition(SwingConstants.RIGHT);
+
         GroupLayout menuPanelLayout = new GroupLayout(menuPanel);
         menuPanel.setLayout(menuPanelLayout);
         menuPanelLayout.setHorizontalGroup(
@@ -303,6 +303,8 @@ public class DeleteAccountWindow extends JFrame {
                             .addGroup(menuPanelLayout.createSequentialGroup()
                                 .addComponent(screenDeco2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(deleteStatus, GroupLayout.PREFERRED_SIZE, 180, GroupLayout.PREFERRED_SIZE)
+                                .addGap(158, 158, 158)
                                 .addComponent(screenDeco5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())
                     .addGroup(GroupLayout.Alignment.TRAILING, menuPanelLayout.createSequentialGroup()
@@ -318,7 +320,7 @@ public class DeleteAccountWindow extends JFrame {
                                 .addComponent(submitButton)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(exitButton)
-                                .addGap(124, 124, 124))))))
+                                .addGap(122, 122, 122))))))
             .addGroup(GroupLayout.Alignment.TRAILING, menuPanelLayout.createSequentialGroup()
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(emailPrompt)
@@ -370,7 +372,9 @@ public class DeleteAccountWindow extends JFrame {
                                 .addGroup(menuPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                     .addComponent(submitButton)
                                     .addComponent(exitButton))
-                                .addGap(53, 53, 53))))))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(deleteStatus, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12))))))
         );
 
         GroupLayout layout = new GroupLayout(getContentPane());
@@ -386,7 +390,7 @@ public class DeleteAccountWindow extends JFrame {
 
         pack();
         setLocationRelativeTo(null);
-    }                       
+    }                      
 
     private void submitButtonActionPerformed(ActionEvent evt) {}                                        
     private void emailFieldActionPerformed(ActionEvent evt) {}                                           
@@ -395,5 +399,40 @@ public class DeleteAccountWindow extends JFrame {
     private void exitButtonMousePressed(MouseEvent evt) {                                      
         this.setVisible(false);
     }                                     
-                                
+
+    private void emailFieldMouseClicked(MouseEvent evt) {                                         
+        if (emailField.getText().equals("Email")) {
+            emailField.setText("");
+        }
+    }                                        
+
+    private void formMouseClicked(MouseEvent evt) {                                  
+        if (emailField.getText().equals("")) {
+            emailField.setText("Email");
+        }
+    }                                 
+
+    private void submitButtonMouseClicked(MouseEvent evt) {                                      
+       
+    }                                     
+                   
+    private JButton submitButton;
+    private JButton exitButton;
+    private JLabel emailPrompt;
+    private JLabel deleteStatus;
+    private JPanel menuPanel;
+    private JPanel screenDeco1;
+    private JPanel screenDeco2;
+    private JPanel screenDeco3;
+    private JPanel screenDeco4;
+    private JPanel screenDeco5;
+    private JPanel screenDeco6;
+    private JPanel screenDeco9;
+    private JPanel screenDeco7;
+    private JPanel screenDeco8;
+    private JPanel screenDeco10;
+    private JPanel screenDeco11;
+    private JPanel screenDeco12;
+    private JSeparator emailSeparator;
+    private JTextField emailField;               
 }
