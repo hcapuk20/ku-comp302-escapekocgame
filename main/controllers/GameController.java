@@ -23,14 +23,14 @@ public class GameController extends JPanel implements Runnable{
     RoomCreator roomCreator;
     public boolean paused = false;
 
-    BuildingsDataSource buildingsDataSource = new BuildingsDataSource();
+    //BuildingsDataSource buildingsDataSource;
 
     ItemInteractionHandler itemInteractionHandler;
 
-    Building currentBuilding = BuildingsDataSource.buildings[5];
+    Building currentBuilding;
     int roomCountX = 1;
     int roomCountY = 1;
-    public Room currentRoom = currentBuilding.rooms[roomCountX][roomCountY];
+    public Room currentRoom;
     public JFrame frame;
 
     public GameController(JFrame f){
@@ -42,12 +42,15 @@ public class GameController extends JPanel implements Runnable{
         keyListener = new KeyEventHandler(this,character);
         this.addKeyListener(keyListener);
         this.setFocusable(true);
-        this.mapController = new MapController(this);
+        //buildingsDataSource = new BuildingsDataSource();
+        currentBuilding = BuildingsDataSource.buildings[3];
+        currentRoom = currentBuilding.rooms[roomCountX][roomCountY];
+        //this.mapController = new MapController(this);
         this.collisionChecker = new CollisionChecker(currentRoom);
         this.characterController = new CharacterController(character, collisionChecker,this);
         this.itemInteractionHandler = new ItemInteractionHandler(this);
         this.addMouseListener(itemInteractionHandler);
-        currentRoom.tileMap[12][12] = new Furniture(12*Constants.tileSize,12*Constants.tileSize,Constants.tileSize,Constants.tileSize,1);
+        //currentRoom.tileMap[12][12] = new Furniture(12*Constants.tileSize,12*Constants.tileSize,Constants.tileSize,Constants.tileSize,1);
 
     }
 
@@ -86,6 +89,7 @@ public class GameController extends JPanel implements Runnable{
     public void update(){
         characterController.move();
         currentRoom = currentBuilding.rooms[roomCountX][roomCountY];
+        collisionChecker.mapController = currentRoom;
     }
     protected void pauseMenu() {
 

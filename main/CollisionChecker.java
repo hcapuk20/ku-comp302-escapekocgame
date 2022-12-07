@@ -8,7 +8,7 @@ import static constants.Constants.WINDOW_HEIGHT;
 import static constants.Constants.WINDOW_WIDTH;
 
 public class CollisionChecker {
-    Room mapController;
+    public Room mapController;
 
     public CollisionChecker(Room mapController){
         this.mapController = mapController;
