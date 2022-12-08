@@ -7,7 +7,7 @@ import java.io.File;
 public class Furniture extends GameObject{
 
 
-    String[] imageNames = new String[] {"assets/furnitures/bed.png", "assets/furnitures/cabinet.png",
+    static String[] imageNames = new String[] {"assets/furnitures/bed.png", "assets/furnitures/cabinet.png",
             "assets/furnitures/chest.png", "assets/furnitures/nightstand.png", "assets/furnitures/table.png"};
     public boolean hasKey;
 
@@ -25,6 +25,11 @@ public class Furniture extends GameObject{
         catch (Exception e){
 
         }
+    }
+
+
+    public static int getTotalFurnitures(){
+        return imageNames.length;
     }
 
     public void draw(Graphics2D g2){

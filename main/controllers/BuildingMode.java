@@ -19,7 +19,7 @@ public class BuildingMode extends JPanel implements Runnable, MouseListener {
 
     BuildingsDataSource buildingsDataSource = new BuildingsDataSource();
 
-    FurniturePlacementController furniturePlacementController = new FurniturePlacementController();
+    FurniturePlacementController furniturePlacementController = new FurniturePlacementController(this);
 
     int currentBuilding = 0;
     Image nextImage = new ImageIcon("assets/arrow.png").getImage();
@@ -85,6 +85,7 @@ public class BuildingMode extends JPanel implements Runnable, MouseListener {
         //g.dispose();
     }
 
+
     private void paintNextPageButton(Graphics g){
 
         g.drawImage(nextImage, Constants.WINDOW_WIDTH*7/8 - imageSize/2,
@@ -101,6 +102,8 @@ public class BuildingMode extends JPanel implements Runnable, MouseListener {
                 Constants.WINDOW_HEIGHT*7/8 - imageSize, imageSize, imageSize);
         if (mouse.intersects(next)) {
             if(BuildingsDataSource.buildings[currentBuilding].enoughFurnituresPlaced()) {
+                furniturePlacementController.addKey(currentBuilding);
+
                 if (currentBuilding < 5) {
                     currentBuilding += 1;
                     notEnoughFurnitures = false;
@@ -114,6 +117,10 @@ public class BuildingMode extends JPanel implements Runnable, MouseListener {
         }
     }
 
+    public int getCurrentBuilding(){
+        return currentBuilding;
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
         int mouseX = e.getX();
@@ -122,6 +129,7 @@ public class BuildingMode extends JPanel implements Runnable, MouseListener {
         checkCollisions(mouse);
         furniturePlacementController.selectFurniture(mouse);
         furniturePlacementController.addFurnitureToRoom(mouse, currentBuilding);
+        furniturePlacementController.clickRandomButton(mouse);
     }
 
     @Override
