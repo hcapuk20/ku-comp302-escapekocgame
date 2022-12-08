@@ -4,8 +4,10 @@ import constants.Constants;
 import main.CollisionChecker;
 import main.ItemInteractionHandler;
 import main.KeyEventHandler;
-import main.models.*;
+import main.models.Building;
+import main.models.BuildingsDataSource;
 import main.models.Character;
+import main.models.Room;
 import pause.PausePanel;
 
 import javax.swing.*;
@@ -23,15 +25,13 @@ public class GameController extends JPanel implements Runnable{
     RoomCreator roomCreator;
     public boolean paused = false;
 
-    //BuildingsDataSource buildingsDataSource;
-
     ItemInteractionHandler itemInteractionHandler;
-
     Building currentBuilding;
     int roomCountX = 1;
     int roomCountY = 1;
     public Room currentRoom;
     public JFrame frame;
+    PowerUpController powerUpController;
 
     public GameController(JFrame f){
         this.frame =f;
@@ -51,6 +51,8 @@ public class GameController extends JPanel implements Runnable{
         this.itemInteractionHandler = new ItemInteractionHandler(this);
         this.addMouseListener(itemInteractionHandler);
         //currentRoom.tileMap[12][12] = new Furniture(12*Constants.tileSize,12*Constants.tileSize,Constants.tileSize,Constants.tileSize,1);
+        this.powerUpController = new PowerUpController(this);
+        powerUpController.spawnPowerUp();
 
     }
 
@@ -62,9 +64,11 @@ public class GameController extends JPanel implements Runnable{
     @Override
     public void run() {
         double delta = 0;
+        double spawnPowerUpDelta = 0;
+        double deSpawnPowerUpDelta = 0;
         long lastRunTime = System.nanoTime();
         long currentRunTime;
-
+        int number = 0;
         while(gameThread != null){
             if (paused){
                 continue;
@@ -72,6 +76,8 @@ public class GameController extends JPanel implements Runnable{
             // main game loop
             currentRunTime = System.nanoTime();
             delta += (currentRunTime - lastRunTime) / (double) (1000000000/60);
+            spawnPowerUpDelta += (currentRunTime - lastRunTime) / (double) (1000000000/60);
+            deSpawnPowerUpDelta += (currentRunTime - lastRunTime) / (double) (1000000000/60);
 
             lastRunTime = currentRunTime;
 
@@ -79,6 +85,20 @@ public class GameController extends JPanel implements Runnable{
                 update();
                 repaint(); // this calls paintComponent
                 delta--;
+            }
+
+            if (spawnPowerUpDelta > 360){
+                number++;
+                if(number%2==0){
+                    powerUpController.spawnPowerUp();
+                }
+                else {
+                    powerUpController.deSpawnPowerUp();
+                }
+                spawnPowerUpDelta-=360;
+                if (number == 10){
+                    number = 0;
+                }
             }
         }
     }

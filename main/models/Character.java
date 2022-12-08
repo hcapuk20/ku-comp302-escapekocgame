@@ -1,14 +1,20 @@
 package main.models;
 
+import main.models.PowerUp.PowerUp;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.ArrayList;
 
 public class Character extends GameObject{
     public BufferedImage up1,up2,down1,down2,left1,left2,right1,right2;
     public boolean moving;
     public boolean hasKey;
+    public int life;
+
+    public ArrayList<PowerUp> bag;
 
     public Character(int x, int y, int height, int width, int speed){
         this.locationX = x;
@@ -29,6 +35,8 @@ public class Character extends GameObject{
         catch (Exception e) {
             System.out.println(e);
         }
+        this.life = 3;
+        this.bag = new ArrayList<PowerUp>();
         this.direction = "down";
         this.moving = false;
         this.image = down1;
@@ -37,5 +45,10 @@ public class Character extends GameObject{
         int hitBoxIndex = width/6;
         int hitBoxSize = width - (2 * hitBoxIndex);
         this.collisionArea = new Rectangle(hitBoxIndex,hitBoxIndex,hitBoxSize,hitBoxSize);
+    }
+    public void printBag(){
+        for (GameObject gameObject: bag){
+            System.out.println(gameObject);
+        }
     }
 }
