@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
@@ -19,8 +20,32 @@ import javax.swing.LayoutStyle;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
+import loginScreen.controllers.UserController;
+
 public class DeleteAccountWindow extends JFrame {
 
+	private UserController usc = new UserController();
+	
+	private JButton submitButton;
+	private JButton exitButton;
+	private JLabel emailPrompt;
+	private JLabel deleteStatus;
+	private JPanel menuPanel;
+	private JPanel screenDeco1;
+	private JPanel screenDeco2;
+	private JPanel screenDeco3;
+	private JPanel screenDeco4;
+	private JPanel screenDeco5;
+	private JPanel screenDeco6;
+	private JPanel screenDeco9;
+	private JPanel screenDeco7;
+	private JPanel screenDeco8;
+	private JPanel screenDeco10;
+	private JPanel screenDeco11;
+	private JPanel screenDeco12;
+	private JSeparator emailSeparator;
+	private JTextField emailField; 
+	
     public DeleteAccountWindow() {
         initComponents();
     }
@@ -413,26 +438,25 @@ public class DeleteAccountWindow extends JFrame {
     }                                 
 
     private void submitButtonMouseClicked(MouseEvent evt) {                                      
-       
+    	String email = emailField.getText();
+    	if (email.equals("Email") || email.equals("")) {
+    		deleteStatus.setForeground(new Color(255, 51, 51));
+    		deleteStatus.setText("Invalid email! Try again.");
+        } else
+			try {
+				if (usc.checkUser("email", email)) {
+				    usc.deleteUser(email);
+					deleteStatus.setForeground(new Color(102, 255, 102));
+				    deleteStatus.setText("Account deleted successfully!");
+				} 
+				else {
+					deleteStatus.setForeground(new Color(255, 51, 51));
+				    deleteStatus.setText("Account does not exist!");
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+		} 
     }                                     
                    
-    private JButton submitButton;
-    private JButton exitButton;
-    private JLabel emailPrompt;
-    private JLabel deleteStatus;
-    private JPanel menuPanel;
-    private JPanel screenDeco1;
-    private JPanel screenDeco2;
-    private JPanel screenDeco3;
-    private JPanel screenDeco4;
-    private JPanel screenDeco5;
-    private JPanel screenDeco6;
-    private JPanel screenDeco9;
-    private JPanel screenDeco7;
-    private JPanel screenDeco8;
-    private JPanel screenDeco10;
-    private JPanel screenDeco11;
-    private JPanel screenDeco12;
-    private JSeparator emailSeparator;
-    private JTextField emailField;               
+                 
 }

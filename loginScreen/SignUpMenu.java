@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
@@ -13,14 +14,19 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
+import loginScreen.controllers.UserController;
+
 public class SignUpMenu extends JFrame {
-    
+	
+	private UserController usc = new UserController();
+	
 	private JButton exitButton;
     private JButton signUpButton;
     private JLabel registerPlayerText;
@@ -51,7 +57,7 @@ public class SignUpMenu extends JFrame {
     private JSeparator passwordSeparator;
     private JSeparator emailSeparator;
     private JTextField usernameField;
-    private JTextField passwordField;
+    private JPasswordField passwordField;
     private JTextField emailField; 
 	
 	
@@ -88,7 +94,7 @@ public class SignUpMenu extends JFrame {
         signUpButton = new JButton();
         usernameField = new JTextField();
         usernameSeparator = new JSeparator();
-        passwordField = new JTextField();
+        passwordField = new JPasswordField();
         passwordSeparator = new JSeparator();
         emailField = new JTextField();
         emailSeparator = new JSeparator();
@@ -467,7 +473,11 @@ public class SignUpMenu extends JFrame {
         signUpButton.setText("Sign Up");
         signUpButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                signUpButtonMouseClicked(evt);
+                try {
+					signUpButtonMouseClicked(evt);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
             }
         });
 
@@ -490,6 +500,7 @@ public class SignUpMenu extends JFrame {
         usernameSeparator.setBackground(new Color(255, 255, 255));
         usernameSeparator.setForeground(new Color(255, 255, 255));
 
+        passwordField.setEchoChar((char) 0);
         passwordField.setBackground(new Color(51, 51, 51));
         passwordField.setFont(new Font("Dialog", 0, 12)); 
         passwordField.setForeground(new Color(204, 204, 204));
@@ -655,31 +666,23 @@ public class SignUpMenu extends JFrame {
 
         pack();
         setLocationRelativeTo(null);
-    }// </editor-fold>                        
+    }                       
                                 
-
     private void exitButtonMouseClicked(MouseEvent evt) {                                      
         this.setVisible(false);
     }                                     
 
-    private void usernameFieldActionPerformed(ActionEvent evt) {                                            
-        // TODO add your handling code here:
-    }                                           
-
-    private void passwordFieldActionPerformed(ActionEvent evt) {                                            
-        // TODO add your handling code here:
-    }                                           
-
-    private void emailFieldActionPerformed(ActionEvent evt) {                                            
-        // TODO add your handling code here:
-    }                                           
+    private void usernameFieldActionPerformed(ActionEvent evt) {}                                           
+    private void passwordFieldActionPerformed(ActionEvent evt) {}                                           
+    private void emailFieldActionPerformed(ActionEvent evt) {}                                           
 
     private void usernameFieldMouseClicked(MouseEvent evt) {                                         
         if (usernameField.getText().equals("Username")) {
             usernameField.setText("");
         }
         if (passwordField.getText().equals("")) {
-            passwordField.setText("Password");
+            passwordField.setEchoChar((char) 0);
+        	passwordField.setText("Password");
         }
         if (emailField.getText().equals("")) {
             emailField.setText("Email");
@@ -688,7 +691,8 @@ public class SignUpMenu extends JFrame {
 
     private void passwordFieldMouseClicked(MouseEvent evt) {                                         
         if (passwordField.getText().equals("Password")) {
-            passwordField.setText("");
+            passwordField.setEchoChar('*');
+        	passwordField.setText("");
         }
         if (usernameField.getText().equals("")) {
             usernameField.setText("Username");
@@ -706,7 +710,8 @@ public class SignUpMenu extends JFrame {
             usernameField.setText("Username");
         }
         if (passwordField.getText().equals("")) {
-            passwordField.setText("Password");
+            passwordField.setEchoChar((char) 0);
+        	passwordField.setText("Password");
         }
     }                                        
 
@@ -722,6 +727,22 @@ public class SignUpMenu extends JFrame {
         }
     }                                 
 
-    private void signUpButtonMouseClicked(MouseEvent evt) {                                      
+    private void signUpButtonMouseClicked(MouseEvent evt) throws IOException {  
+    	String username = usernameField.getText();
+        String email = emailField.getText();
+        String password = passwordField.getText();
+        
+        if (username.equals("") || password.equals("") || email.equals("") ||
+            username.equals("Username") || password.equals("Password") || email.equals("Email")) {
+        	registerStatus.setForeground(new Color(255, 51, 51));
+        	registerStatus.setText("One or more credentials missing!");
+        } else if (usc.checkUser("username", username) || usc.checkUser("email", email)) {
+        	registerStatus.setForeground(new Color(255, 51, 51));
+        	registerStatus.setText("User already exists!");
+        } else if (!usc.checkUser("username", username) && !usc.checkUser("email", email)) {
+        	registerStatus.setForeground(new Color(102, 255, 102));
+        	usc.registerUser(username, password, email);
+        	registerStatus.setText("User registered successfully!");
+        }
     }                                                                         
 }
