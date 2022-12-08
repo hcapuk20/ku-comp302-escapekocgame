@@ -85,6 +85,7 @@ public class BuildingMode extends JPanel implements Runnable, MouseListener {
         //g.dispose();
     }
 
+
     private void paintNextPageButton(Graphics g){
 
         g.drawImage(nextImage, Constants.WINDOW_WIDTH*7/8 - imageSize/2,

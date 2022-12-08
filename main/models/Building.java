@@ -65,6 +65,7 @@ public class Building {
         g.drawString(txt, 20, Constants.WINDOW_HEIGHT-40);
     }
 
+
     public void printFurnitures(){
         for(int i = 0; i<3; i++){
             for(int a = 0; a<3; a++){

@@ -27,6 +27,7 @@ public class Furniture extends GameObject{
         }
     }
 
+
     public static int getTotalFurnitures(){
         return imageNames.length;
     }
