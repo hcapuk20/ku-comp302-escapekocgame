@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
@@ -15,14 +16,20 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
+import loginScreen.controllers.UserController;
+import main.Main;
+
 public class LoginView extends JFrame {
 
+	private UserController usc = new UserController();
+	
 	private JButton loginButton;
     private JButton signUpButton;
     private JLabel passwordCheck;
@@ -47,7 +54,7 @@ public class LoginView extends JFrame {
     private JSeparator usernameSeparator;
     private JSeparator passwordSeparator;
     private JTextField usernameField;
-    private JTextField passwordField;
+    private JPasswordField passwordField;
 
     public LoginView() {
         initComponents();
@@ -62,7 +69,7 @@ public class LoginView extends JFrame {
         titleFrom = new JLabel();
         inputScreen = new JPanel();
         usernameField = new JTextField();
-        passwordField = new JTextField();
+        passwordField = new JPasswordField();
         usernameSeparator = new JSeparator();
         passwordSeparator = new JSeparator();
         loginButton = new JButton();
@@ -166,6 +173,7 @@ public class LoginView extends JFrame {
             }
         });
 
+        passwordField.setEchoChar((char) 0);
         passwordField.setBackground(new Color(51, 51, 51));
         passwordField.setFont(new Font("Dialog", 0, 12)); 
         passwordField.setForeground(new Color(204, 204, 204));
@@ -194,7 +202,11 @@ public class LoginView extends JFrame {
         loginButton.setText("Login");
         loginButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                loginButtonMouseClicked(evt);
+                try {
+					loginButtonMouseClicked(evt);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
             }
         });
 
@@ -555,7 +567,8 @@ public class LoginView extends JFrame {
             usernameField.setText("Username");
         }
         if (passwordField.getText().equals("")) {
-            passwordField.setText("Password");
+            passwordField.setEchoChar((char) 0);
+        	passwordField.setText("Password");
         }
     }                                    
 
@@ -571,6 +584,7 @@ public class LoginView extends JFrame {
     private void passwordFieldMouseClicked(MouseEvent evt) {                                         
     	if (passwordField.getText().equals("Password")) {
             passwordField.setText("");
+            passwordField.setEchoChar('*');
         }
         if (usernameField.getText().equals("")) {
             usernameField.setText("Username");
@@ -582,11 +596,21 @@ public class LoginView extends JFrame {
             usernameField.setText("");
         }
         if (passwordField.getText().equals("")) {
-            passwordField.setText("Password");
+        	passwordField.setText("Password");
         }
     }                                        
 
-    private void loginButtonMouseClicked(MouseEvent evt) {                                      
-        
+    private void loginButtonMouseClicked(MouseEvent evt) throws IOException {                                      
+    	String username = usernameField.getText();
+    	String password = passwordField.getText();
+        if (usc.checkUser("username", username) && usc.checkUser("password", password)) {
+            loginStatus.setForeground(new Color(102, 255, 102));
+            loginStatus.setText("Login successful! Launching the game...");	
+            Main.main(null);
+            this.setVisible(false);
+        } else {
+        	loginStatus.setForeground(new Color(255, 51, 51));
+        	loginStatus.setText("Invalid username or password!");
+        }
     }                                                       
 }

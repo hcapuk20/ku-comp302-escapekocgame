@@ -431,6 +431,12 @@ public class ForgotPasswordWindow extends JFrame {
     }                                 
 
     private void submitButtonMouseClicked(MouseEvent evt) {                                      
-        
+    	String text = emailField.getText();
+        if (text.equals("Email") || text.equals("")) {
+            passwordStatus.setText("Invalid email! Try again.");
+        } else if (text.equals("bpirhan20@ku.edu.tr")) {
+            passwordStatus.setForeground(new Color(102, 255, 102));
+            passwordStatus.setText("Email sent successfully!");
+        }
     }                                                             
 }
