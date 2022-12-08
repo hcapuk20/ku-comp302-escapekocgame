@@ -26,7 +26,8 @@ public class GameController extends JPanel implements Runnable{
     public boolean paused = false;
 
     ItemInteractionHandler itemInteractionHandler;
-    Building currentBuilding;
+    public int currentBuildingCount = 0;
+    public Building currentBuilding;
     int roomCountX = 1;
     int roomCountY = 1;
     public Room currentRoom;
@@ -43,7 +44,7 @@ public class GameController extends JPanel implements Runnable{
         this.addKeyListener(keyListener);
         this.setFocusable(true);
         //buildingsDataSource = new BuildingsDataSource();
-        currentBuilding = BuildingsDataSource.buildings[3];
+        currentBuilding = BuildingsDataSource.buildings[currentBuildingCount];
         currentRoom = currentBuilding.rooms[roomCountX][roomCountY];
         //this.mapController = new MapController(this);
         this.collisionChecker = new CollisionChecker(currentRoom);
@@ -120,6 +121,18 @@ public class GameController extends JPanel implements Runnable{
         frame.remove(this);
         frame.repaint();
 
+    }
+    public void changeBuilding(){
+        System.out.println("Changing Building..");
+        if (currentBuildingCount < 5){
+            currentBuildingCount +=1;
+            currentBuilding = BuildingsDataSource.buildings[currentBuildingCount];
+            roomCountX = 1;
+            roomCountY = 1;
+            currentRoom = currentBuilding.rooms[roomCountX][roomCountY];
+            character.locationX = 150;
+            character.locationY = 150;
+        }
     }
 
 

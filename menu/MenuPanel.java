@@ -78,7 +78,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 		playButton.setBounds((panelWidth - buttonWidth) / 2, (panelHeight - buttonHeight) / 2 - buttonHeight,
 				buttonWidth, buttonHeight);
 
-		infoButton = new JButton("INFO");
+		infoButton = new JButton("BUILDING MODE");
 		infoButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
