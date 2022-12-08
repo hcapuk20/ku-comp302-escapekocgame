@@ -2,6 +2,7 @@ package main;
 
 import constants.Constants;
 import main.controllers.GameController;
+import main.models.Door;
 import main.models.Furniture;
 import main.models.GameObject;
 import main.models.PowerUp.PowerUp;
@@ -39,6 +40,7 @@ public class ItemInteractionHandler implements MouseListener {
                 Furniture fur = (Furniture) tileMap[tileX][tileY];
                 if (fur.hasKey){
                     System.out.println("Key Found...");
+                    gameController.character.hasKey = true;
                     fur.hasKey = false;
                 } else {
                     System.out.println("Key Not Found...");
@@ -51,6 +53,21 @@ public class ItemInteractionHandler implements MouseListener {
                     gameController.currentRoom.tileMap[tileX][tileY] = null;
                 } else {
                     return false;
+                }
+            }
+            else if (object instanceof Door){
+                int playerTileX = gameController.character.locationX / tileSize;
+                int playerTileY = gameController.character.locationY / tileSize;
+
+                if (Math.abs(playerTileX - tileX)> 2 || Math.abs(playerTileY - tileY)> 2){
+                    System.out.println("You are not close enough");
+                    return false;
+                }
+                else {
+                    if (gameController.character.hasKey){
+                        gameController.character.hasKey = false;
+                        gameController.changeBuilding();
+                    }
                 }
             }
 

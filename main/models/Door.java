@@ -11,6 +11,7 @@ public class Door extends GameObject{
         this.height = height;
         this.width = width;
         this.collidable = true;
+        this.interactable = true;
         try {
             this.image = ImageIO.read(new File("assets/open_door.png"));
         }
