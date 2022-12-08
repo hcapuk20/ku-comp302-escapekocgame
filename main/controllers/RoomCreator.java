@@ -21,6 +21,7 @@ public class RoomCreator {
         room = initializeWallsLeftRight(room, left, right);
         return room;
     }
+
     public Room initializeWallsUpDown(Room room, int door1, int door2){
         int middle = tileCountHorizontal/2;
         for (int i = 0; i < tileCountHorizontal; i++){
