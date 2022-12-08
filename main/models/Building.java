@@ -16,6 +16,9 @@ public class Building {
         this.minFurniture = minFurniture;
     }
 
+    public int getMinFurniture() {
+        return minFurniture;
+    }
 
     public int getTotalFurnitures(){
         int total = 0;
@@ -62,5 +65,18 @@ public class Building {
         g.drawString(txt, 20, Constants.WINDOW_HEIGHT-40);
     }
 
+
+    public void printFurnitures(){
+        for(int i = 0; i<3; i++){
+            for(int a = 0; a<3; a++){
+                if(rooms[i][a] != null){
+                    for(int j = 0; j <rooms[i][a].furnitures.size(); j++){
+                        System.out.println(rooms[i][a].furnitures.get(j).hasKey);
+                    }
+                }
+            }
+
+        }
+    }
 
 }
