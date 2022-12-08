@@ -31,6 +31,7 @@ public class GameController extends JPanel implements Runnable{
     int roomCountY = 1;
     public Room currentRoom;
     public JFrame frame;
+    PowerUpController powerUpController;
 
     public GameController(JFrame f){
         this.frame =f;
@@ -50,7 +51,7 @@ public class GameController extends JPanel implements Runnable{
         this.itemInteractionHandler = new ItemInteractionHandler(this);
         this.addMouseListener(itemInteractionHandler);
         //currentRoom.tileMap[12][12] = new Furniture(12*Constants.tileSize,12*Constants.tileSize,Constants.tileSize,Constants.tileSize,1);
-        PowerUpController powerUpController = new PowerUpController(currentRoom);
+        this.powerUpController = new PowerUpController(this);
         powerUpController.spawnPowerUp();
 
     }
@@ -63,9 +64,11 @@ public class GameController extends JPanel implements Runnable{
     @Override
     public void run() {
         double delta = 0;
+        double spawnPowerUpDelta = 0;
+        double deSpawnPowerUpDelta = 0;
         long lastRunTime = System.nanoTime();
         long currentRunTime;
-
+        int number = 0;
         while(gameThread != null){
             if (paused){
                 continue;
@@ -73,6 +76,8 @@ public class GameController extends JPanel implements Runnable{
             // main game loop
             currentRunTime = System.nanoTime();
             delta += (currentRunTime - lastRunTime) / (double) (1000000000/60);
+            spawnPowerUpDelta += (currentRunTime - lastRunTime) / (double) (1000000000/60);
+            deSpawnPowerUpDelta += (currentRunTime - lastRunTime) / (double) (1000000000/60);
 
             lastRunTime = currentRunTime;
 
@@ -80,6 +85,20 @@ public class GameController extends JPanel implements Runnable{
                 update();
                 repaint(); // this calls paintComponent
                 delta--;
+            }
+
+            if (spawnPowerUpDelta > 360){
+                number++;
+                if(number%2==0){
+                    powerUpController.spawnPowerUp();
+                }
+                else {
+                    powerUpController.deSpawnPowerUp();
+                }
+                spawnPowerUpDelta-=360;
+                if (number == 10){
+                    number = 0;
+                }
             }
         }
     }

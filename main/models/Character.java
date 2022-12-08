@@ -46,4 +46,9 @@ public class Character extends GameObject{
         int hitBoxSize = width - (2 * hitBoxIndex);
         this.collisionArea = new Rectangle(hitBoxIndex,hitBoxIndex,hitBoxSize,hitBoxSize);
     }
+    public void printBag(){
+        for (GameObject gameObject: bag){
+            System.out.println(gameObject);
+        }
+    }
 }

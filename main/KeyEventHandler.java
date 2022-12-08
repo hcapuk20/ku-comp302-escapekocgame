@@ -42,6 +42,7 @@ public class KeyEventHandler implements KeyListener {
             gameController.paused = !gameController.paused;
             gameController.stop();
         }
+
     }
 
     @Override
