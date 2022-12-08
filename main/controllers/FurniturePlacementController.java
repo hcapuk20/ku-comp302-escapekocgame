@@ -6,7 +6,9 @@ import main.models.Furniture;
 import org.w3c.dom.css.Rect;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
+import java.util.Random;
 
 public class FurniturePlacementController {
 
@@ -20,18 +22,27 @@ public class FurniturePlacementController {
 
     int divider = Constants.buildingModeDivider;
 
-    int imageSize = screenWidth/(divider*4);
+    int imageSize = screenWidth/(divider*5);
 
     int selectedOvalLength = imageSize / 4;
 
+    Image randomizeImage = new ImageIcon("assets/question_mark.png").getImage();
     Furniture[] furnitures = new Furniture[furnitureCount];
-    FurniturePlacementController(){
+    BuildingMode buildingMode;
+    FurniturePlacementController(BuildingMode buildingMode){
+        this.buildingMode = buildingMode;
 
         for(int i = 0; i<5; i++){
             furnitures[i] = new Furniture(screenWidth*7/8 - imageSize/2,(imageSize*5/4)*i + imageSize/4,
                     imageSize, imageSize, i);
         }
 
+    }
+
+    private void paintRandomButton(Graphics g){
+        g.drawImage(randomizeImage, screenWidth*7/8 - imageSize/2,
+                (imageSize*5/4)*Furniture.getTotalFurnitures() + imageSize/4,
+                imageSize, imageSize, buildingMode);
     }
 
     public void selectFurniture(Rectangle mouse){
@@ -47,6 +58,14 @@ public class FurniturePlacementController {
         }
     }
 
+    public void clickRandomButton(Rectangle mouse){
+        Rectangle obj = new Rectangle(screenWidth*7/8 - imageSize/2,(imageSize*5/4)*Furniture.getTotalFurnitures() + imageSize/4,
+                imageSize, imageSize);
+        if (mouse.intersects(obj)) {
+            addRandomFurnitures(buildingMode.getCurrentBuilding());
+        }
+    }
+
 
     public void draw(Graphics2D g2){
         for(int i = 0; i<furnitureCount; i++)
@@ -54,6 +73,7 @@ public class FurniturePlacementController {
             furnitures[i].draw(g2);
             g2.fillOval(selectedOvalX,selectedOvalY- selectedOvalLength/2,selectedOvalLength,selectedOvalLength);
         }
+        paintRandomButton(g2);
     }
 
     public void addFurnitureToRoom(Rectangle mouse, int currentBuilding){
@@ -82,6 +102,75 @@ public class FurniturePlacementController {
                         }
                     }
                 }
+            }
+        }
+    }
+
+    public void addRandomFurnitures(int currentBuilding){
+        int existingRooms[] = new int[9];
+        int totalRoom = 0;
+        for(int i = 0; i<3; i++){
+            for(int j = 0; j<3; j++){
+                if(BuildingsDataSource.buildings[currentBuilding].rooms[i][j] != null){
+                    existingRooms[totalRoom++] = 3*i+j;
+                }
+            }
+        }
+
+        Random rand = new Random();
+        int furnitureCount =  BuildingsDataSource.buildings[currentBuilding].getMinFurniture();
+        furnitureCount += rand.nextInt(15);
+
+        int totalTileHorizontal = screenWidth/tileSize;
+        int totalTileVertical = screenHeight/tileSize;
+
+        for(int a = 0; a<furnitureCount; a++){
+            int roomIndex = rand.nextInt(totalRoom);
+            int tileX = 1 + rand.nextInt(totalTileHorizontal-2);
+            int tileY = 1 + rand.nextInt(totalTileVertical - 2);
+            int furnitureID = rand.nextInt(Furniture.getTotalFurnitures());
+            int turn = 0;
+            while(turn < 40){
+                if(BuildingsDataSource.buildings[currentBuilding].rooms[existingRooms[roomIndex]/3][existingRooms[roomIndex]%3].tileMap[tileX][tileY]
+                        == null){
+                    Furniture furniture = new Furniture(tileX*tileSize, tileSize*tileY, tileSize, tileSize, furnitureID);
+                    BuildingsDataSource.buildings[currentBuilding].rooms[existingRooms[roomIndex]/3][existingRooms[roomIndex]%3].tileMap[tileX][tileY]
+                            = furniture;
+                    BuildingsDataSource.buildings[currentBuilding].rooms[existingRooms[roomIndex]/3][existingRooms[roomIndex]%3].furnitures.add(furniture);
+                    turn = 50;
+                    break;
+                } else {
+                    roomIndex = rand.nextInt(totalRoom);
+                    tileX = 1 + rand.nextInt(totalTileHorizontal-2);
+                    tileY = 1 + rand.nextInt(totalTileVertical - 2);
+                    turn++;
+                }
+            }
+        }
+
+    }
+
+
+    public void addKey(int currentBuilding){
+        int totalFurnitures = BuildingsDataSource.buildings[currentBuilding].getTotalFurnitures();
+        Random rand = new Random();
+        int furnitureIndex = rand.nextInt(totalFurnitures);
+        boolean added = false;
+
+        for(int i = 0; i<3; i++){
+            for(int a = 0; a<3; a++){
+                if(BuildingsDataSource.buildings[currentBuilding].rooms[i][a] != null){
+                    int roomTotalFurnitures = BuildingsDataSource.buildings[currentBuilding].rooms[i][a].furnitures.size();
+                    if(roomTotalFurnitures > furnitureIndex){
+                        BuildingsDataSource.buildings[currentBuilding].rooms[i][a].furnitures.get(furnitureIndex).hasKey = true;
+                        added = true;
+                        break;
+                    }
+                    furnitureIndex -= roomTotalFurnitures;
+                }
+            }
+            if(added == true){
+                break;
             }
         }
     }
