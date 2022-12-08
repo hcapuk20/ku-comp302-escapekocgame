@@ -4,8 +4,10 @@ import constants.Constants;
 import main.CollisionChecker;
 import main.ItemInteractionHandler;
 import main.KeyEventHandler;
-import main.models.*;
+import main.models.Building;
+import main.models.BuildingsDataSource;
 import main.models.Character;
+import main.models.Room;
 import pause.PausePanel;
 
 import javax.swing.*;
@@ -23,10 +25,7 @@ public class GameController extends JPanel implements Runnable{
     RoomCreator roomCreator;
     public boolean paused = false;
 
-    //BuildingsDataSource buildingsDataSource;
-
     ItemInteractionHandler itemInteractionHandler;
-
     Building currentBuilding;
     int roomCountX = 1;
     int roomCountY = 1;
@@ -51,6 +50,8 @@ public class GameController extends JPanel implements Runnable{
         this.itemInteractionHandler = new ItemInteractionHandler(this);
         this.addMouseListener(itemInteractionHandler);
         //currentRoom.tileMap[12][12] = new Furniture(12*Constants.tileSize,12*Constants.tileSize,Constants.tileSize,Constants.tileSize,1);
+        PowerUpController powerUpController = new PowerUpController(currentRoom);
+        powerUpController.spawnPowerUp();
 
     }
 
