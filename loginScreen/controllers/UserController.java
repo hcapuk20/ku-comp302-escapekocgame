@@ -10,7 +10,7 @@ import java.io.PrintWriter;
 
 public class UserController {
 	
-	private String filepath = "loginScreen/controllers/users.txt";
+	private String filepath = "assets/users.txt";
 	private String current;
 	private String tempFile;
 

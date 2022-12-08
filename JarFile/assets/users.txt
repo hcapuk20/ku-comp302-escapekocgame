@@ -1,0 +1,6 @@
+abc239,abcdef30310,xabcx239@ku.edu.tr
+abcd20,abcdefghi,abcd20@ku.edu.tr
+bpirhan20,123456,bpirhan20@ku.edu.tr
+erim,123,erim
+erim01,123,erimsatar@gmail.com
+hakan,123,hkn
