@@ -1,7 +1,7 @@
 package menu;
 
 import constants.Constants;
-import main.controllers.BuildingMode;
+import main.controllers.BuildingModeController;
 import main.controllers.GameController;
 import main.models.BuildingsDataSource;
 
@@ -118,12 +118,12 @@ public class MenuPanel extends JPanel implements ActionListener {
 
 	protected void infoButtonAction() {
 
-		BuildingMode buildingMode = new BuildingMode(frame);
+		BuildingModeController buildingModeController = new BuildingModeController(frame);
 
-		frame.add(buildingMode);
-		buildingMode.setBounds(0, 0, panelWidth, panelHeight);
+		frame.add(buildingModeController);
+		buildingModeController.setBounds(0, 0, panelWidth, panelHeight);
 
-		buildingMode.startGame();
+		buildingModeController.startGame();
 
 		frame.remove(this);
 
