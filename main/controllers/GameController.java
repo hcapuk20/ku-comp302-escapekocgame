@@ -32,6 +32,8 @@ public class GameController extends JPanel implements Runnable{
     int roomCountY = 1;
     public Room currentRoom;
     public JFrame frame;
+    public Alien[] aliens = new Alien[25];
+    AlienController alienController;
 
     public GameController(JFrame f){
         this.frame =f;
@@ -51,7 +53,7 @@ public class GameController extends JPanel implements Runnable{
         this.itemInteractionHandler = new ItemInteractionHandler(this);
         this.addMouseListener(itemInteractionHandler);
         //currentRoom.tileMap[12][12] = new Furniture(12*Constants.tileSize,12*Constants.tileSize,Constants.tileSize,Constants.tileSize,1);
-
+        this.alienController = new AlienController(collisionChecker, this);
     }
 
     public void startGame(){
@@ -62,6 +64,7 @@ public class GameController extends JPanel implements Runnable{
     @Override
     public void run() {
         double delta = 0;
+        double spawnAlienDelta = 0;
         long lastRunTime = System.nanoTime();
         long currentRunTime;
 
@@ -72,7 +75,7 @@ public class GameController extends JPanel implements Runnable{
             // main game loop
             currentRunTime = System.nanoTime();
             delta += (currentRunTime - lastRunTime) / (double) (1000000000/60);
-
+            spawnAlienDelta += (currentRunTime - lastRunTime) / (double) (1000000000/60);
             lastRunTime = currentRunTime;
 
             if (delta > 1){
@@ -80,6 +83,11 @@ public class GameController extends JPanel implements Runnable{
                 repaint(); // this calls paintComponent
                 delta--;
             }
+            if (spawnAlienDelta > 600){
+                alienController.spawnAlien(aliens);
+                spawnAlienDelta -= 600;
+            }
+
         }
     }
     public void stop() {
@@ -106,8 +114,14 @@ public class GameController extends JPanel implements Runnable{
     public void paintComponent(Graphics g) {
         g.setColor(getBackground());
         characterController.draw(g);
+        //for(int i = 0; i<aliens.length; i++){
+           // if(aliens[i] != null) {
+              //  alienController.draw(g, aliens[i]);
+           // }
+       // }
         //mapController.draw(g);
         currentRoom.draw(g);
         //g.dispose();
+
     }
 }
