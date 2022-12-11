@@ -1,6 +1,7 @@
 package main.models.Alien;
 
 import main.models.GameObject;
+import main.models.Room;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -12,6 +13,7 @@ public class Alien extends GameObject {
     public BufferedImage up1,up2,down1,down2,left1,left2,right1,right2;
     public boolean moving;
     public String alien_type;
+    public Room current_room;
 
     public static Alien[] aliens = new Alien[100];
 

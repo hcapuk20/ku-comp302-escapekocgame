@@ -68,6 +68,9 @@ public class GameController extends JPanel implements Runnable{
     public void startGame(){
         gameThread = new Thread(this);
         gameThread.start();
+        alienController.alienThread = new Thread(alienController);
+        alienController.alienThread.start();
+
     }
 
     @Override
@@ -92,8 +95,6 @@ public class GameController extends JPanel implements Runnable{
 
             spawnPowerUpDelta += (currentRunTime - lastRunTime) / (double) (1000000000/60);
             deSpawnPowerUpDelta += (currentRunTime - lastRunTime) / (double) (1000000000/60);
-
-
             spawnAlienDelta += (currentRunTime - lastRunTime) / (double) (1000000000/60);
 
             lastRunTime = currentRunTime;
@@ -118,12 +119,14 @@ public class GameController extends JPanel implements Runnable{
                     number = 0;
                 }
             }
-
+            /*
             if (spawnAlienDelta > 600){
 
                 alienController.spawnAlien();
                 spawnAlienDelta -= 600;
             }
+
+             */
 
 
         }
@@ -166,11 +169,7 @@ public class GameController extends JPanel implements Runnable{
     public void paintComponent(Graphics g) {
         g.setColor(getBackground());
         characterController.draw(g);
-        for(int i = 0; i<Alien.aliens.length; i++){
-            if(Alien.aliens[i] != null) {
-                alienController.draw(g, Alien.aliens[i]);
-            }
-        }
+        alienController.paint(g);
         //mapController.draw(g);
         currentRoom.draw(g);
         //g.dispose();

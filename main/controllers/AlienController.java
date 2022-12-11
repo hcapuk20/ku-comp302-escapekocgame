@@ -13,8 +13,9 @@ import java.util.Random;
 import static constants.Constants.WINDOW_HEIGHT;
 import static constants.Constants.WINDOW_WIDTH;
 
-public class AlienController {
+public class AlienController implements Runnable {
 
+    Thread alienThread;
     public int counter;
     public int animationCount;
     CollisionChecker collisionChecker;
@@ -91,10 +92,10 @@ public class AlienController {
         }
         int randomType = rand.nextInt(alienTypes.length);
         if(alienTypes[randomType].equals("shooter")){
-            tempAlien = new Shooter(randomXTile * Constants.tileSize, randomYTile * Constants.tileSize, Constants.tileSize, Constants.tileSize, alienTypes[randomType]);
+            tempAlien = new Shooter(randomXTile * Constants.tileSize, randomYTile * Constants.tileSize, Constants.tileSize, Constants.tileSize, alienTypes[randomType],gameController.currentRoom);
         }
         else {
-            tempAlien = new TimeWasting(randomXTile * Constants.tileSize, randomYTile * Constants.tileSize, Constants.tileSize, Constants.tileSize, alienTypes[randomType]);
+            tempAlien = new TimeWasting(randomXTile * Constants.tileSize, randomYTile * Constants.tileSize, Constants.tileSize, Constants.tileSize, alienTypes[randomType],gameController.currentRoom);
         }
         //add other powerUps here.
 
@@ -135,5 +136,51 @@ public class AlienController {
         }
         g2.drawImage(alien.image, alien.locationX, alien.locationY,alien.width,alien.height,null);
 
+    }
+
+    @Override
+    public void run() {
+        double delta = 0;
+        double spawnAlienDelta = 0;
+
+        long lastRunTime = System.nanoTime();
+        long currentRunTime;
+        int number = 0;
+        while(alienThread != null){
+            if (false){ //change here to paused.
+                continue;
+            }
+            // main game loop
+            currentRunTime = System.nanoTime();
+            delta += (currentRunTime - lastRunTime) / (double) (1000000000/60);
+            spawnAlienDelta += (currentRunTime - lastRunTime) / (double) (1000000000/60);
+
+            lastRunTime = currentRunTime;
+
+            if (delta > 1){
+                update();// this calls paintComponent
+                delta--;
+            }
+
+
+            if (spawnAlienDelta > 600){
+
+                this.spawnAlien();
+                spawnAlienDelta -= 600;
+            }
+
+
+
+        }
+    }
+    public void update(){
+        //Alien move will come here.
+    }
+    public void paint(Graphics g) {
+        for(int i = 0; i<Alien.aliens.length; i++){
+            if(Alien.aliens[i] != null && Alien.aliens[i].current_room == gameController.currentRoom) {
+                this.draw(g, Alien.aliens[i]);
+            }
+        }
     }
 }
