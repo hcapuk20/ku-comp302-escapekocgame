@@ -116,7 +116,7 @@ public class FurniturePlacementController {
 
         Random rand = new Random();
         int furnitureCount =  BuildingsDataSource.buildings[currentBuilding].getMinFurniture();
-        furnitureCount += rand.nextInt(15);
+        furnitureCount += rand.nextInt(furnitureCount);
 
         int totalTileHorizontal = screenWidth/tileSize;
         int totalTileVertical = screenHeight/tileSize;
