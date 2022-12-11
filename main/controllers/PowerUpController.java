@@ -5,6 +5,7 @@ import main.models.GameObject;
 import main.models.PowerUp.ExtraLife;
 import main.models.PowerUp.ExtraTime;
 import main.models.PowerUp.PowerUp;
+import main.models.PowerUp.PowerUpFactory;
 import main.models.Room;
 
 import java.util.Random;
@@ -35,11 +36,8 @@ public class PowerUpController {
             randomYTile = random.nextInt(tileMap[0].length);
         }
         int randomType = random.nextInt(powerUpTypeCount);
-        if (randomType == 0){
-            powerUp = new ExtraLife(randomXTile* Constants.tileSize,randomYTile* Constants.tileSize,Constants.tileSize,Constants.tileSize);
-        } else if (randomType == 1) {
-            powerUp = new ExtraTime(randomXTile* Constants.tileSize,randomYTile* Constants.tileSize,Constants.tileSize,Constants.tileSize);
-        }
+        PowerUpFactory powerUpFactory = new PowerUpFactory();
+        powerUp = powerUpFactory.createPowerUp(randomType, randomXTile, randomYTile);
         //add other powerUps here.
 
         tileMap[randomXTile][randomYTile] = powerUp;

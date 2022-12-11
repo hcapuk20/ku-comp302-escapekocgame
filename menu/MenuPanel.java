@@ -78,7 +78,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 		playButton.setBounds((panelWidth - buttonWidth) / 2, (panelHeight - buttonHeight) / 2 - buttonHeight,
 				buttonWidth, buttonHeight);
 
-		infoButton = new JButton("BUILDING MODE");
+		infoButton = new JButton("INFO");
 		infoButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -92,7 +92,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 		exitButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				exitButtonAction();
 			}
 		});
 		exitButton.setBounds((panelWidth - buttonWidth) / 2, (panelHeight - buttonHeight) / 2 + buttonHeight,
@@ -105,19 +105,6 @@ public class MenuPanel extends JPanel implements ActionListener {
 
 	protected void playButtonAction() {
 
-		GameController gameController = new GameController(frame);
-
-		frame.add(gameController);
-		gameController.setBounds(0, 0, panelWidth, panelHeight);
-
-		gameController.startGame();
-
-		frame.remove(this);
-
-	}
-
-	protected void infoButtonAction() {
-
 		BuildingModeController buildingModeController = new BuildingModeController(frame);
 
 		frame.add(buildingModeController);
@@ -126,6 +113,17 @@ public class MenuPanel extends JPanel implements ActionListener {
 		buildingModeController.startGame();
 
 		frame.remove(this);
+	}
+
+	protected void infoButtonAction() {
+
+
+
+	}
+
+	protected void exitButtonAction() {
+
+		System.exit(0);
 
 	}
 
