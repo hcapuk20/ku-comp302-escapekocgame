@@ -1,4 +1,6 @@
-package main.models;
+package main.models.Alien;
+
+import main.models.GameObject;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -6,23 +8,18 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class Alien extends GameObject{
+public class Alien extends GameObject {
     public BufferedImage up1,up2,down1,down2,left1,left2,right1,right2;
     public boolean moving;
     public String alien_type;
 
-    public Alien(int x, int y, int height, int width, String alien_type) {
-        this.locationX = x;
+    public static Alien[] aliens = new Alien[100];
+
+    public Alien() {
+        /*this.locationX = x;
         this.locationY = y;
         this.height = height;
         this.width = width;
-        if (alien_type.equals("blind")){
-            this.speed = 4;
-        }
-        else {
-            this.speed = 0;
-        }
-
         try {
             this.up1 = ImageIO.read(new File("assets/alien1.png"));
             this.up2 = ImageIO.read(new File("assets/alien1.png"));
@@ -47,7 +44,9 @@ public class Alien extends GameObject{
         int hitBoxIndex = width/6;
         int hitBoxSize = width - (2 * hitBoxIndex);
         this.collisionArea = new Rectangle(hitBoxIndex,hitBoxIndex,hitBoxSize,hitBoxSize);
-        this.alien_type = alien_type;
+        this.alien_type = alien_type;*/
+
+
     }
 
 }

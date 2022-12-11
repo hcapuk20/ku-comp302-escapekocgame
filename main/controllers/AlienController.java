@@ -2,7 +2,9 @@ package main.controllers;
 
 import constants.Constants;
 import main.CollisionChecker;
-import main.models.Alien;
+import main.models.Alien.Alien;
+import main.models.Alien.Shooter;
+import main.models.Alien.TimeWasting;
 import main.models.GameObject;
 
 import java.awt.*;
@@ -19,7 +21,7 @@ public class AlienController {
     GameController gameController;
     Random rand = new Random();
 
-    String[] alienTypes = {"blind", "shooter", "time-wasting"};
+    String[] alienTypes = {"shooter", "time-wasting"};
 
     public AlienController(CollisionChecker collisionChecker, GameController gameController) {
 
@@ -76,7 +78,8 @@ public class AlienController {
     }
 
 
-    public void spawnAlien(Alien[] aliens) {
+    public void spawnAlien() {
+        Alien tempAlien;
         GameObject[][] tileMap = gameController.currentRoom.tileMap;
         int randomXTile = rand.nextInt(tileMap.length);
 
@@ -86,19 +89,25 @@ public class AlienController {
             randomXTile = rand.nextInt(tileMap.length);
             randomYTile = rand.nextInt(tileMap[0].length);
         }
-        int randomType = rand.nextInt(alienTypes.length-1);
-
-            Alien alien = new Alien(randomXTile* Constants.tileSize,randomYTile* Constants.tileSize, Constants.tileSize, Constants.tileSize, alienTypes[randomType]);
-
+        int randomType = rand.nextInt(alienTypes.length);
+        if(alienTypes[randomType].equals("shooter")){
+            tempAlien = new Shooter(randomXTile * Constants.tileSize, randomYTile * Constants.tileSize, Constants.tileSize, Constants.tileSize, alienTypes[randomType]);
+        }
+        else {
+            tempAlien = new TimeWasting(randomXTile * Constants.tileSize, randomYTile * Constants.tileSize, Constants.tileSize, Constants.tileSize, alienTypes[randomType]);
+        }
         //add other powerUps here.
 
-        tileMap[randomXTile][randomYTile] = alien;
-        for(int i = 0; i<aliens.length; i++){
-            if (aliens[i] == null){
-                aliens[i] = alien;
+        //tileMap[randomXTile][randomYTile] = alien;
+        for(int i = 0; i<Alien.aliens.length; i++){
+            if (Alien.aliens[i] == null){
+
+                Alien.aliens[i] = tempAlien;
                 break;
             }
+
         }
+
 
         //gameController.alien[0] = new Alien(rand.nextInt(WINDOW_WIDTH), rand.nextInt(WINDOW_HEIGHT), Constants.tileSize, Constants.tileSize, alienTypes[rand.nextInt(2)]);
 
@@ -125,5 +134,6 @@ public class AlienController {
             }
         }
         g2.drawImage(alien.image, alien.locationX, alien.locationY,alien.width,alien.height,null);
+
     }
 }

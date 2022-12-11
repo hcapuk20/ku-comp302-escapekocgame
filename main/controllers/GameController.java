@@ -4,10 +4,9 @@ import constants.Constants;
 import main.CollisionChecker;
 import main.ItemInteractionHandler;
 import main.KeyEventHandler;
-import main.models.Building;
-import main.models.BuildingsDataSource;
+import main.models.*;
+import main.models.Alien.Alien;
 import main.models.Character;
-import main.models.Room;
 import pause.PausePanel;
 
 import javax.swing.*;
@@ -35,7 +34,7 @@ public class GameController extends JPanel implements Runnable{
 
     PowerUpController powerUpController;
 
-    public Alien[] aliens = new Alien[25];
+    //public Alien[] aliens = new Alien[100];
     AlienController alienController;
 
 
@@ -121,7 +120,8 @@ public class GameController extends JPanel implements Runnable{
             }
 
             if (spawnAlienDelta > 600){
-                alienController.spawnAlien(aliens);
+
+                alienController.spawnAlien();
                 spawnAlienDelta -= 600;
             }
 
@@ -149,6 +149,8 @@ public class GameController extends JPanel implements Runnable{
     }
     public void changeBuilding(){
         System.out.println("Changing Building..");
+        Alien.aliens = new Alien[100];
+
         if (currentBuildingCount < 5){
             currentBuildingCount +=1;
             currentBuilding = BuildingsDataSource.buildings[currentBuildingCount];
@@ -164,11 +166,11 @@ public class GameController extends JPanel implements Runnable{
     public void paintComponent(Graphics g) {
         g.setColor(getBackground());
         characterController.draw(g);
-        //for(int i = 0; i<aliens.length; i++){
-           // if(aliens[i] != null) {
-              //  alienController.draw(g, aliens[i]);
-           // }
-       // }
+        for(int i = 0; i<Alien.aliens.length; i++){
+            if(Alien.aliens[i] != null) {
+                alienController.draw(g, Alien.aliens[i]);
+            }
+        }
         //mapController.draw(g);
         currentRoom.draw(g);
         //g.dispose();
