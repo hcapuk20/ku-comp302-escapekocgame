@@ -19,43 +19,50 @@ import javax.swing.LayoutStyle;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
-public class ForgotPasswordWindow extends JFrame {
+import loginScreen.controllers.UserController;
 
-	 private JButton submitButton;
-	 private JButton exitButton;
-	 private JLabel emailPrompt;
-	 private JLabel passwordStatus;
-	 private JPanel menuPanel;
-	 private JPanel screenDeco1;
-	 private JPanel screenDeco2;
-	 private JPanel screenDeco3;
-	 private JPanel screenDeco4;
-	 private JPanel screenDeco5;
-	 private JPanel screenDeco6;
-	 private JPanel screenDeco9;
-	 private JPanel screenDeco7;
-	 private JPanel screenDeco8;
-	 private JPanel screenDeco10;
-	 private JPanel screenDeco11;
-	 private JPanel screenDeco12;
-	 private JSeparator emailSeparator;
-	 private JTextField emailField; 
+public class ForgotPasswordWindow extends JFrame {
 	
+	// Declaration of components and the user controller
+	// Email sending functionality not implemented
+	private UserController usc = new UserController();
+	
+	private JButton submitButton;
+	private JButton exitButton;
+	private JLabel emailPrompt;
+	private JLabel passwordStatus;
+	private JPanel menuPanel;
+	private JPanel screenDeco1;
+	private JPanel screenDeco2;
+	private JPanel screenDeco3;
+	private JPanel screenDeco4;
+	private JPanel screenDeco5;
+	private JPanel screenDeco6;
+	private JPanel screenDeco9;
+	private JPanel screenDeco7;
+	private JPanel screenDeco8;
+	private JPanel screenDeco10;
+	private JPanel screenDeco11;
+	private JPanel screenDeco12;
+	private JSeparator emailSeparator;
+	private JTextField emailField; 
+	
+	// Constructor for the forgot password window
     public ForgotPasswordWindow() {
-        initComponents();
+        forgotPasswordWindowComponents();
     }
-                         
-    private void initComponents() {
+     
+    // Private method that generates UI components and event listeners
+    private void forgotPasswordWindowComponents() {
 
         menuPanel = new JPanel();
         emailPrompt = new JLabel();
         submitButton = new JButton();
         emailField = new JTextField();
         emailSeparator = new JSeparator();
-        screenDeco9 = new JPanel();
-        screenDeco10 = new JPanel();
-        screenDeco11 = new JPanel();
-        screenDeco12 = new JPanel();
+        exitButton = new JButton();
+        passwordStatus = new JLabel();
+        
         screenDeco1 = new JPanel();
         screenDeco2 = new JPanel();
         screenDeco3 = new JPanel();
@@ -64,8 +71,10 @@ public class ForgotPasswordWindow extends JFrame {
         screenDeco6 = new JPanel();
         screenDeco7 = new JPanel();
         screenDeco8 = new JPanel();
-        exitButton = new JButton();
-        passwordStatus = new JLabel();
+        screenDeco9 = new JPanel();
+        screenDeco10 = new JPanel();
+        screenDeco11 = new JPanel();
+        screenDeco12 = new JPanel();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Forgot Password");
@@ -410,14 +419,17 @@ public class ForgotPasswordWindow extends JFrame {
         setLocationRelativeTo(null);
     }                       
 
+    // Events for different components for the forgot password view 
     private void submitButtonActionPerformed(ActionEvent evt) {}                                        
     private void emailFieldActionPerformed(ActionEvent evt) {}                                           
     private void exitButtonActionPerformed(ActionEvent evt) {}                                        
 
+    // Exit button event that disposes this instance of a JFrame  
     private void exitButtonMousePressed(MouseEvent evt) {                                      
-        this.setVisible(false);
+        this.dispose();
     }                                     
 
+    // Events that update the view of the fields based on their contents
     private void emailFieldMouseClicked(MouseEvent evt) {                                         
         if (emailField.getText().equals("Email")) {
             emailField.setText("");
@@ -429,12 +441,13 @@ public class ForgotPasswordWindow extends JFrame {
             emailField.setText("Email");
         }
     }                                 
-
+    
+    // Button event that checks for the email input and sends email (not implemented)
     private void submitButtonMouseClicked(MouseEvent evt) {                                      
-    	String text = emailField.getText();
-        if (text.equals("Email") || text.equals("")) {
+    	String email = emailField.getText();
+        if (!usc.checkEmailValidity(email) || email.equals("Email") || email.equals("")) {
             passwordStatus.setText("Invalid email! Try again.");
-        } else if (text.equals("bpirhan20@ku.edu.tr")) {
+        } else if (usc.checkEmailValidity(email)) {
             passwordStatus.setForeground(new Color(102, 255, 102));
             passwordStatus.setText("Email sent successfully!");
         }
