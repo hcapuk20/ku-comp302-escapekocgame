@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
@@ -24,13 +25,19 @@ import loginScreen.controllers.UserController;
 
 public class DeleteAccountWindow extends JFrame {
 
+	// Declaration of components and the user controller
 	private UserController usc = new UserController();
 	
 	private JButton submitButton;
 	private JButton exitButton;
-	private JLabel emailPrompt;
+	private JLabel emailPasswordPrompt;
 	private JLabel deleteStatus;
 	private JPanel menuPanel;
+	private JSeparator emailSeparator;
+	private JSeparator passwordSeparator;
+	private JTextField emailField;
+	private JPasswordField passwordField;  
+	
 	private JPanel screenDeco1;
 	private JPanel screenDeco2;
 	private JPanel screenDeco3;
@@ -42,18 +49,18 @@ public class DeleteAccountWindow extends JFrame {
 	private JPanel screenDeco8;
 	private JPanel screenDeco10;
 	private JPanel screenDeco11;
-	private JPanel screenDeco12;
-	private JSeparator emailSeparator;
-	private JTextField emailField; 
+	private JPanel screenDeco12;   
 	
+	// Constructor for the delete account window
     public DeleteAccountWindow() {
         initComponents();
     }
-                       
+    
+    // Private method that generates UI components and event listeners
     private void initComponents() {
 
         menuPanel = new JPanel();
-        emailPrompt = new JLabel();
+        emailPasswordPrompt = new JLabel();
         submitButton = new JButton();
         emailField = new JTextField();
         emailSeparator = new JSeparator();
@@ -71,6 +78,8 @@ public class DeleteAccountWindow extends JFrame {
         screenDeco8 = new JPanel();
         exitButton = new JButton();
         deleteStatus = new JLabel();
+        passwordField = new JPasswordField();
+        passwordSeparator = new JSeparator();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Delete User");
@@ -84,16 +93,20 @@ public class DeleteAccountWindow extends JFrame {
         menuPanel.setBackground(new Color(51, 51, 51));
         menuPanel.setBorder(BorderFactory.createLineBorder(new Color(255, 255, 255)));
 
-        emailPrompt.setFont(new Font("Segoe UI", 1, 18)); 
-        emailPrompt.setForeground(new Color(255, 255, 255));
-        emailPrompt.setText("Please enter your email to delete your account.");
+        emailPasswordPrompt.setFont(new Font("Segoe UI", 1, 18)); 
+        emailPasswordPrompt.setForeground(new Color(255, 255, 255));
+        emailPasswordPrompt.setText("Please enter your email and password to delete your account.");
 
         submitButton.setBackground(new Color(51, 51, 51));
         submitButton.setForeground(new Color(255, 255, 255));
         submitButton.setText("Submit");
         submitButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                submitButtonMouseClicked(evt);
+                try {
+					submitButtonMouseClicked(evt);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
             }
         });
         submitButton.addActionListener(new ActionListener() {
@@ -296,6 +309,26 @@ public class DeleteAccountWindow extends JFrame {
         deleteStatus.setHorizontalAlignment(SwingConstants.CENTER);
         deleteStatus.setHorizontalTextPosition(SwingConstants.RIGHT);
 
+        passwordField.setEchoChar((char) 0);
+        passwordField.setBackground(new Color(51, 51, 51));
+        passwordField.setFont(new Font("Dialog", 0, 12)); 
+        passwordField.setForeground(new Color(204, 204, 204));
+        passwordField.setText("Password");
+        passwordField.setBorder(null);
+        passwordField.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                passwordFieldMouseClicked(evt);
+            }
+        });
+        passwordField.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                passwordFieldActionPerformed(evt);
+            }
+        });
+
+        passwordSeparator.setBackground(new Color(255, 255, 255));
+        passwordSeparator.setForeground(new Color(255, 255, 255));
+
         GroupLayout menuPanelLayout = new GroupLayout(menuPanel);
         menuPanel.setLayout(menuPanelLayout);
         menuPanelLayout.setHorizontalGroup(
@@ -308,48 +341,48 @@ public class DeleteAccountWindow extends JFrame {
                 .addComponent(screenDeco8, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(screenDeco9, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-            .addGroup(menuPanelLayout.createSequentialGroup()
-                .addComponent(screenDeco10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(screenDeco4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(screenDeco7, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+            .addGroup(GroupLayout.Alignment.TRAILING, menuPanelLayout.createSequentialGroup()
+                .addGroup(menuPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addGroup(menuPanelLayout.createSequentialGroup()
+                        .addComponent(screenDeco10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(screenDeco4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(screenDeco7, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addGroup(GroupLayout.Alignment.TRAILING, menuPanelLayout.createSequentialGroup()
+                        .addContainerGap(43, Short.MAX_VALUE)
+                        .addComponent(emailPasswordPrompt)
+                        .addGap(8, 8, 8)))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(screenDeco12, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
             .addGroup(menuPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(menuPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(menuPanelLayout.createSequentialGroup()
-                        .addGroup(menuPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                            .addGroup(menuPanelLayout.createSequentialGroup()
-                                .addComponent(screenDeco3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(screenDeco6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                            .addGroup(menuPanelLayout.createSequentialGroup()
-                                .addComponent(screenDeco2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(deleteStatus, GroupLayout.PREFERRED_SIZE, 180, GroupLayout.PREFERRED_SIZE)
-                                .addGap(158, 158, 158)
-                                .addComponent(screenDeco5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap())
-                    .addGroup(GroupLayout.Alignment.TRAILING, menuPanelLayout.createSequentialGroup()
-                        .addGap(0, 115, Short.MAX_VALUE)
-                        .addGroup(menuPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                            .addGroup(menuPanelLayout.createSequentialGroup()
-                                .addGroup(menuPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(emailField)
-                                    .addComponent(emailSeparator, GroupLayout.PREFERRED_SIZE, 312, GroupLayout.PREFERRED_SIZE))
-                                .addGap(114, 114, 114))
-                            .addGroup(menuPanelLayout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(submitButton)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(exitButton)
-                                .addGap(122, 122, 122))))))
+                        .addComponent(screenDeco3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(screenDeco6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addGroup(menuPanelLayout.createSequentialGroup()
+                        .addComponent(screenDeco2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(deleteStatus, GroupLayout.PREFERRED_SIZE, 241, GroupLayout.PREFERRED_SIZE)
+                        .addGap(156, 156, 156)
+                        .addComponent(screenDeco5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+            .addGroup(menuPanelLayout.createSequentialGroup()
+                .addGap(138, 138, 138)
+                .addComponent(submitButton)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(exitButton)
+                .addGap(135, 135, 135))
             .addGroup(GroupLayout.Alignment.TRAILING, menuPanelLayout.createSequentialGroup()
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(emailPrompt)
-                .addGap(70, 70, 70))
+                .addGroup(menuPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                    .addComponent(passwordField, GroupLayout.Alignment.TRAILING)
+                    .addComponent(emailSeparator, GroupLayout.Alignment.TRAILING)
+                    .addComponent(emailField, GroupLayout.Alignment.TRAILING)
+                    .addComponent(passwordSeparator, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 351, GroupLayout.PREFERRED_SIZE))
+                .addGap(125, 125, 125))
         );
         menuPanelLayout.setVerticalGroup(
             menuPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -388,16 +421,20 @@ public class DeleteAccountWindow extends JFrame {
                                 .addComponent(screenDeco11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                             .addGroup(menuPanelLayout.createSequentialGroup()
                                 .addGap(12, 12, 12)
-                                .addComponent(emailPrompt, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addComponent(emailPasswordPrompt, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                                 .addComponent(emailField, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, 0)
                                 .addComponent(emailSeparator, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                                .addGroup(menuPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                    .addComponent(submitButton)
-                                    .addComponent(exitButton))
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(passwordSeparator, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(menuPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                    .addComponent(exitButton)
+                                    .addComponent(submitButton, GroupLayout.Alignment.TRAILING))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(deleteStatus, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
                                 .addGap(12, 12, 12))))))
         );
@@ -417,17 +454,23 @@ public class DeleteAccountWindow extends JFrame {
         setLocationRelativeTo(null);
     }                      
 
+    // Events for different components for the delete account view 
     private void submitButtonActionPerformed(ActionEvent evt) {}                                        
     private void emailFieldActionPerformed(ActionEvent evt) {}                                           
     private void exitButtonActionPerformed(ActionEvent evt) {}                                        
 
     private void exitButtonMousePressed(MouseEvent evt) {                                      
-        this.setVisible(false);
+        this.dispose();
     }                                     
 
+    // Events that update the view of the fields based on their contents
     private void emailFieldMouseClicked(MouseEvent evt) {                                         
         if (emailField.getText().equals("Email")) {
             emailField.setText("");
+        }
+        if (passwordField.getText().equals("")) {
+            passwordField.setEchoChar((char) 0);
+        	passwordField.setText("Password");
         }
     }                                        
 
@@ -435,28 +478,41 @@ public class DeleteAccountWindow extends JFrame {
         if (emailField.getText().equals("")) {
             emailField.setText("Email");
         }
+        if (passwordField.getText().equals("")) {
+            passwordField.setEchoChar((char) 0);
+        	passwordField.setText("Password");
+        }
     }                                 
-
-    private void submitButtonMouseClicked(MouseEvent evt) {                                      
+    
+    // Button event that handles user deletion based on the input and user file contents
+    private void submitButtonMouseClicked(MouseEvent evt) throws IOException {                                      
     	String email = emailField.getText();
-    	if (email.equals("Email") || email.equals("")) {
+    	String password = passwordField.getText();
+    	String[] user = usc.getUser("email", email);
+    	if (user == null) {
     		deleteStatus.setForeground(new Color(255, 51, 51));
-    		deleteStatus.setText("Invalid email! Try again.");
-        } else
-			try {
-				if (usc.checkUser("email", email)) {
-				    usc.deleteUser(email);
-					deleteStatus.setForeground(new Color(102, 255, 102));
-				    deleteStatus.setText("Account deleted successfully!");
-				} 
-				else {
-					deleteStatus.setForeground(new Color(255, 51, 51));
-				    deleteStatus.setText("Account does not exist!");
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-		} 
-    }                                     
-                   
-                 
+		    deleteStatus.setText("Account does not exist!");
+    	} else if (email.equals("Email") || email.equals("") || password.equals("Password") || password.equals("") ||
+    			!user[1].equals(password)) {
+    		deleteStatus.setForeground(new Color(255, 51, 51));
+    		deleteStatus.setText("Invalid email or password!");
+        } else if (user[1].equals(password) && user[2].equals(email)) {
+			usc.deleteUser(email);
+			deleteStatus.setForeground(new Color(102, 255, 102));
+		    deleteStatus.setText("Account deleted successfully!");
+		}               	       	 
+    }                                       
+
+    private void passwordFieldMouseClicked(MouseEvent evt) {                                         
+        if (passwordField.getText().equals("Password")) {
+            passwordField.setEchoChar('*');
+        	passwordField.setText("");
+        }
+        if (emailField.getText().equals("")) {
+        	emailField.setText("Email");
+        }
+    }                                        
+
+    private void passwordFieldActionPerformed(ActionEvent evt) {}                                           
+                      
 }

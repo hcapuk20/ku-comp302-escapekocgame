@@ -25,6 +25,7 @@ import loginScreen.controllers.UserController;
 
 public class SignUpMenu extends JFrame {
 	
+	// Declaration of components and the user controller
 	private UserController usc = new UserController();
 	
 	private JButton exitButton;
@@ -60,15 +61,27 @@ public class SignUpMenu extends JFrame {
     private JPasswordField passwordField;
     private JTextField emailField; 
 	
-	
+    // Constructor for the sign up view UI
     public SignUpMenu() {
-        initComponents();
+        signUpMenuComponents();
     }
                        
-    private void initComponents() {
+    // Private method that generates UI elements and event listeners
+    private void signUpMenuComponents() {
 
         menuBorders = new JPanel();
         registerPlayerText = new JLabel();
+        registerPlayerTextSeparator = new JSeparator();
+        exitButton = new JButton();
+        signUpButton = new JButton();
+        usernameField = new JTextField();
+        usernameSeparator = new JSeparator();
+        passwordField = new JPasswordField();
+        passwordSeparator = new JSeparator();
+        emailField = new JTextField();
+        emailSeparator = new JSeparator();
+        registerStatus = new JLabel();
+
         screenDeco17 = new JPanel();
         screenDeco18 = new JPanel();
         screenDeco20 = new JPanel();
@@ -89,18 +102,7 @@ public class SignUpMenu extends JFrame {
         screenDeco15 = new JPanel();
         screenDeco2 = new JPanel();
         screenDeco16 = new JPanel();
-        registerPlayerTextSeparator = new JSeparator();
-        exitButton = new JButton();
-        signUpButton = new JButton();
-        usernameField = new JTextField();
-        usernameSeparator = new JSeparator();
-        passwordField = new JPasswordField();
-        passwordSeparator = new JSeparator();
-        emailField = new JTextField();
-        emailSeparator = new JSeparator();
-        registerStatus = new JLabel();
-
-
+        
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Register User");
         setBackground(new Color(51, 51, 51));
@@ -669,13 +671,15 @@ public class SignUpMenu extends JFrame {
     }                       
                                 
     private void exitButtonMouseClicked(MouseEvent evt) {                                      
-        this.setVisible(false);
+        this.dispose();
     }                                     
 
+    // Events for different components for the sign up view
     private void usernameFieldActionPerformed(ActionEvent evt) {}                                           
     private void passwordFieldActionPerformed(ActionEvent evt) {}                                           
     private void emailFieldActionPerformed(ActionEvent evt) {}                                           
 
+    // Events that update the view of the fields based on their contents
     private void usernameFieldMouseClicked(MouseEvent evt) {                                         
         if (usernameField.getText().equals("Username")) {
             usernameField.setText("");
@@ -720,29 +724,34 @@ public class SignUpMenu extends JFrame {
             usernameField.setText("Username");
         }
         if (passwordField.getText().equals("")) {
-            passwordField.setText("Password");
+            passwordField.setEchoChar((char) 0);
+        	passwordField.setText("Password");
         }
         if (emailField.getText().equals("")) {
             emailField.setText("Email");
         }
     }                                 
 
+    // Button event that checks the user file and registers user in the file
     private void signUpButtonMouseClicked(MouseEvent evt) throws IOException {  
     	String username = usernameField.getText();
         String email = emailField.getText();
         String password = passwordField.getText();
-        
+              
         if (username.equals("") || password.equals("") || email.equals("") ||
             username.equals("Username") || password.equals("Password") || email.equals("Email")) {
         	registerStatus.setForeground(new Color(255, 51, 51));
         	registerStatus.setText("One or more credentials missing!");
-        } else if (usc.checkUser("username", username) || usc.checkUser("email", email)) {
+        } else if (!usc.checkEmailValidity(email)) {
+        	registerStatus.setForeground(new Color(255, 51, 51));
+        	registerStatus.setText("Invalid email format!");
+        } else if (!usc.checkUser("email", email) && !usc.checkUser("username", username)) {
+        	usc.registerUser(username, password, email);
+        	registerStatus.setForeground(new Color(102, 255, 102));
+        	registerStatus.setText("User registered successfully!");
+        } else if (usc.checkUser("email", email) || usc.checkUser("username", username)) {
         	registerStatus.setForeground(new Color(255, 51, 51));
         	registerStatus.setText("User already exists!");
-        } else if (!usc.checkUser("username", username) && !usc.checkUser("email", email)) {
-        	registerStatus.setForeground(new Color(102, 255, 102));
-        	usc.registerUser(username, password, email);
-        	registerStatus.setText("User registered successfully!");
         }
-    }                                                                         
+    }                                                                            
 }
