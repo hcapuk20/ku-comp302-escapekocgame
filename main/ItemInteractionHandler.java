@@ -7,8 +7,13 @@ import main.models.Furniture;
 import main.models.GameObject;
 import main.models.PowerUp.PowerUp;
 
+import javax.imageio.ImageIO;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ItemInteractionHandler implements MouseListener {
     GameController gameController;
@@ -41,6 +46,20 @@ public class ItemInteractionHandler implements MouseListener {
                 if (fur.hasKey){
                     System.out.println("Key Found...");
                     gameController.character.hasKey = true;
+                    BufferedImage initialImage = fur.image;
+                    try {
+                        fur.image = ImageIO.read(new File("assets/key.png"));
+                    } catch (Exception e){
+                        System.out.println(e);
+                    }
+                    Timer t = new Timer();
+                    t.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            fur.image = initialImage;
+                        }
+                    }, 1000);
+
                     fur.hasKey = false;
                 } else {
                     System.out.println("Key Not Found...");
