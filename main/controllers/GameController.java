@@ -4,10 +4,9 @@ import constants.Constants;
 import main.CollisionChecker;
 import main.ItemInteractionHandler;
 import main.KeyEventHandler;
-import main.models.Building;
-import main.models.BuildingsDataSource;
+import main.models.*;
+import main.models.Alien.Alien;
 import main.models.Character;
-import main.models.Room;
 import pause.PausePanel;
 
 import javax.swing.*;
@@ -32,7 +31,12 @@ public class GameController extends JPanel implements Runnable{
     int roomCountY = 1;
     public Room currentRoom;
     public JFrame frame;
+
     PowerUpController powerUpController;
+
+    //public Alien[] aliens = new Alien[100];
+    AlienController alienController;
+
 
     public GameController(JFrame f){
         this.frame =f;
@@ -52,21 +56,32 @@ public class GameController extends JPanel implements Runnable{
         this.itemInteractionHandler = new ItemInteractionHandler(this);
         this.addMouseListener(itemInteractionHandler);
         //currentRoom.tileMap[12][12] = new Furniture(12*Constants.tileSize,12*Constants.tileSize,Constants.tileSize,Constants.tileSize,1);
+
         this.powerUpController = new PowerUpController(this);
         powerUpController.spawnPowerUp();
+
+
+        this.alienController = new AlienController(collisionChecker, this);
 
     }
 
     public void startGame(){
         gameThread = new Thread(this);
         gameThread.start();
+        alienController.alienThread = new Thread(alienController);
+        alienController.alienThread.start();
+
     }
 
     @Override
     public void run() {
         double delta = 0;
+
         double spawnPowerUpDelta = 0;
         double deSpawnPowerUpDelta = 0;
+
+        double spawnAlienDelta = 0;
+
         long lastRunTime = System.nanoTime();
         long currentRunTime;
         int number = 0;
@@ -77,8 +92,10 @@ public class GameController extends JPanel implements Runnable{
             // main game loop
             currentRunTime = System.nanoTime();
             delta += (currentRunTime - lastRunTime) / (double) (1000000000/60);
+
             spawnPowerUpDelta += (currentRunTime - lastRunTime) / (double) (1000000000/60);
             deSpawnPowerUpDelta += (currentRunTime - lastRunTime) / (double) (1000000000/60);
+            spawnAlienDelta += (currentRunTime - lastRunTime) / (double) (1000000000/60);
 
             lastRunTime = currentRunTime;
 
@@ -87,6 +104,7 @@ public class GameController extends JPanel implements Runnable{
                 repaint(); // this calls paintComponent
                 delta--;
             }
+
 
             if (spawnPowerUpDelta > 360){
                 number++;
@@ -101,6 +119,16 @@ public class GameController extends JPanel implements Runnable{
                     number = 0;
                 }
             }
+            /*
+            if (spawnAlienDelta > 600){
+
+                alienController.spawnAlien();
+                spawnAlienDelta -= 600;
+            }
+
+             */
+
+
         }
     }
     public void stop() {
@@ -124,6 +152,8 @@ public class GameController extends JPanel implements Runnable{
     }
     public void changeBuilding(){
         System.out.println("Changing Building..");
+        Alien.aliens = new Alien[100];
+
         if (currentBuildingCount < 5){
             currentBuildingCount +=1;
             currentBuilding = BuildingsDataSource.buildings[currentBuildingCount];
@@ -139,8 +169,10 @@ public class GameController extends JPanel implements Runnable{
     public void paintComponent(Graphics g) {
         g.setColor(getBackground());
         characterController.draw(g);
+        alienController.paint(g);
         //mapController.draw(g);
         currentRoom.draw(g);
         //g.dispose();
+
     }
 }
