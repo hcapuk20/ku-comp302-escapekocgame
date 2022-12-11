@@ -28,6 +28,7 @@ import main.Main;
 
 public class LoginView extends JFrame {
 
+	// Declaration of components and the user controller
 	private UserController usc = new UserController();
 	
 	private JButton loginButton;
@@ -56,11 +57,13 @@ public class LoginView extends JFrame {
     private JTextField usernameField;
     private JPasswordField passwordField;
 
+    // Constructor for the login screen UI
     public LoginView() {
-        initComponents();
+        loginViewComponents();
     }
-                        
-    private void initComponents() {
+    
+    // Private method that generates UI components and event listeners
+    private void loginViewComponents() {
 
         screenDeco5 = new JPanel();
         titleEscape = new JLabel();
@@ -517,13 +520,16 @@ public class LoginView extends JFrame {
         setLocationRelativeTo(null);
     }                       
 
+    // Events for different components of the login screen
     private void usernameFieldActionPerformed(ActionEvent evt) {}                                           
     private void passwordFieldActionPerformed(ActionEvent evt) {}                                           
 
+    // Event that terminates the entire program with the exit button of the login screen
     private void exitButtonMouseClicked(MouseEvent evt) {                                     
         System.exit(0);
     }                                    
 
+    // Events that handle the creation of other UI frames of the login screen
     private void passwordCheckMouseClicked(MouseEvent evt) {                                     
         ForgotPasswordWindow forgotPassword = new ForgotPasswordWindow();
         forgotPassword.setVisible(true);
@@ -562,6 +568,7 @@ public class LoginView extends JFrame {
         deleteAccount.setVisible(true);
     }                                    
 
+    // Events that update the view of the fields based on their contents
     private void inputScreenMouseClicked(MouseEvent evt) {                                     
     	if (usernameField.getText().equals("")) {
             usernameField.setText("Username");
@@ -600,17 +607,22 @@ public class LoginView extends JFrame {
         }
     }                                        
 
+    // Button event that handles the login process based on inputs and user file contents
     private void loginButtonMouseClicked(MouseEvent evt) throws IOException {                                      
     	String username = usernameField.getText();
     	String password = passwordField.getText();
-        if (usc.checkUser("username", username) && usc.checkUser("password", password)) {
-            loginStatus.setForeground(new Color(102, 255, 102));
-            loginStatus.setText("Login successful! Launching the game...");	
-            Main.main(null);
-            this.setVisible(false);
-        } else {
-        	loginStatus.setForeground(new Color(255, 51, 51));
+    	String[] user = usc.getUser("username", username);
+    	if (user == null) {
+    		loginStatus.setForeground(new Color(255, 51, 51));
         	loginStatus.setText("Invalid username or password!");
         }
-    }                                                       
+    	else if (user[0].equals(username) && user[1].equals(password)) {
+    		loginStatus.setForeground(new Color(102, 255, 102));
+            loginStatus.setText("Login successful! Launching the game...");	
+            
+            Main main = new Main();
+            main.startMainMenu();
+            this.dispose();
+    	} 
+    }                                                         
 }
