@@ -6,12 +6,11 @@ public class BuildingsDataSource {
 
     public static Building[] buildings = new Building[6];
 
-    RoomCreator roomCreator = new RoomCreator();
+    static RoomCreator roomCreator = new RoomCreator();
 
-    Building building1, building2, building3, building4, building5, building6;
+    static Building building1, building2, building3, building4, building5, building6;
 
-    public BuildingsDataSource(){
-
+    public static void createBuildingDataSource(){
         building1 = new Building("Student Center", 5);
         building1.rooms[1][0] = roomCreator.createRoom(0,1,0,0);
         building1.rooms[1][1] = roomCreator.createRoom(1,1,0,0);
@@ -65,7 +64,6 @@ public class BuildingsDataSource {
         building6.rooms[1][2] = roomCreator.createRoom(1,0,0,0);
         building6.rooms[1][2].addDoor(3);
         buildings[5] = building6;
-
     }
 
 }

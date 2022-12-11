@@ -3,9 +3,7 @@ package main.controllers;
 import constants.Constants;
 import main.models.BuildingsDataSource;
 import main.models.Furniture;
-import org.w3c.dom.css.Rect;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
@@ -28,9 +26,9 @@ public class FurniturePlacementController {
 
     Image randomizeImage = new ImageIcon("assets/question_mark.png").getImage();
     Furniture[] furnitures = new Furniture[furnitureCount];
-    BuildingMode buildingMode;
-    FurniturePlacementController(BuildingMode buildingMode){
-        this.buildingMode = buildingMode;
+    BuildingModeController buildingModeController;
+    FurniturePlacementController(BuildingModeController buildingModeController){
+        this.buildingModeController = buildingModeController;
 
         for(int i = 0; i<5; i++){
             furnitures[i] = new Furniture(screenWidth*7/8 - imageSize/2,(imageSize*5/4)*i + imageSize/4,
@@ -42,7 +40,7 @@ public class FurniturePlacementController {
     private void paintRandomButton(Graphics g){
         g.drawImage(randomizeImage, screenWidth*7/8 - imageSize/2,
                 (imageSize*5/4)*Furniture.getTotalFurnitures() + imageSize/4,
-                imageSize, imageSize, buildingMode);
+                imageSize, imageSize, buildingModeController);
     }
 
     public void selectFurniture(Rectangle mouse){
@@ -62,7 +60,7 @@ public class FurniturePlacementController {
         Rectangle obj = new Rectangle(screenWidth*7/8 - imageSize/2,(imageSize*5/4)*Furniture.getTotalFurnitures() + imageSize/4,
                 imageSize, imageSize);
         if (mouse.intersects(obj)) {
-            addRandomFurnitures(buildingMode.getCurrentBuilding());
+            addRandomFurnitures(buildingModeController.getCurrentBuilding());
         }
     }
 

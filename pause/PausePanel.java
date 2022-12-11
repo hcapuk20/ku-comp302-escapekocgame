@@ -1,7 +1,6 @@
 package pause;
 
 import constants.Constants;
-import main.controllers.BuildingMode;
 import main.controllers.GameController;
 
 import javax.swing.*;

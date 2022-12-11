@@ -2,22 +2,16 @@ package main.controllers;
 
 import constants.Constants;
 import main.models.BuildingsDataSource;
-import main.models.Room;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class BuildingMode extends JPanel implements Runnable, MouseListener {
+public class BuildingModeController extends JPanel implements Runnable, MouseListener {
 
     final int tileSize = Constants.tileSize; // keep this for now
     Thread buildingModeThread;
-    CharacterController characterController;
-    MapController mapController;
-    RoomCreator roomCreator;
-
-    BuildingsDataSource buildingsDataSource = new BuildingsDataSource();
 
     FurniturePlacementController furniturePlacementController = new FurniturePlacementController(this);
 
@@ -27,9 +21,8 @@ public class BuildingMode extends JPanel implements Runnable, MouseListener {
     int imageSize = Constants.WINDOW_WIDTH/(Constants.buildingModeDivider*4);
 
     boolean notEnoughFurnitures = false;
-    Room room;
     JFrame frame;
-    public BuildingMode(JFrame f){
+    public BuildingModeController(JFrame f){
         this.setPreferredSize(new Dimension(768, 576));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
@@ -38,10 +31,7 @@ public class BuildingMode extends JPanel implements Runnable, MouseListener {
         //mapController.initializeWalls();
         this.addMouseListener(this);
         this.frame = f;
-
-        this.roomCreator = new RoomCreator();
-        this.room = roomCreator.createRoom(1, 1, 1, 1);
-
+        BuildingsDataSource.createBuildingDataSource();
 
     }
 
