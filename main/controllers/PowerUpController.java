@@ -17,7 +17,7 @@ public class PowerUpController {
     Random random;
     GameController gameController;
 
-    public  int powerUpTypeCount = 2;
+    public  int powerUpTypeCount = 5;
 
     public PowerUpController(GameController gameController){
 

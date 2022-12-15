@@ -41,8 +41,6 @@ public class CollisionChecker {
             }
             return false;
         } else if (object.direction.equals("down")){
-            System.out.println(collisionLeftTile);
-            System.out.println(collisionBottomTile);
             collisionBottomTile = (collisionBottomY + object.speed) / tileSize;
             if (collisionBottomTile >= (WINDOW_HEIGHT / tileSize)){
                 return false;
