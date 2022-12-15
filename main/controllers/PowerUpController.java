@@ -13,6 +13,7 @@ import java.util.Random;
 public class PowerUpController {
 
     PowerUp powerUp;
+    Room powerUpRoom;
     Random random;
     GameController gameController;
 
@@ -38,6 +39,7 @@ public class PowerUpController {
         int randomType = random.nextInt(powerUpTypeCount);
         PowerUpFactory powerUpFactory = new PowerUpFactory();
         powerUp = powerUpFactory.createPowerUp(randomType, randomXTile, randomYTile);
+        powerUpRoom = gameController.currentRoom;
         //add other powerUps here.
 
         tileMap[randomXTile][randomYTile] = powerUp;
@@ -48,7 +50,7 @@ public class PowerUpController {
         if (powerUp != null){
             int powerUpTileXLoc = powerUp.locationX / Constants.tileSize;
             int powerUpTileYLoc = powerUp.locationY / Constants.tileSize;
-            gameController.currentRoom.tileMap[powerUpTileXLoc][powerUpTileYLoc] = null;
+            powerUpRoom.tileMap[powerUpTileXLoc][powerUpTileYLoc] = null;
             powerUp = null;
         }
     }
