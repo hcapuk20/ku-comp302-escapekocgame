@@ -10,9 +10,11 @@ import java.util.ArrayList;
 
 public class Character extends GameObject{
     public BufferedImage up1,up2,down1,down2,left1,left2,right1,right2;
+    public BufferedImage fullHeart,emptyHeart;
     public boolean moving;
     public boolean hasKey;
     public int life;
+    public int maxLife = 5;
 
     public ArrayList<PowerUp> bag;
 
@@ -23,6 +25,8 @@ public class Character extends GameObject{
         this.width = width;
         this.speed = speed;
         try {
+            this.fullHeart = ImageIO.read(new File("assets/heart.png"));
+            this.emptyHeart = ImageIO.read(new File("assets/heart-empty.png"));
             this.up1 = ImageIO.read(new File("assets/character_move/boy_up_1.png"));
             this.up2 = ImageIO.read(new File("assets/character_move/boy_up_2.png"));
             this.down1 = ImageIO.read(new File("assets/character_move/boy_down_1.png"));
@@ -49,6 +53,17 @@ public class Character extends GameObject{
     public void printBag(){
         for (GameObject gameObject: bag){
             System.out.println(gameObject);
+        }
+    }
+
+    public void increaseLife(){
+        if(life < maxLife){
+            life++;
+        }
+    }
+    public void decreaseLife(){
+        if(life > 0){
+            life--;
         }
     }
 }
