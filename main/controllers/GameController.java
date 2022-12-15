@@ -37,6 +37,8 @@ public class GameController extends JPanel implements Runnable{
     //public Alien[] aliens = new Alien[100];
     AlienController alienController;
 
+    BagController bagController;
+
 
     public GameController(JFrame f){
         this.frame =f;
@@ -62,6 +64,7 @@ public class GameController extends JPanel implements Runnable{
 
 
         this.alienController = new AlienController(collisionChecker, this);
+        this.bagController = new BagController(this);
 
     }
 
@@ -167,11 +170,13 @@ public class GameController extends JPanel implements Runnable{
 
 
     public void paintComponent(Graphics g) {
+
         g.setColor(getBackground());
         characterController.draw(g);
         alienController.paint(g);
         //mapController.draw(g);
         currentRoom.draw(g);
+        bagController.draw(g);
         //g.dispose();
 
     }
