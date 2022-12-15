@@ -91,4 +91,17 @@ public class CharacterController {
         }
         g2.drawImage(character.image, character.locationX, character.locationY,character.width,character.height,null);
     }
+    public void drawLife(Graphics g) {
+        Graphics2D g2 = (Graphics2D) g;
+        int lifeCount = character.life;
+        int Xdistance = 250;
+        for (int i = 0; i < lifeCount;i++){
+            g2.drawImage(character.fullHeart, WINDOW_WIDTH-Xdistance,5,30,30,null);
+            Xdistance-=40;
+        }
+        for (int i = lifeCount; i < character.maxLife;i++){
+            g2.drawImage(character.emptyHeart, WINDOW_WIDTH-Xdistance,5,30,30,null);
+            Xdistance-=40;
+        }
+    }
 }

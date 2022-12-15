@@ -172,6 +172,7 @@ public class GameController extends JPanel implements Runnable{
         alienController.paint(g);
         //mapController.draw(g);
         currentRoom.draw(g);
+        characterController.drawLife(g);
         //g.dispose();
 
     }
