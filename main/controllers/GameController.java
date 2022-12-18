@@ -32,7 +32,7 @@ public class GameController extends JPanel implements Runnable{
     public Room currentRoom;
     public JFrame frame;
 
-    PowerUpController powerUpController;
+    public PowerUpController powerUpController;
 
     //public Alien[] aliens = new Alien[100];
     AlienController alienController;
@@ -194,8 +194,9 @@ public class GameController extends JPanel implements Runnable{
         characterController.drawLife(g);
 
         bagController.draw(g);
-
+        powerUpController.drawPowerUpEffect(g);
         //g.dispose();
 
     }
+
 }

@@ -2,9 +2,13 @@ package main;
 
 import main.controllers.GameController;
 import main.models.Character;
+import main.models.PowerUp.Hint;
+import main.models.PowerUp.PowerUp;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class KeyEventHandler implements KeyListener {
     final private Character character;
@@ -59,6 +63,23 @@ public class KeyEventHandler implements KeyListener {
         }
         else if(key == KeyEvent.VK_DOWN){
             character.moving = false;
+        } else if (key == KeyEvent.VK_H){
+            for (PowerUp powerUp: character.bag){
+                if (powerUp instanceof Hint){
+                    gameController.powerUpController.hintUsed = true;
+                    Timer t = new Timer();
+                    t.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            gameController.powerUpController.hintUsed = false;
+                        }
+                    }, 3000);
+
+                    character.bag.remove(powerUp);
+                    break;
+                }
+            }
+
         }
     }
 }
