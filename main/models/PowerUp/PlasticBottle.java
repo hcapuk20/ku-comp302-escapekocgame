@@ -17,7 +17,7 @@ public class PlasticBottle extends PowerUp {
         }
     }
 
-    @Override
+
     public void doEffect(GameController gameController, Graphics g) {
 
     }

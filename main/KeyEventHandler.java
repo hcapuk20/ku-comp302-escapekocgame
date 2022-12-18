@@ -4,6 +4,7 @@ import main.controllers.GameController;
 import main.models.Character;
 import main.models.PowerUp.Hint;
 import main.models.PowerUp.PowerUp;
+import main.models.PowerUp.ProtectionVest;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -47,6 +48,7 @@ public class KeyEventHandler implements KeyListener {
             gameController.stop();
         }
         else if (key == KeyEvent.VK_H){
+            // hint powerUp
             for (PowerUp powerUp: character.bag){
                 if (powerUp instanceof Hint){
                     gameController.powerUpController.hintUsed = true;
@@ -57,12 +59,20 @@ public class KeyEventHandler implements KeyListener {
                             gameController.powerUpController.hintUsed = false;
                         }
                     }, 3000);
-
                     character.bag.remove(powerUp);
                     break;
                 }
             }
-
+        } else if (key == KeyEvent.VK_P){
+            // hint powerUp
+            for (PowerUp powerUp: character.bag){
+                if (powerUp instanceof ProtectionVest){
+                    ProtectionVest pvest = (ProtectionVest) powerUp;
+                    pvest.doEffect(gameController);
+                    character.bag.remove(powerUp);
+                    break;
+                }
+            }
         }
 
     }

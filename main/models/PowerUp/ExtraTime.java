@@ -17,7 +17,7 @@ public class ExtraTime extends PowerUp{
         }
     }
 
-    @Override
+
     public void doEffect(GameController gameController, Graphics g) {
 
     }

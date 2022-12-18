@@ -15,6 +15,7 @@ public class Character extends GameObject{
     public boolean hasKey;
     public int life;
     public int maxLife = 5;
+    public boolean vulnerable = true;
 
     public ArrayList<PowerUp> bag;
 
@@ -35,6 +36,8 @@ public class Character extends GameObject{
             this.left2 = ImageIO.read(new File("assets/character_move/boy_left_2.png"));
             this.right1 = ImageIO.read(new File("assets/character_move/boy_right_1.png"));
             this.right2 = ImageIO.read(new File("assets/character_move/boy_right_2.png"));
+
+
         }
         catch (Exception e) {
             System.out.println(e);

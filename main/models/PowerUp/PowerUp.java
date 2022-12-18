@@ -2,7 +2,7 @@ package main.models.PowerUp;
 
 import main.models.GameObject;
 
-public abstract class PowerUp extends GameObject implements PowerUpStrategy {
+public abstract class PowerUp extends GameObject {
 
     public PowerUp(int locationX, int locationY, int width, int height){
         this.locationX = locationX;

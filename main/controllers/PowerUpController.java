@@ -18,10 +18,8 @@ public class PowerUpController {
     GameController gameController;
 
     public boolean hintUsed = false;
-    public int hintX;
-    public int hintY;
-    private Hint hint = new Hint(0,0,0,0);
 
+    private Hint hint = new Hint(0,0,0,0);
     public  int powerUpTypeCount = 5;
 
     public PowerUpController(GameController gameController){
@@ -43,7 +41,7 @@ public class PowerUpController {
         }
         int randomType = random.nextInt(powerUpTypeCount);
         PowerUpFactory powerUpFactory = new PowerUpFactory();
-        powerUp = powerUpFactory.createPowerUp(2, randomXTile, randomYTile);
+        powerUp = powerUpFactory.createPowerUp(randomType, randomXTile, randomYTile);
         powerUpRoom = gameController.currentRoom;
         //add other powerUps here.
 
