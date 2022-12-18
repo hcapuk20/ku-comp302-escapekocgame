@@ -21,16 +21,17 @@ public class ProtectionVest extends PowerUp{
 
 
     public void doEffect(GameController gameController) {
+        // placeholder for initialization
         BufferedImage up1p,up2p,down1p,down2p,left1p,left2p,right1p,right2p;
         BufferedImage oldUp1,oldUp2,oldDown1,oldDown2,oldLeft1,oldLeft2,oldRight1,oldRight2;
         oldUp1 = gameController.character.up1;
-        oldUp2 = gameController.character.up1;
-        oldDown1 = gameController.character.up1;
-        oldDown2 = gameController.character.up1;
-        oldLeft1 = gameController.character.up1;
-        oldLeft2 = gameController.character.up1;
-        oldRight1 = gameController.character.up1;
-        oldRight2 = gameController.character.up1;
+        oldUp2 = gameController.character.up2;
+        oldDown1 = gameController.character.down1;
+        oldDown2 = gameController.character.down2;
+        oldLeft1 = gameController.character.left1;
+        oldLeft2 = gameController.character.left2;
+        oldRight1 = gameController.character.right1;
+        oldRight2 = gameController.character.right2;
         gameController.character.vulnerable = false;
         try {
             up1p = ImageIO.read(new File("assets/character_move_protected/boy_up_1.png"));
@@ -51,6 +52,30 @@ public class ProtectionVest extends PowerUp{
             gameController.character.left2 = left2p;
             gameController.character.right1 = right1p;
             gameController.character.right2 = right2p;
+
+            if (gameController.character.image == oldUp1){
+                gameController.character.image = up1p;
+            } else if (gameController.character.image == oldUp2) {
+                gameController.character.image = up2p;
+            }
+            else if (gameController.character.image == oldDown1) {
+                gameController.character.image = down1p;
+            }
+            else if (gameController.character.image == oldDown2) {
+                gameController.character.image = down2p;
+            }
+            else if (gameController.character.image == oldRight1) {
+                gameController.character.image = right1p;
+            }
+            else if (gameController.character.image == oldRight2) {
+                gameController.character.image = right2p;
+            }
+            else if (gameController.character.image == oldLeft1) {
+                gameController.character.image = left1p;
+            }
+            else if (gameController.character.image == oldLeft2) {
+                gameController.character.image = left2p;
+            }
 
         } catch (Exception e){
             System.out.println(e);

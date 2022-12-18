@@ -41,7 +41,7 @@ public class PowerUpController {
         }
         int randomType = random.nextInt(powerUpTypeCount);
         PowerUpFactory powerUpFactory = new PowerUpFactory();
-        powerUp = powerUpFactory.createPowerUp(randomType, randomXTile, randomYTile);
+        powerUp = powerUpFactory.createPowerUp(3, randomXTile, randomYTile);
         powerUpRoom = gameController.currentRoom;
         //add other powerUps here.
 
