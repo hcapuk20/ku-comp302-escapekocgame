@@ -38,7 +38,7 @@ public class GameController extends JPanel implements Runnable{
     AlienController alienController;
 
     BagController bagController;
-
+    public TimeController timeController;
     int score = 0;
 
 
@@ -67,7 +67,8 @@ public class GameController extends JPanel implements Runnable{
 
         this.alienController = new AlienController(collisionChecker, this);
         this.bagController = new BagController(this);
-
+        this.timeController = new TimeController(this);
+        this.setLayout(null);
     }
 
     public void startGame(){
@@ -167,9 +168,12 @@ public class GameController extends JPanel implements Runnable{
             currentRoom = currentBuilding.rooms[roomCountX][roomCountY];
             character.locationX = 150;
             character.locationY = 150;
+            timeController.counterLabel.setVisible(false);
+            timeController = new TimeController(this);
         } else {
             endGame();
         }
+        
     }
 
     public void endGame(){
@@ -182,9 +186,9 @@ public class GameController extends JPanel implements Runnable{
         frame.remove(this);
     }
 
-
+    @Override
     public void paintComponent(Graphics g) {
-
+    	super.paintComponent(g);
         g.setColor(getBackground());
         characterController.draw(g);
         alienController.paint(g);
@@ -192,6 +196,7 @@ public class GameController extends JPanel implements Runnable{
         currentRoom.draw(g);
 
         characterController.drawLife(g);
+        characterController.drawTime(g);
 
         bagController.draw(g);
         powerUpController.drawPowerUpEffect(g);
