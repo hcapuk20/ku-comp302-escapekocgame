@@ -2,6 +2,7 @@ package main.controllers;
 
 import constants.Constants;
 import main.models.GameObject;
+import main.models.PowerUp.Hint;
 import main.models.PowerUp.PowerUp;
 import main.models.PowerUp.PowerUpFactory;
 import main.models.Room;
@@ -15,7 +16,11 @@ public class PowerUpController {
     Room powerUpRoom;
     Random random;
     GameController gameController;
+
     public boolean hintUsed = false;
+    public int hintX;
+    public int hintY;
+    private Hint hint = new Hint(0,0,0,0);
 
     public  int powerUpTypeCount = 5;
 
@@ -57,8 +62,8 @@ public class PowerUpController {
 
     public void drawPowerUpEffect(Graphics g){
         if (hintUsed){
-            g.setColor(Color.ORANGE);
-            g.drawRect(100,100,20*4,39*4);
+            //g.setColor(Color.ORANGE);
+            hint.doEffect(gameController,g);
         }
     }
 

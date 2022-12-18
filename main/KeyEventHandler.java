@@ -46,24 +46,7 @@ public class KeyEventHandler implements KeyListener {
             gameController.paused = !gameController.paused;
             gameController.stop();
         }
-
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        int key = e.getKeyCode();
-        if(key == KeyEvent.VK_RIGHT){
-            character.moving = false;
-        }
-        else if(key == KeyEvent.VK_LEFT){
-            character.moving = false;
-        }
-        else if(key == KeyEvent.VK_UP){
-            character.moving = false;
-        }
-        else if(key == KeyEvent.VK_DOWN){
-            character.moving = false;
-        } else if (key == KeyEvent.VK_H){
+        else if (key == KeyEvent.VK_H){
             for (PowerUp powerUp: character.bag){
                 if (powerUp instanceof Hint){
                     gameController.powerUpController.hintUsed = true;
@@ -81,5 +64,24 @@ public class KeyEventHandler implements KeyListener {
             }
 
         }
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        int key = e.getKeyCode();
+        if(key == KeyEvent.VK_RIGHT){
+            character.moving = false;
+        }
+        else if(key == KeyEvent.VK_LEFT){
+            character.moving = false;
+        }
+        else if(key == KeyEvent.VK_UP){
+            character.moving = false;
+        }
+        else if(key == KeyEvent.VK_DOWN){
+            character.moving = false;
+        }
+
     }
 }

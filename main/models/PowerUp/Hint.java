@@ -28,14 +28,25 @@ public class Hint extends  PowerUp{
         boolean cont = true;
         Building currentBuilding = gameController.currentBuilding;
         for (Room[] rooms : currentBuilding.rooms){
+            if (rooms == null){
+                continue;
+            }
             for (Room room: rooms){
+                if (room == null){
+                    continue;
+                }
                 for (Furniture furniture: room.furnitures){
                     if (furniture.hasKey){
                         hasKeyX = furniture.locationX;
                         hasKeyY = furniture.locationY;
 
                         hasKeyRoom = room;
-                        drawHint(g,hasKeyX,hasKeyY,hasKeyRoom);
+                        if (room == gameController.currentRoom){
+                            drawHint(g,hasKeyX,hasKeyY,hasKeyRoom);
+                        }
+                        else {
+                            drawMessage(g,gameController);
+                        }
                         cont = false;
                         break;
                     }
@@ -54,12 +65,19 @@ public class Hint extends  PowerUp{
         int xMiddle = hasKeyX+(tileSize/2);
         int yMiddle = hasKeyY+(tileSize/2);
 
-        int drawX =(int) (xMiddle - (1.5 *tileSize));
-        int drawY =(int) (yMiddle - (1.5 *tileSize));
+        int drawX = (xMiddle - (2 *tileSize));
+        int drawY = (yMiddle - (2 *tileSize));
 
 
         g.setColor(Color.ORANGE);
         g.drawRect(drawX,drawY,tileSize*4,tileSize*4);
+    }
+    public void drawMessage(Graphics g,GameController gameController){
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setColor(Color.white);
+        int drawLocX = gameController.character.locationX -Constants.tileSize;
+        int drawLocY = gameController.character.locationY -Constants.tileSize/2;
+        g2.drawString("Key is not in this room",drawLocX,drawLocY);
     }
 
 }
