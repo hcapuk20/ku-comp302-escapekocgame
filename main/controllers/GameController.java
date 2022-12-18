@@ -39,6 +39,8 @@ public class GameController extends JPanel implements Runnable{
 
     BagController bagController;
 
+    int score = 0;
+
 
     public GameController(JFrame f){
         this.frame =f;
@@ -165,7 +167,19 @@ public class GameController extends JPanel implements Runnable{
             currentRoom = currentBuilding.rooms[roomCountX][roomCountY];
             character.locationX = 150;
             character.locationY = 150;
+        } else {
+            endGame();
         }
+    }
+
+    public void endGame(){
+
+        EndGameController endGameController = new EndGameController(frame, score);
+
+        frame.add(endGameController);
+        endGameController.setBounds(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
+
+        frame.remove(this);
     }
 
 
