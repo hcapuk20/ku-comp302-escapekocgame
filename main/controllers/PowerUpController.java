@@ -2,12 +2,12 @@ package main.controllers;
 
 import constants.Constants;
 import main.models.GameObject;
-import main.models.PowerUp.ExtraLife;
-import main.models.PowerUp.ExtraTime;
+import main.models.PowerUp.Hint;
 import main.models.PowerUp.PowerUp;
 import main.models.PowerUp.PowerUpFactory;
 import main.models.Room;
 
+import java.awt.*;
 import java.util.Random;
 
 public class PowerUpController {
@@ -16,6 +16,11 @@ public class PowerUpController {
     Room powerUpRoom;
     Random random;
     GameController gameController;
+
+    public boolean hintUsed = false;
+    public int hintX;
+    public int hintY;
+    private Hint hint = new Hint(0,0,0,0);
 
     public  int powerUpTypeCount = 5;
 
@@ -38,7 +43,7 @@ public class PowerUpController {
         }
         int randomType = random.nextInt(powerUpTypeCount);
         PowerUpFactory powerUpFactory = new PowerUpFactory();
-        powerUp = powerUpFactory.createPowerUp(randomType, randomXTile, randomYTile);
+        powerUp = powerUpFactory.createPowerUp(2, randomXTile, randomYTile);
         powerUpRoom = gameController.currentRoom;
         //add other powerUps here.
 
@@ -52,6 +57,13 @@ public class PowerUpController {
             int powerUpTileYLoc = powerUp.locationY / Constants.tileSize;
             powerUpRoom.tileMap[powerUpTileXLoc][powerUpTileYLoc] = null;
             powerUp = null;
+        }
+    }
+
+    public void drawPowerUpEffect(Graphics g){
+        if (hintUsed){
+            //g.setColor(Color.ORANGE);
+            hint.doEffect(gameController,g);
         }
     }
 
