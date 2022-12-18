@@ -5,6 +5,8 @@ import main.controllers.GameController;
 import main.models.Door;
 import main.models.Furniture;
 import main.models.GameObject;
+import main.models.PowerUp.ExtraLife;
+import main.models.PowerUp.ExtraTime;
 import main.models.PowerUp.PowerUp;
 
 import javax.imageio.ImageIO;
@@ -67,7 +69,15 @@ public class ItemInteractionHandler implements MouseListener {
             } else if (object instanceof PowerUp){
                 if (type == 3){
                     // right click
-                    gameController.character.bag.add((PowerUp) object);
+                    if (object instanceof ExtraLife){
+                        gameController.character.increaseLife();
+                    }
+                    else if (object instanceof ExtraTime){
+                        //Implement ExtraTime functionality here.
+                    }
+                    else{
+                        gameController.character.bag.add((PowerUp) object);
+                    }
                     System.out.println("picked up powerup");
                     gameController.currentRoom.tileMap[tileX][tileY] = null;
                 } else {

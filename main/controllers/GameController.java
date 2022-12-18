@@ -37,6 +37,10 @@ public class GameController extends JPanel implements Runnable{
     //public Alien[] aliens = new Alien[100];
     AlienController alienController;
 
+    BagController bagController;
+
+    int score = 0;
+
 
     public GameController(JFrame f){
         this.frame =f;
@@ -62,6 +66,7 @@ public class GameController extends JPanel implements Runnable{
 
 
         this.alienController = new AlienController(collisionChecker, this);
+        this.bagController = new BagController(this);
 
     }
 
@@ -162,16 +167,34 @@ public class GameController extends JPanel implements Runnable{
             currentRoom = currentBuilding.rooms[roomCountX][roomCountY];
             character.locationX = 150;
             character.locationY = 150;
+        } else {
+            endGame();
         }
+    }
+
+    public void endGame(){
+
+        EndGameController endGameController = new EndGameController(frame, score);
+
+        frame.add(endGameController);
+        endGameController.setBounds(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
+
+        frame.remove(this);
     }
 
 
     public void paintComponent(Graphics g) {
+
         g.setColor(getBackground());
         characterController.draw(g);
         alienController.paint(g);
         //mapController.draw(g);
         currentRoom.draw(g);
+
+        characterController.drawLife(g);
+
+        bagController.draw(g);
+
         //g.dispose();
 
     }

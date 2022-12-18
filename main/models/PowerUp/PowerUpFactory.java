@@ -12,6 +12,12 @@ public class PowerUpFactory {
             powerUp = new ExtraLife(randomXTile* Constants.tileSize,randomYTile* Constants.tileSize,Constants.tileSize,Constants.tileSize);
         } else if (randomType == 1) {
             powerUp = new ExtraTime(randomXTile* Constants.tileSize,randomYTile* Constants.tileSize,Constants.tileSize,Constants.tileSize);
+        } else if (randomType == 2) {
+            powerUp = new Hint(randomXTile* Constants.tileSize,randomYTile* Constants.tileSize,Constants.tileSize,Constants.tileSize);
+        } else if (randomType == 3) {
+            powerUp = new ProtectionVest(randomXTile* Constants.tileSize,randomYTile* Constants.tileSize,Constants.tileSize,Constants.tileSize);
+        } else if (randomType == 4) {
+            powerUp = new PlasticBottle(randomXTile* Constants.tileSize,randomYTile* Constants.tileSize,Constants.tileSize,Constants.tileSize);
         }
         return powerUp;
     }
