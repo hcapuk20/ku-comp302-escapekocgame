@@ -196,7 +196,7 @@ public class GameController extends JPanel implements Runnable{
         currentRoom.draw(g);
 
         characterController.drawLife(g);
-        characterController.drawTime(g);
+        timeController.drawTime(g);
 
         bagController.draw(g);
         powerUpController.drawPowerUpEffect(g);
