@@ -2,10 +2,7 @@ package main.controllers;
 
 import static constants.Constants.WINDOW_WIDTH;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontFormatException;
-import java.awt.GraphicsEnvironment;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -55,30 +52,31 @@ public class TimeController {
 	}
     
 	public void timeCounter() {
-		
 		timer = new Timer(1000, new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
-				second--;
-				ddSecond = dFormat.format(second);
-				ddMinute = dFormat.format(minute);	
-				counterLabel.setText(ddMinute + ":" + ddSecond);
-								
-				if(second == -1) {
-					second = 59;
-					minute--;
+				if(!gameController.paused){
+					second--;
 					ddSecond = dFormat.format(second);
-					ddMinute = dFormat.format(minute);	
+					ddMinute = dFormat.format(minute);
 					counterLabel.setText(ddMinute + ":" + ddSecond);
-					
-				}
-				if(minute == 0 && second == 0) {
-					timer.stop();
+
+					if(second == -1) {
+						second = 59;
+						minute--;
+						ddSecond = dFormat.format(second);
+						ddMinute = dFormat.format(minute);
+						counterLabel.setText(ddMinute + ":" + ddSecond);
+
+					}
+					if(minute == 0 && second == 0) {
+						timer.stop();
+						gameController.endGame();
+					}
 				}
 			}
-		});		
+		});
 	}
 	
 	public void increaseTime() {
@@ -91,5 +89,19 @@ public class TimeController {
 	}
 	public void setTime(int time) {
 		this.time = time;
+	}
+
+	public void drawTime(Graphics g){
+		Graphics2D background = (Graphics2D) g;
+		int Xdistance = 1050;
+		background.setColor(Color.WHITE);
+		background.drawImage(gameController.character.timeIcon, WINDOW_WIDTH-(Xdistance+185), 8, 25, 25, null);
+	}
+
+	public boolean checkTimeEnd(){
+		if(minute == 0 && second == 0){
+			return true;
+		}
+		return false;
 	}
 }

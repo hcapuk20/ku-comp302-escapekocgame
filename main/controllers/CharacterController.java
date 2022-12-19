@@ -104,11 +104,4 @@ public class CharacterController {
             Xdistance-=40;
         }
     }
-    public void drawTime(Graphics g){
-    	Graphics2D background = (Graphics2D) g;
-    	int Xdistance = 1050;
-    	     	    	    	
-    	background.setColor(Color.WHITE);
-    	background.drawImage(character.timeIcon, WINDOW_WIDTH-(Xdistance+185), 8, 25, 25, null);   	
-    } 
 }
