@@ -21,6 +21,7 @@ public class TimeController {
 	String ddSecond, ddMinute;	
 	DecimalFormat dFormat = new DecimalFormat("00");
 	GameController gameController;
+	boolean activeTimer = true;
 	
 	int time, minute, second;
 	int Xdistance = 1050;
@@ -70,9 +71,12 @@ public class TimeController {
 						counterLabel.setText(ddMinute + ":" + ddSecond);
 
 					}
-					if(minute == 0 && second == 0) {
+					if(minute == 0 && second == 0 )  {
 						timer.stop();
-						gameController.endGame();
+						if (activeTimer){
+							gameController.endGame();
+						}
+
 					}
 				}
 			}

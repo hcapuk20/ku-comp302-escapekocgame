@@ -169,6 +169,7 @@ public class GameController extends JPanel implements Runnable{
             character.locationX = 150;
             character.locationY = 150;
             timeController.counterLabel.setVisible(false);
+            timeController.activeTimer = false;
             timeController = new TimeController(this);
         } else {
             endGame();
