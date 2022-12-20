@@ -1,10 +1,12 @@
 package main;
 
 import main.controllers.GameController;
+import main.controllers.MiniMapController;
 import main.models.Character;
 import main.models.PowerUp.Hint;
 import main.models.PowerUp.PowerUp;
 
+import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Timer;
@@ -13,6 +15,7 @@ import java.util.TimerTask;
 public class KeyEventHandler implements KeyListener {
     final private Character character;
     private GameController gameController;
+
     public KeyEventHandler(GameController gameController, Character character){
         this.character = character;
         this.gameController = gameController;
@@ -45,16 +48,20 @@ public class KeyEventHandler implements KeyListener {
             System.out.println("pressed escape.");
             gameController.paused = !gameController.paused;
             gameController.stop();
-        }
-        else if (key == KeyEvent.VK_H){
+        } else if (key == KeyEvent.VK_M) {
+            gameController.miniMapController.keyEventOperation();
+
+        } else if (key == KeyEvent.VK_H){
             for (PowerUp powerUp: character.bag){
                 if (powerUp instanceof Hint){
                     gameController.powerUpController.hintUsed = true;
+                    gameController.miniMapController.showHint = true;
                     Timer t = new Timer();
                     t.schedule(new TimerTask() {
                         @Override
                         public void run() {
                             gameController.powerUpController.hintUsed = false;
+                            gameController.miniMapController.showHint = false;
                         }
                     }, 3000);
 

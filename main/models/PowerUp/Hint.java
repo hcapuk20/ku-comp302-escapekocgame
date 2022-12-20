@@ -25,39 +25,18 @@ public class Hint extends  PowerUp{
     public void doEffect(GameController gameController, Graphics g) {
         int hasKeyX, hasKeyY;
         Room hasKeyRoom;
-        boolean cont = true;
-        Building currentBuilding = gameController.currentBuilding;
-        for (Room[] rooms : currentBuilding.rooms){
-            if (rooms == null){
-                continue;
-            }
-            for (Room room: rooms){
-                if (room == null){
-                    continue;
-                }
-                for (Furniture furniture: room.furnitures){
-                    if (furniture.hasKey){
-                        hasKeyX = furniture.locationX;
-                        hasKeyY = furniture.locationY;
 
-                        hasKeyRoom = room;
-                        if (room == gameController.currentRoom){
-                            drawHint(g,hasKeyX,hasKeyY,hasKeyRoom);
-                        }
-                        else {
-                            drawMessage(g,gameController);
-                        }
-                        cont = false;
-                        break;
-                    }
-                }
-                if (!cont){
-                    break;
-                }
-            }
-            if (!cont){
-                break;
-            }
+        Building currentBuilding = gameController.currentBuilding;
+
+        hasKeyX = currentBuilding.furnitureWithKey.locationX;
+        hasKeyY = currentBuilding.furnitureWithKey.locationY;
+
+        hasKeyRoom = currentBuilding.rooms[currentBuilding.roomX][currentBuilding.roomY];
+        if (hasKeyRoom == gameController.currentRoom){
+            drawHint(g,hasKeyX,hasKeyY,hasKeyRoom);
+        }
+        else {
+            drawMessage(g,gameController);
         }
     }
     public void drawHint(Graphics g, int hasKeyX, int hasKeyY, Room hasKeyRoom){

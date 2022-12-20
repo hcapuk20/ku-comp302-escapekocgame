@@ -13,15 +13,13 @@ public class Room {
         this.tileMap = tileMap;
     }
 
-    int divider = Constants.buildingModeDivider;
-
     int tileSize = Constants.tileSize;
-    int objSize = tileSize/divider;
 
     int tileCountHorizontal = Constants.WINDOW_WIDTH/ Constants.tileSize;
     int tileCountVertical = Constants.WINDOW_HEIGHT/Constants.tileSize;
 
-
+    int divider = Constants.buildingModeDivider;
+    int mapDivider = Constants.miniMapDivider;
     public ArrayList<Furniture> furnitures = new ArrayList<Furniture>();
 
 
@@ -86,6 +84,27 @@ public class Room {
             }
         }
     }
+
+    public void drawMiniMap(Graphics g, int index1, int index2){
+        int width = Constants.WINDOW_WIDTH / mapDivider;
+        int height = Constants.WINDOW_HEIGHT / mapDivider;
+        int initialX = (Constants.WINDOW_WIDTH - 3*width)/2;
+        int initialY = (Constants.WINDOW_HEIGHT - 3*height)/2;
+        Graphics2D g2 = (Graphics2D) g;
+        for (GameObject[] gameObjectArray : tileMap){
+            for(GameObject gameObject: gameObjectArray){
+                if (gameObject != null){
+                    g2.drawImage(gameObject.image,
+                            initialX + width*index1 + gameObject.locationX/mapDivider ,
+                            initialY + height*(index2) + gameObject.locationY/mapDivider,
+                            gameObject.width / mapDivider,
+                            gameObject.height / mapDivider,null);
+                }
+            }
+        }
+    }
+
+
 
 
 }
