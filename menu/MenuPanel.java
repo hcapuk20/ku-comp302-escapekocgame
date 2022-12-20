@@ -2,6 +2,7 @@ package menu;
 
 import constants.Constants;
 import main.controllers.BuildingModeController;
+import main.controllers.FurniturePlacementController;
 import main.controllers.GameController;
 import main.models.BuildingsDataSource;
 
@@ -13,6 +14,7 @@ import java.awt.event.ActionListener;
 public class MenuPanel extends JPanel implements ActionListener {
 
 	protected static JButton playButton;
+	protected static JButton quickStartButton;
 	protected static JButton infoButton;
 	protected static JButton exitButton;
 
@@ -27,7 +29,6 @@ public class MenuPanel extends JPanel implements ActionListener {
 
 	protected static Image backgroundImage = new ImageIcon("assets/menuBackground.jpeg").getImage();
 
-	BuildingsDataSource buildingsDataSource = new BuildingsDataSource();
 	JFrame frame;
 
 	public MenuPanel(JFrame f) {
@@ -60,7 +61,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 		titleLabel.setForeground(Color.white);
 		titleLabel.setFont(new Font("Serif", Font.PLAIN, 30));
 		titleLabel.setBounds((panelWidth - 2 * buttonWidth) / 2,
-				(panelHeight - buttonHeight) / 2 - 2 * buttonHeight - 15, 2 * buttonWidth, buttonHeight);
+				(panelHeight - buttonHeight) / 2 - 3 * buttonHeight - 15, 2 * buttonWidth, buttonHeight);
 		titleLabel.setHorizontalAlignment(JLabel.CENTER);
 		titleLabel.setVerticalAlignment(JLabel.CENTER);
 
@@ -75,7 +76,17 @@ public class MenuPanel extends JPanel implements ActionListener {
 				playButtonAction();
 			}
 		});
-		playButton.setBounds((panelWidth - buttonWidth) / 2, (panelHeight - buttonHeight) / 2 - buttonHeight,
+		playButton.setBounds((panelWidth - buttonWidth) / 2, (panelHeight - buttonHeight) / 2 - buttonHeight*2,
+				buttonWidth, buttonHeight);
+
+		quickStartButton = new JButton("QUICK START");
+		quickStartButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				quickStartButtonAction();
+			}
+		});
+		quickStartButton.setBounds((panelWidth - buttonWidth) / 2, (panelHeight - buttonHeight) / 2 - buttonHeight,
 				buttonWidth, buttonHeight);
 
 		infoButton = new JButton("INFO");
@@ -99,6 +110,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 				buttonWidth, buttonHeight);
 
 		this.add(playButton);
+		this.add(quickStartButton);
 		this.add(infoButton);
 		this.add(exitButton);
 	}
@@ -111,6 +123,24 @@ public class MenuPanel extends JPanel implements ActionListener {
 		buildingModeController.setBounds(0, 0, panelWidth, panelHeight);
 
 		buildingModeController.startGame();
+
+		frame.remove(this);
+	}
+
+	protected void quickStartButtonAction(){
+		BuildingsDataSource.createBuildingDataSource();
+		FurniturePlacementController furniturePlacementController = new FurniturePlacementController();
+		for(int i=0; i<BuildingsDataSource.buildings.length; i++){
+			furniturePlacementController.addRandomFurnitures(i);
+			furniturePlacementController.addKey(i);
+		}
+
+		GameController gameController = new GameController(frame);
+
+		frame.add(gameController);
+		gameController.setBounds(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
+
+		gameController.startGame();
 
 		frame.remove(this);
 	}

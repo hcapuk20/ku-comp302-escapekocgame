@@ -36,6 +36,12 @@ public class FurniturePlacementController {
         }
 
     }
+    public FurniturePlacementController(){
+        for(int i = 0; i<5; i++){
+            furnitures[i] = new Furniture(screenWidth*7/8 - imageSize/2,(imageSize*5/4)*i + imageSize/4,
+                    imageSize, imageSize, i);
+        }
+    }
 
     private void paintRandomButton(Graphics g){
         g.drawImage(randomizeImage, screenWidth*7/8 - imageSize/2,
