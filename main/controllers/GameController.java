@@ -38,6 +38,8 @@ public class GameController extends JPanel implements Runnable{
     AlienController alienController;
 
     BagController bagController;
+
+    public MiniMapController miniMapController;
     public TimeController timeController;
     int score = 0;
 
@@ -64,7 +66,7 @@ public class GameController extends JPanel implements Runnable{
         this.powerUpController = new PowerUpController(this);
         powerUpController.spawnPowerUp();
 
-
+        this.miniMapController = new MiniMapController(this);
         this.alienController = new AlienController(collisionChecker, this);
         this.bagController = new BagController(this);
         this.timeController = new TimeController(this);
@@ -201,6 +203,8 @@ public class GameController extends JPanel implements Runnable{
 
         bagController.draw(g);
         powerUpController.drawPowerUpEffect(g);
+
+        miniMapController.drawMiniMap(g, currentBuilding, roomCountX, roomCountY);
         //g.dispose();
 
     }

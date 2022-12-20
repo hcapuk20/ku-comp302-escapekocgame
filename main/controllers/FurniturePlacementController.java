@@ -160,6 +160,10 @@ public class FurniturePlacementController {
                     int roomTotalFurnitures = BuildingsDataSource.buildings[currentBuilding].rooms[i][a].furnitures.size();
                     if(roomTotalFurnitures > furnitureIndex){
                         BuildingsDataSource.buildings[currentBuilding].rooms[i][a].furnitures.get(furnitureIndex).hasKey = true;
+                        BuildingsDataSource.buildings[currentBuilding].roomX = i;
+                        BuildingsDataSource.buildings[currentBuilding].roomY = a;
+                        BuildingsDataSource.buildings[currentBuilding].furnitureWithKey =
+                                BuildingsDataSource.buildings[currentBuilding].rooms[i][a].furnitures.get(furnitureIndex);
                         added = true;
                         break;
                     }
