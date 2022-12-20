@@ -65,7 +65,7 @@ public class BagController {
             g.setColor(Color.white);
 
             g.drawString(contain[i] + "",
-                    screenWidth / 4 + i*(tileSize+numberBackgroundSize) - numberBackgroundSize + 5,
+                    screenWidth / 4 + i*(tileSize+numberBackgroundSize) - numberBackgroundSize + 6,
                     (tileSize+numberBackgroundSize/2)/2+1);
 
             g.drawImage(images[i], screenWidth / 4 + i*(tileSize+numberBackgroundSize) + (imageSize-powerUpSize)/2, (tileSize - powerUpSize) / 2,
