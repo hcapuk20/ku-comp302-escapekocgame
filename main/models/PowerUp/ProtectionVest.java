@@ -29,7 +29,7 @@ public class ProtectionVest extends PowerUp{
             public void run() {
                 gameController.character.vulnerable = true;
             }
-        }, 2000);
+        }, 20000);
     }
 
 }

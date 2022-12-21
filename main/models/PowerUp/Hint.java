@@ -32,7 +32,7 @@ public class Hint extends  PowerUp{
 
         hasKeyRoom = currentBuilding.rooms[currentBuilding.roomX][currentBuilding.roomY];
         if (hasKeyRoom == gameController.currentRoom){
-            drawHint(g,hasKeyX,hasKeyY,hasKeyRoom);
+            drawHint(g,hasKeyX,hasKeyY);
         }
         else {
             drawMessage(g,gameController);
