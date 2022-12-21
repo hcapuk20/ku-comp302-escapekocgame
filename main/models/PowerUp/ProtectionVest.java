@@ -21,83 +21,15 @@ public class ProtectionVest extends PowerUp{
 
 
     public void doEffect(GameController gameController) {
-        // placeholder for initialization
-        BufferedImage up1p,up2p,down1p,down2p,left1p,left2p,right1p,right2p;
-        BufferedImage oldUp1,oldUp2,oldDown1,oldDown2,oldLeft1,oldLeft2,oldRight1,oldRight2;
-        oldUp1 = gameController.character.up1;
-        oldUp2 = gameController.character.up2;
-        oldDown1 = gameController.character.down1;
-        oldDown2 = gameController.character.down2;
-        oldLeft1 = gameController.character.left1;
-        oldLeft2 = gameController.character.left2;
-        oldRight1 = gameController.character.right1;
-        oldRight2 = gameController.character.right2;
         gameController.character.vulnerable = false;
-        try {
-            up1p = ImageIO.read(new File("assets/character_move_protected/boy_up_1.png"));
-            up2p = ImageIO.read(new File("assets/character_move_protected/boy_up_2.png"));
-            down1p = ImageIO.read(new File("assets/character_move_protected/boy_down_1.png"));
-            down2p = ImageIO.read(new File("assets/character_move_protected/boy_down_2.png"));
-            left1p = ImageIO.read(new File("assets/character_move_protected/boy_left_1.png"));
-            left2p = ImageIO.read(new File("assets/character_move_protected/boy_left_2.png"));
-            right1p = ImageIO.read(new File("assets/character_move_protected/boy_right_1.png"));
-            right2p = ImageIO.read(new File("assets/character_move_protected/boy_right_2.png"));
-
-            // updating characters images
-            gameController.character.up1 = up1p;
-            gameController.character.up2 = up2p;
-            gameController.character.down1 = down1p;
-            gameController.character.down2 = down2p;
-            gameController.character.left1 = left1p;
-            gameController.character.left2 = left2p;
-            gameController.character.right1 = right1p;
-            gameController.character.right2 = right2p;
-
-            if (gameController.character.image == oldUp1){
-                gameController.character.image = up1p;
-            } else if (gameController.character.image == oldUp2) {
-                gameController.character.image = up2p;
-            }
-            else if (gameController.character.image == oldDown1) {
-                gameController.character.image = down1p;
-            }
-            else if (gameController.character.image == oldDown2) {
-                gameController.character.image = down2p;
-            }
-            else if (gameController.character.image == oldRight1) {
-                gameController.character.image = right1p;
-            }
-            else if (gameController.character.image == oldRight2) {
-                gameController.character.image = right2p;
-            }
-            else if (gameController.character.image == oldLeft1) {
-                gameController.character.image = left1p;
-            }
-            else if (gameController.character.image == oldLeft2) {
-                gameController.character.image = left2p;
-            }
-
-        } catch (Exception e){
-            System.out.println(e);
-        }
-
         // end of effect
         Timer t = new Timer();
         t.schedule(new TimerTask() {
             @Override
             public void run() {
-                // return to old images
-                gameController.character.up1 = oldUp1;
-                gameController.character.up2 = oldUp2;
-                gameController.character.down1 = oldDown1;
-                gameController.character.down2 = oldDown2;
-                gameController.character.left1 = oldLeft1;
-                gameController.character.left2 = oldLeft2;
-                gameController.character.right1 = oldRight1;
-                gameController.character.right2 = oldRight2;
                 gameController.character.vulnerable = true;
             }
-        }, 20000);
+        }, 2000);
     }
 
 }
