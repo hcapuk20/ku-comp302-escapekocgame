@@ -21,11 +21,10 @@ public class Hint extends  PowerUp{
         }
     }
 
-    @Override
+
     public void doEffect(GameController gameController, Graphics g) {
         int hasKeyX, hasKeyY;
         Room hasKeyRoom;
-
         Building currentBuilding = gameController.currentBuilding;
 
         hasKeyX = currentBuilding.furnitureWithKey.locationX;
@@ -39,7 +38,7 @@ public class Hint extends  PowerUp{
             drawMessage(g,gameController);
         }
     }
-    public void drawHint(Graphics g, int hasKeyX, int hasKeyY, Room hasKeyRoom){
+    public void drawHint(Graphics g, int hasKeyX, int hasKeyY){
         int tileSize = Constants.tileSize;
         int xMiddle = hasKeyX+(tileSize/2);
         int yMiddle = hasKeyY+(tileSize/2);

@@ -18,10 +18,8 @@ public class PowerUpController {
     GameController gameController;
 
     public boolean hintUsed = false;
-    public int hintX;
-    public int hintY;
-    private Hint hint = new Hint(0,0,0,0);
 
+    private Hint hint = new Hint(0,0,0,0);
     public  int powerUpTypeCount = 5;
 
     public PowerUpController(GameController gameController){

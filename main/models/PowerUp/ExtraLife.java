@@ -16,7 +16,7 @@ public class ExtraLife extends PowerUp {
         }
     }
 
-    @Override
+
     public void doEffect(GameController gameController, Graphics g) {
         
     }

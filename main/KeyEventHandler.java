@@ -5,6 +5,7 @@ import main.controllers.MiniMapController;
 import main.models.Character;
 import main.models.PowerUp.Hint;
 import main.models.PowerUp.PowerUp;
+import main.models.PowerUp.ProtectionVest;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -64,12 +65,20 @@ public class KeyEventHandler implements KeyListener {
                             gameController.miniMapController.showHint = false;
                         }
                     }, 3000);
-
                     character.bag.remove(powerUp);
                     break;
                 }
             }
-
+        } else if (key == KeyEvent.VK_P){
+            // hint powerUp
+            for (PowerUp powerUp: character.bag){
+                if (powerUp instanceof ProtectionVest){
+                    ProtectionVest pvest = (ProtectionVest) powerUp;
+                    pvest.doEffect(gameController);
+                    character.bag.remove(powerUp);
+                    break;
+                }
+            }
         }
 
     }
