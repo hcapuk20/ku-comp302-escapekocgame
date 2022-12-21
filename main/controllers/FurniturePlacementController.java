@@ -36,6 +36,12 @@ public class FurniturePlacementController {
         }
 
     }
+    public FurniturePlacementController(){
+        for(int i = 0; i<5; i++){
+            furnitures[i] = new Furniture(screenWidth*7/8 - imageSize/2,(imageSize*5/4)*i + imageSize/4,
+                    imageSize, imageSize, i);
+        }
+    }
 
     private void paintRandomButton(Graphics g){
         g.drawImage(randomizeImage, screenWidth*7/8 - imageSize/2,
@@ -160,6 +166,10 @@ public class FurniturePlacementController {
                     int roomTotalFurnitures = BuildingsDataSource.buildings[currentBuilding].rooms[i][a].furnitures.size();
                     if(roomTotalFurnitures > furnitureIndex){
                         BuildingsDataSource.buildings[currentBuilding].rooms[i][a].furnitures.get(furnitureIndex).hasKey = true;
+                        BuildingsDataSource.buildings[currentBuilding].roomX = i;
+                        BuildingsDataSource.buildings[currentBuilding].roomY = a;
+                        BuildingsDataSource.buildings[currentBuilding].furnitureWithKey =
+                                BuildingsDataSource.buildings[currentBuilding].rooms[i][a].furnitures.get(furnitureIndex);
                         added = true;
                         break;
                     }
