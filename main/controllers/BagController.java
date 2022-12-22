@@ -25,10 +25,12 @@ public class BagController {
 
     void drawFrames(Graphics g){
         Image frameImage = new ImageIcon("assets/bagFrame.png").getImage();
+        g.setColor(Color.black);
 
+        g.drawImage(frameImage, screenWidth / 4 - (tileSize+numberBackgroundSize), (tileSize - imageSize) / 2,
+                imageSize, imageSize, gameController); //frame for the key
 
         for(int i = 0; i<3; i++) {
-            g.setColor(Color.black);
             g.fillRect(screenWidth / 4 + i*(tileSize+numberBackgroundSize) - numberBackgroundSize, (tileSize - numberBackgroundSize) / 2,
                     numberBackgroundSize, numberBackgroundSize);
             g.drawImage(frameImage, screenWidth / 4 + i*(tileSize+numberBackgroundSize), (tileSize - imageSize) / 2,
@@ -58,6 +60,12 @@ public class BagController {
 
 
         int numberSize = tileSize/2;
+
+        if(gameController.character.hasKey){
+            Image keyImage = new ImageIcon("assets/key.png").getImage();
+            g.drawImage(keyImage, screenWidth / 4 - (tileSize+numberBackgroundSize) + (imageSize-powerUpSize)/2, (tileSize - powerUpSize) / 2,
+                    powerUpSize, powerUpSize, gameController);
+        }
 
         for(int i = 0; i<3; i++) {
 
