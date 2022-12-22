@@ -1,13 +1,12 @@
 package main;
 
 import main.controllers.GameController;
-import main.controllers.MiniMapController;
 import main.models.Character;
 import main.models.PowerUp.Hint;
+import main.models.PowerUp.PlasticBottle;
 import main.models.PowerUp.PowerUp;
 import main.models.PowerUp.ProtectionVest;
 
-import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Timer;
@@ -79,6 +78,31 @@ public class KeyEventHandler implements KeyListener {
                     break;
                 }
             }
+        } else if (key == KeyEvent.VK_B){
+            for (PowerUp powerUp: character.bag){
+                if (powerUp instanceof PlasticBottle){
+                    PlasticBottle bottle = (PlasticBottle) powerUp;
+                    character.bag.remove(powerUp);
+                    character.bottleUsed = true;
+                    break;
+                }
+            }
+        } else if (key == KeyEvent.VK_W && character.bottleUsed){
+            gameController.powerUpController.bottleUsed = true;
+            gameController.powerUpController.bottleDirection = "up";
+            character.bottleUsed = false;
+        } else if (key == KeyEvent.VK_A && character.bottleUsed){
+            gameController.powerUpController.bottleUsed = true;
+            gameController.powerUpController.bottleDirection = "left";
+            character.bottleUsed = false;
+        } else if (key == KeyEvent.VK_D && character.bottleUsed){
+            gameController.powerUpController.bottleUsed = true;
+            gameController.powerUpController.bottleDirection = "right";
+            character.bottleUsed = false;
+        } else if (key == KeyEvent.VK_X && character.bottleUsed){
+            gameController.powerUpController.bottleUsed = true;
+            gameController.powerUpController.bottleDirection = "down";
+            character.bottleUsed = false;
         }
 
     }

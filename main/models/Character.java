@@ -18,6 +18,8 @@ public class Character extends GameObject{
     public int maxLife = 5;
     public boolean vulnerable = true;
 
+    public boolean bottleUsed = false;
+
     public ArrayList<PowerUp> bag;
 
     public Character(int x, int y, int height, int width, int speed){
