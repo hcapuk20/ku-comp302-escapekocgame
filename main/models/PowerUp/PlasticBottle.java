@@ -31,7 +31,7 @@ public class PlasticBottle extends PowerUp {
         } else {
             locationY += 5;
         }
-        if (locationX <= 0 || locationX > Constants.WINDOW_WIDTH || locationY <= 0 || locationY > Constants.WINDOW_HEIGHT){
+        if (locationX <= Constants.tileSize || locationX > Constants.WINDOW_WIDTH - Constants.tileSize || locationY <= Constants.tileSize || locationY > Constants.WINDOW_HEIGHT-Constants.tileSize){
             gameController.powerUpController.bottleUsed = false;
         }
     }
