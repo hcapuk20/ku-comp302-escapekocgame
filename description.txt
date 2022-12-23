@@ -1,6 +1,0 @@
-This repository is for Escape Koç Game created for term project for COMP302 in Koç University.
-The project is done as a team by contributions of Eren Ceylan, Erim Satar, Mehmet Bartu Celasun, Berfan Pirhan and Hakan Çapuk.
-
-We will write progress as we continue.
-
-16/11 -> initial push, skeleton JFrame code and the GamePanel class was adopted from RyiSnow's YouTube channel.
