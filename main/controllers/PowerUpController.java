@@ -46,7 +46,7 @@ public class PowerUpController {
         }
         int randomType = random.nextInt(powerUpTypeCount);
         PowerUpFactory powerUpFactory = new PowerUpFactory();
-        powerUp = powerUpFactory.createPowerUp(randomType, randomXTile, randomYTile);
+        powerUp = powerUpFactory.createPowerUp(4, randomXTile, randomYTile);
         powerUpRoom = gameController.currentRoom;
         //add other powerUps here.
 
@@ -61,6 +61,10 @@ public class PowerUpController {
             powerUpRoom.tileMap[powerUpTileXLoc][powerUpTileYLoc] = null;
             powerUp = null;
         }
+    }
+
+    public PlasticBottle getBottle() {
+        return bottle;
     }
 
     public void drawPowerUpEffect(Graphics g){

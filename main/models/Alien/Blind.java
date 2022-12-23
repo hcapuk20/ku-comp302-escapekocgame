@@ -1,5 +1,6 @@
 package main.models.Alien;
 
+import main.models.PowerUp.PowerUp;
 import main.models.Room;
 
 import javax.imageio.ImageIO;
@@ -38,7 +39,7 @@ public class Blind extends Alien{
         int a = random.nextInt(100)+1;
         counter++;
         if(counter > 75){
-            System.out.println("inside2");
+
             if(a <= 25) {
                 this.direction = "up";
 
@@ -62,5 +63,19 @@ public class Blind extends Alien{
 
 
     }
+    public void setDirection(int x, int y, PowerUp bottle){
+        if(this.locationX > x+40){
+            this.direction = "left";
+        } else if (this.locationX < x-40) {
+            this.direction = "right";
+        } else if (this.locationY > y+40) {
+            this.direction = "up";
+        } else if (this.locationY < y-40) {
+            this.direction = "down";
+        }
+        else {
+            bottle = null;
+        }
 
+    }
 }
