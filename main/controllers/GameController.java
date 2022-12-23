@@ -65,7 +65,7 @@ public class GameController extends JPanel implements Runnable{
         powerUpController.spawnPowerUp();
 
 
-        this.alienController = new AlienController(collisionChecker, this);
+        this.alienController = new AlienController(collisionChecker, this, character);
         this.bagController = new BagController(this);
 
     }

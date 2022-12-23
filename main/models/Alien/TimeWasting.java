@@ -1,5 +1,6 @@
 package main.models.Alien;
 
+import main.models.Character;
 import main.models.Room;
 
 import javax.imageio.ImageIO;
@@ -24,5 +25,8 @@ public class TimeWasting extends Alien {
         int hitBoxSize = width - (2 * hitBoxIndex);
         this.collisionArea = new Rectangle(hitBoxIndex,hitBoxIndex,hitBoxSize,hitBoxSize);
         this.alien_type = alien_type;
+    }
+
+    public void specialPower(Character player) {
     }
 }
