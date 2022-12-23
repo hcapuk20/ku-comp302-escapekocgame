@@ -3,10 +3,13 @@ package loginScreen;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.io.IOException;
 
 import javax.swing.BorderFactory;
@@ -56,12 +59,25 @@ public class LoginView extends JFrame {
     private JSeparator passwordSeparator;
     private JTextField usernameField;
     private JPasswordField passwordField;
+    private Font mainTitleFont;
 
     // Constructor for the login screen UI
     public LoginView() {
-        loginViewComponents();
+        setTitleFont();
+    	loginViewComponents();
     }
     
+    // Private method that sets the title font for the login screen
+    private void setTitleFont() {
+    	try {
+		     GraphicsEnvironment ge = 
+		         GraphicsEnvironment.getLocalGraphicsEnvironment();
+		     ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("assets/fonts/GeoSlab703MdBT.ttf")));
+		} catch (IOException|FontFormatException e) {
+		     e.printStackTrace();
+		}
+    }
+   
     // Private method that generates UI components and event listeners
     private void loginViewComponents() {
 
@@ -90,7 +106,7 @@ public class LoginView extends JFrame {
         screenDeco3 = new JPanel();
         screenDeco8 = new JPanel();
         loginStatus = new JLabel();
-
+        
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login Screen");
         setUndecorated(true);
@@ -102,8 +118,8 @@ public class LoginView extends JFrame {
         });
 
         screenDeco5.setBackground(new Color(255, 255, 255));
-
-        titleEscape.setFont(new Font("GeoSlab703 Md BT", 0, 48)); 
+        
+        titleEscape.setFont(new Font("GeoSlab703 Md BT", Font.PLAIN, 48)); 
         titleEscape.setHorizontalAlignment(SwingConstants.CENTER);
         titleEscape.setText(" ESCAPE ");
 

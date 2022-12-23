@@ -39,7 +39,7 @@ public class TimeController {
 		try {
 		     GraphicsEnvironment ge = 
 		         GraphicsEnvironment.getLocalGraphicsEnvironment();
-		     ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("assets/PixeloidSans-nR3g1.ttf")));
+		     ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("assets/fonts/PixeloidSans-nR3g1.ttf")));
 		} catch (IOException|FontFormatException e) {
 		     e.printStackTrace();
 		}
