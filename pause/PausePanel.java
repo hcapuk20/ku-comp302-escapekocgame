@@ -2,6 +2,7 @@ package pause;
 
 import constants.Constants;
 import main.controllers.GameController;
+import menu.MenuPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,6 +28,8 @@ public class PausePanel extends JPanel implements ActionListener {
 
     JFrame frame;
 
+    protected static Image backgroundImage = new ImageIcon("assets/pauseBackground.jpeg").getImage();
+
     GameController panel;
 
     public PausePanel(JFrame f, GameController panel) {
@@ -46,7 +49,7 @@ public class PausePanel extends JPanel implements ActionListener {
 
     @Override
     protected void paintComponent(Graphics g) {
-        //g.drawImage(backgroundImage, 0, 0, panelWidth, panelHeight, this);
+        g.drawImage(backgroundImage, 0, 0, panelWidth, panelHeight, this);
     }
 
     @Override
@@ -92,7 +95,7 @@ public class PausePanel extends JPanel implements ActionListener {
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                exitButtonAction();
             }
         });
         exitButton.setBounds((panelWidth - buttonWidth) / 2, (panelHeight - buttonHeight) / 2 + buttonHeight,
@@ -109,6 +112,17 @@ public class PausePanel extends JPanel implements ActionListener {
         panel.setBounds(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
         frame.remove(this);
         frame.repaint();
+
+    }
+
+    protected void exitButtonAction() {
+
+        MenuPanel menuPanel = new MenuPanel(frame);
+
+        frame.add(menuPanel);
+        menuPanel.setBounds(0, 0, panelWidth, panelHeight);
+
+        frame.remove(this);
 
     }
 

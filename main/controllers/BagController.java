@@ -16,6 +16,7 @@ public class BagController {
 
     GameController gameController;
     int imageSize = tileSize*8/10;
+    int numberBackgroundSize = tileSize*6/10;
 
     public BagController(GameController gameController){
         this.gameController = gameController;
@@ -24,23 +25,29 @@ public class BagController {
 
     void drawFrames(Graphics g){
         Image frameImage = new ImageIcon("assets/bagFrame.png").getImage();
+        g.setColor(Color.black);
+
+        g.drawImage(frameImage, screenWidth / 4 - (tileSize+numberBackgroundSize), (tileSize - imageSize) / 2,
+                imageSize, imageSize, gameController); //frame for the key
 
         for(int i = 0; i<3; i++) {
-            g.drawImage(frameImage, screenWidth / 4 + i*tileSize, (tileSize - imageSize) / 2,
+            g.fillRect(screenWidth / 4 + i*(tileSize+numberBackgroundSize) - numberBackgroundSize, (tileSize - numberBackgroundSize) / 2,
+                    numberBackgroundSize, numberBackgroundSize);
+            g.drawImage(frameImage, screenWidth / 4 + i*(tileSize+numberBackgroundSize), (tileSize - imageSize) / 2,
                     imageSize, imageSize, gameController);
         }
 
     }
 
     void drawPowerUps(Graphics g){
-        boolean[] contain = new boolean[3];
+        int[] contain = new int[3];
         for(PowerUp p: gameController.character.bag){
             if(p instanceof Hint){
-                contain[0] = true;
+                contain[0] ++;
             } else if(p instanceof PlasticBottle){
-                contain[1] = true;
+                contain[1] ++;
             } else if(p instanceof ProtectionVest){
-                contain[2] = true;
+                contain[2] ++;
             }
         }
 
@@ -51,11 +58,27 @@ public class BagController {
         Image vestImage = new ImageIcon("assets/powerUps/protection-vest.png").getImage();
         Image[] images = {hintImage, bottleImage, vestImage};
 
+
+        int numberSize = tileSize/2;
+
+        if(gameController.character.hasKey){
+            Image keyImage = new ImageIcon("assets/key.png").getImage();
+            g.drawImage(keyImage, screenWidth / 4 - (tileSize+numberBackgroundSize) + (imageSize-powerUpSize)/2, (tileSize - powerUpSize) / 2,
+                    powerUpSize, powerUpSize, gameController);
+        }
+
         for(int i = 0; i<3; i++) {
-            if(contain[i]){
-                g.drawImage(images[i], screenWidth / 4 + i*tileSize + (imageSize-powerUpSize)/2, (tileSize - powerUpSize) / 2,
-                        powerUpSize, powerUpSize, gameController);
-            }
+
+            g.setFont(new Font("Serif", Font.PLAIN, 20));
+            g.setColor(Color.white);
+
+            g.drawString(contain[i] + "",
+                    screenWidth / 4 + i*(tileSize+numberBackgroundSize) - numberBackgroundSize + 6,
+                    (tileSize+numberBackgroundSize/2)/2+1);
+
+            g.drawImage(images[i], screenWidth / 4 + i*(tileSize+numberBackgroundSize) + (imageSize-powerUpSize)/2, (tileSize - powerUpSize) / 2,
+                    powerUpSize, powerUpSize, gameController);
+
         }
 
     }

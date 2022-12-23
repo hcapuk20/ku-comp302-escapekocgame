@@ -10,11 +10,15 @@ import java.util.ArrayList;
 
 public class Character extends GameObject{
     public BufferedImage up1,up2,down1,down2,left1,left2,right1,right2;
-    public BufferedImage fullHeart,emptyHeart;
+    public BufferedImage up1p,up2p,down1p,down2p,left1p,left2p,right1p,right2p;
+    public BufferedImage fullHeart,emptyHeart, timeIcon;
     public boolean moving;
     public boolean hasKey;
     public int life;
     public int maxLife = 5;
+    public boolean vulnerable = true;
+
+    public boolean bottleUsed = false;
 
     public ArrayList<PowerUp> bag;
 
@@ -27,6 +31,7 @@ public class Character extends GameObject{
         try {
             this.fullHeart = ImageIO.read(new File("assets/heart.png"));
             this.emptyHeart = ImageIO.read(new File("assets/heart-empty.png"));
+            this.timeIcon = ImageIO.read(new File("assets/timer_new.png"));
             this.up1 = ImageIO.read(new File("assets/character_move/boy_up_1.png"));
             this.up2 = ImageIO.read(new File("assets/character_move/boy_up_2.png"));
             this.down1 = ImageIO.read(new File("assets/character_move/boy_down_1.png"));
@@ -35,6 +40,16 @@ public class Character extends GameObject{
             this.left2 = ImageIO.read(new File("assets/character_move/boy_left_2.png"));
             this.right1 = ImageIO.read(new File("assets/character_move/boy_right_1.png"));
             this.right2 = ImageIO.read(new File("assets/character_move/boy_right_2.png"));
+            this.up1p = ImageIO.read(new File("assets/character_move_protected/boy_up_1.png"));
+            this.up2p = ImageIO.read(new File("assets/character_move_protected/boy_up_2.png"));
+            this.down1p = ImageIO.read(new File("assets/character_move_protected/boy_down_1.png"));
+            this.down2p = ImageIO.read(new File("assets/character_move_protected/boy_down_2.png"));
+            this.left1p = ImageIO.read(new File("assets/character_move_protected/boy_left_1.png"));
+            this.left2p = ImageIO.read(new File("assets/character_move_protected/boy_left_2.png"));
+            this.right1p = ImageIO.read(new File("assets/character_move_protected/boy_right_1.png"));
+            this.right2p = ImageIO.read(new File("assets/character_move_protected/boy_right_2.png"));
+
+
         }
         catch (Exception e) {
             System.out.println(e);

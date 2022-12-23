@@ -72,22 +72,95 @@ public class CharacterController {
     public void draw(Graphics g){
         Graphics2D g2 = (Graphics2D) g;
         if(character.moving){
-            if(character.direction.equals("up") ){
-                if (animationCount == 1) character.image = character.up1;
-                else character.image = character.up2;
-            }
-            else if (character.direction.equals("down")){
-                if (animationCount == 1) character.image = character.down1;
-                else character.image = character.down2;
-            }
-            else if (character.direction.equals("left")) {
-                if (animationCount == 1) character.image = character.left1;
-                else character.image = character.left2;
+            if(character.vulnerable == true){
+                if(character.direction.equals("up") ){
+                    if (animationCount == 1) character.image = character.up1;
+                    else character.image = character.up2;
+                }
+                else if (character.direction.equals("down")){
+                    if (animationCount == 1) character.image = character.down1;
+                    else character.image = character.down2;
+                }
+                else if (character.direction.equals("left")) {
+                    if (animationCount == 1) character.image = character.left1;
+                    else character.image = character.left2;
+                }
+                else {
+                    if (animationCount == 1) character.image = character.right1;
+                    else character.image = character.right2;
+                }
             }
             else {
-                if (animationCount == 1) character.image = character.right1;
-                else character.image = character.right2;
+                if(character.direction.equals("up") ){
+                    if (animationCount == 1) character.image = character.up1p;
+                    else character.image = character.up2p;
+                }
+                else if (character.direction.equals("down")){
+                    if (animationCount == 1) character.image = character.down1p;
+                    else character.image = character.down2p;
+                }
+                else if (character.direction.equals("left")) {
+                    if (animationCount == 1) character.image = character.left1p;
+                    else character.image = character.left2p;
+                }
+                else {
+                    if (animationCount == 1) character.image = character.right1p;
+                    else character.image = character.right2p;
+                }
+
             }
+        }
+        else if(character.vulnerable){
+            if (gameController.character.image == character.up1p){
+                gameController.character.image = character.up1;
+            } else if (gameController.character.image == character.up2p) {
+                gameController.character.image = character.up2;
+            }
+            else if (gameController.character.image == character.down1p) {
+                gameController.character.image = character.down1;
+            }
+            else if (gameController.character.image == character.down2p) {
+                gameController.character.image = character.down2;
+            }
+            else if (gameController.character.image == character.right1p) {
+                gameController.character.image = character.down1;
+            }
+            else if (gameController.character.image == character.right2p) {
+                gameController.character.image = character.right2;
+            }
+            else if (gameController.character.image == character.left1p) {
+                gameController.character.image = character.left1;
+            }
+            else if (gameController.character.image == character.left2p) {
+                gameController.character.image = character.left2;
+            }
+
+        }
+        else if(!character.vulnerable){
+            if (gameController.character.image == character.up1){
+                gameController.character.image = character.up1p;
+            } else if (gameController.character.image == character.up2) {
+                gameController.character.image = character.up2p;
+            }
+            else if (gameController.character.image == character.down1) {
+                gameController.character.image = character.down1p;
+            }
+            else if (gameController.character.image == character.down2) {
+                gameController.character.image = character.down2p;
+            }
+            else if (gameController.character.image == character.right1) {
+                gameController.character.image = character.down1p;
+            }
+            else if (gameController.character.image == character.right2) {
+                gameController.character.image = character.right2p;
+            }
+            else if (gameController.character.image == character.left1) {
+                gameController.character.image = character.left1p;
+            }
+            else if (gameController.character.image == character.left2) {
+                gameController.character.image = character.left2p;
+            }
+
         }
         g2.drawImage(character.image, character.locationX, character.locationY,character.width,character.height,null);
     }

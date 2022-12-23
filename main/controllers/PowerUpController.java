@@ -2,12 +2,13 @@ package main.controllers;
 
 import constants.Constants;
 import main.models.GameObject;
-import main.models.PowerUp.ExtraLife;
-import main.models.PowerUp.ExtraTime;
+import main.models.PowerUp.Hint;
+import main.models.PowerUp.PlasticBottle;
 import main.models.PowerUp.PowerUp;
 import main.models.PowerUp.PowerUpFactory;
 import main.models.Room;
 
+import java.awt.*;
 import java.util.Random;
 
 public class PowerUpController {
@@ -17,6 +18,13 @@ public class PowerUpController {
     Random random;
     GameController gameController;
 
+    public boolean hintUsed = false;
+    public boolean bottleUsed = false;
+
+    public String bottleDirection;
+
+    private Hint hint = new Hint(0,0,0,0);
+    private PlasticBottle bottle;
     public  int powerUpTypeCount = 5;
 
     public PowerUpController(GameController gameController){
@@ -54,5 +62,22 @@ public class PowerUpController {
             powerUp = null;
         }
     }
+
+    public void drawPowerUpEffect(Graphics g){
+        if (hintUsed){
+            //g.setColor(Color.ORANGE);
+            hint.doEffect(gameController,g);
+        } else if (bottleUsed){
+            if (this.bottle == null){
+                this.bottle = new PlasticBottle(gameController.character.locationX,
+                        gameController.character.locationY,
+                        Constants.tileSize/2,Constants.tileSize/2);
+            }
+            bottle.doEffect(gameController,g,bottleDirection);
+        } else {
+            this.bottle = null;
+        }
+    }
+
 
 }

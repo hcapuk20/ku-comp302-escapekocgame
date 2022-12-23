@@ -10,6 +10,9 @@ public class Building {
     public Room[][] rooms = new Room[3][3];
     String name;
 
+    public Furniture furnitureWithKey;
+    public int roomX, roomY;
+
     int minFurniture;
     public Building(String name, int minFurniture) {
         this.name = name;
@@ -51,6 +54,17 @@ public class Building {
         }
     }
 
+    public void drawMiniMap(Graphics g) {
+        Graphics2D g2 = (Graphics2D) g;
+        for(int index1 = 0; index1<3; index1++) {
+            for (int index2 = 0; index2 < 3; index2++) {
+                if(rooms[index1][index2] != null) {
+                    rooms[index1][index2].drawMiniMap(g, index1, index2);
+                }
+            }
+        }
+    }
+
 
     private void drawNameLabel(Graphics g){
         g.setColor(Color.white);
@@ -64,6 +78,7 @@ public class Building {
         g.setFont(new Font("Segoe Script", Font.ITALIC, 15));
         g.drawString(txt, 20, Constants.WINDOW_HEIGHT-40);
     }
+
 
 
     public void printFurnitures(){

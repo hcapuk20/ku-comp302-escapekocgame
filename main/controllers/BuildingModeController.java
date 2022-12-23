@@ -65,8 +65,10 @@ public class BuildingModeController extends JPanel implements Runnable, MouseLis
 
     }
 
+    @Override
     public void paintComponent(Graphics g) {
-        g.setColor(getBackground());
+        super.paintComponent(g);
+    	g.setColor(getBackground());
         if(BuildingsDataSource.buildings[currentBuilding] != null) {
             BuildingsDataSource.buildings[currentBuilding].draw(g);
         }

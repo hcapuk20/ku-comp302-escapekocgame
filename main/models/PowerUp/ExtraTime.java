@@ -1,6 +1,9 @@
 package main.models.PowerUp;
 
+import main.controllers.GameController;
+
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.io.File;
 
 public class ExtraTime extends PowerUp{
@@ -14,8 +17,8 @@ public class ExtraTime extends PowerUp{
         }
     }
 
-    @Override
-    public void doEffect(Character character) {
+
+    public void doEffect(GameController gameController, Graphics g) {
 
     }
 }

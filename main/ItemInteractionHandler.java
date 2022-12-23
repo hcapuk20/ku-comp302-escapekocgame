@@ -73,7 +73,7 @@ public class ItemInteractionHandler implements MouseListener {
                         gameController.character.increaseLife();
                     }
                     else if (object instanceof ExtraTime){
-                        //Implement ExtraTime functionality here.
+                    	gameController.timeController.increaseTime();
                     }
                     else{
                         gameController.character.bag.add((PowerUp) object);
