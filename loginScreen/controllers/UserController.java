@@ -17,7 +17,7 @@ public class UserController {
 	private String current;
 	private String tempFile;
 	private String pattern = "(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$)";
-
+	
 	// Method that registers a user with given credentials and updates the file accordingly
 	public void registerUser(String username, String password, String email) throws IOException {
 		FileWriter fw = new FileWriter(filepath, true);

@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.io.IOException;
 
 import javax.swing.BorderFactory;
@@ -21,12 +22,18 @@ import javax.swing.LayoutStyle;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
+import loginScreen.controllers.FileEncryptionHandler;
 import loginScreen.controllers.UserController;
 
 public class DeleteAccountWindow extends JFrame {
 
 	// Declaration of components and the user controller
 	private UserController usc = new UserController();
+	
+	// Declarations of the file encryption handler and other components
+	private FileEncryptionHandler enc = new FileEncryptionHandler();
+	private final String key = "Encryption key for users";
+	private File userFile = new File("assets/users.txt");
 	
 	private JButton submitButton;
 	private JButton exitButton;
@@ -486,6 +493,7 @@ public class DeleteAccountWindow extends JFrame {
     
     // Button event that handles user deletion based on the input and user file contents
     private void submitButtonMouseClicked(MouseEvent evt) throws IOException {                                      
+    	enc.decryptFile(key, userFile, userFile);
     	String email = emailField.getText();
     	String password = passwordField.getText();
     	String[] user = usc.getUser("email", email);
@@ -500,7 +508,8 @@ public class DeleteAccountWindow extends JFrame {
 			usc.deleteUser(email);
 			deleteStatus.setForeground(new Color(102, 255, 102));
 		    deleteStatus.setText("Account deleted successfully!");
-		}               	       	 
+		}
+    	enc.encryptFile(key, userFile, userFile);
     }                                       
 
     private void passwordFieldMouseClicked(MouseEvent evt) {                                         
