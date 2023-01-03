@@ -26,6 +26,7 @@ import javax.swing.LayoutStyle;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
+import loginScreen.controllers.FileEncryptionHandler;
 import loginScreen.controllers.UserController;
 import main.Main;
 
@@ -33,6 +34,11 @@ public class LoginView extends JFrame {
 
 	// Declaration of components and the user controller
 	private UserController usc = new UserController();
+	
+	// Declarations of the file encryption handler and other components
+	private FileEncryptionHandler enc = new FileEncryptionHandler();
+	private final String key = "Encryption key for users";
+	private File userFile = new File("assets/users.txt");
 	
 	private JButton loginButton;
     private JButton signUpButton;
@@ -625,10 +631,11 @@ public class LoginView extends JFrame {
 
     // Button event that handles the login process based on inputs and user file contents
     private void loginButtonMouseClicked(MouseEvent evt) throws IOException {                                      
+    	enc.decryptFile(key, userFile, userFile);
     	String username = usernameField.getText();
     	String password = passwordField.getText();
     	String[] user = usc.getUser("username", username);
-    	if (user == null) {
+    	if (user == null || !user[0].equals(username) || !user[1].equals(password)) {
     		loginStatus.setForeground(new Color(255, 51, 51));
         	loginStatus.setText("Invalid username or password!");
         }
@@ -639,6 +646,7 @@ public class LoginView extends JFrame {
             Main main = new Main();
             main.startMainMenu();
             this.dispose();
-    	} 
+    	}
+    	enc.encryptFile(key, userFile, userFile);
     }                                                         
 }
