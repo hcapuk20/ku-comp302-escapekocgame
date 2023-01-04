@@ -11,6 +11,8 @@ import pause.PausePanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class GameController extends JPanel implements Runnable{
 
@@ -31,6 +33,7 @@ public class GameController extends JPanel implements Runnable{
     int roomCountY = 1;
     public Room currentRoom;
     public JFrame frame;
+    public String displayedMessage = "";
 
     public PowerUpController powerUpController;
 
@@ -173,6 +176,14 @@ public class GameController extends JPanel implements Runnable{
             timeController.counterLabel.setVisible(false);
             timeController.activeTimer = false;
             timeController = new TimeController(this);
+            this.displayedMessage = "Congratulations! You moved on to building "+currentBuildingCount;
+            java.util.Timer t = new Timer();
+            t.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    displayedMessage = "";
+                }
+            }, 1000);
         } else {
             endGame();
         }
@@ -205,8 +216,17 @@ public class GameController extends JPanel implements Runnable{
         powerUpController.drawPowerUpEffect(g);
 
         miniMapController.drawMiniMap(g, currentBuilding, roomCountX, roomCountY);
-        //g.dispose();
 
+        drawMessage(g);
+        //g.dispose();
+    }
+
+    public void drawMessage(Graphics g){
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setColor(Color.white);
+        int drawLocX = this.character.locationX -Constants.tileSize;
+        int drawLocY = this.character.locationY -Constants.tileSize/2;
+        g2.drawString(this.displayedMessage,drawLocX,drawLocY);
     }
 
 }
