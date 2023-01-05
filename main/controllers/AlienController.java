@@ -121,7 +121,7 @@ public class AlienController implements Runnable {
             randomXTile = rand.nextInt(tileMap.length);
             randomYTile = rand.nextInt(tileMap[0].length);
         }
-        int randomType = 1;//rand.nextInt(alienTypes.length);
+        int randomType = rand.nextInt(alienTypes.length);
         if(alienTypes[randomType].equals("shooter")){
             tempAlien = new Shooter(randomXTile * Constants.tileSize, randomYTile * Constants.tileSize, Constants.tileSize, Constants.tileSize, alienTypes[randomType],gameController.currentRoom);
         }
@@ -199,10 +199,10 @@ public class AlienController implements Runnable {
             }
 
 
-            if (spawnAlienDelta > 100){
+            if (spawnAlienDelta > 600){
 
                 this.spawnAlien();
-                spawnAlienDelta -= 100;
+                spawnAlienDelta -= 600;
             }
 
 
