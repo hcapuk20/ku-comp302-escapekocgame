@@ -1,5 +1,6 @@
 package main.models.Alien;
 
+import main.controllers.GameController;
 import main.models.Character;
 import main.models.Room;
 
@@ -27,6 +28,5 @@ public class TimeWasting extends Alien {
         this.alien_type = alien_type;
     }
 
-    public void specialPower(Character player) {
-    }
+
 }

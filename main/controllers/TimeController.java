@@ -23,7 +23,7 @@ public class TimeController {
 	GameController gameController;
 	boolean activeTimer = true;
 	
-	int time, minute, second;
+	public int time, minute, second;
 	int Xdistance = 1050;
 	
 	public TimeController(GameController gameController) {

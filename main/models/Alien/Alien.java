@@ -15,6 +15,10 @@ public class Alien extends GameObject {
     public String alien_type;
     public Room current_room;
 
+    public static int timeWaste1Count = 0;
+    public static int timeWaste2Count = 0;
+    public static int timeWaste3count = 0;
+
     public static Alien[] aliens = new Alien[100];
 
     public Alien() {

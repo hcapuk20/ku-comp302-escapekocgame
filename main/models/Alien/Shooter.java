@@ -35,7 +35,12 @@ public class Shooter extends Alien{
             count = 0;
 
             if(player.locationX < this.locationX+4 * Constants.tileSize && player.locationX > this.locationX-4 * Constants.tileSize && player.locationY < this.locationY+4 * Constants.tileSize && player.locationY > this.locationY-4 * Constants.tileSize && this.current_room == room ){
-                player.life --;
+               // checks if the player in the range of shooter alien.
+                if (player.vulnerable){
+                    player.life --;
+                }
+
+                if (player.life == 0){/*end game*/}
                 System.out.println(player.life);
                 //protection vest için modify edilecek
             }}
