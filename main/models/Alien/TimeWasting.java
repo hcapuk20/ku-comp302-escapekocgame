@@ -1,5 +1,7 @@
 package main.models.Alien;
 
+import main.controllers.GameController;
+import main.models.Character;
 import main.models.Room;
 
 import javax.imageio.ImageIO;
@@ -25,4 +27,6 @@ public class TimeWasting extends Alien {
         this.collisionArea = new Rectangle(hitBoxIndex,hitBoxIndex,hitBoxSize,hitBoxSize);
         this.alien_type = alien_type;
     }
+
+
 }
