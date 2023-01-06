@@ -1,5 +1,6 @@
 package main.controllers;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import constants.Constants;
 import main.CollisionChecker;
 import main.ItemInteractionHandler;
@@ -13,7 +14,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Timer;
 import java.util.TimerTask;
-
+@JsonIgnoreProperties({"frame"})
 public class GameController extends JPanel implements Runnable{
 
     Thread gameThread;
@@ -38,13 +39,16 @@ public class GameController extends JPanel implements Runnable{
     public PowerUpController powerUpController;
 
     //public Alien[] aliens = new Alien[100];
-    AlienController alienController;
+    public AlienController alienController;
 
     BagController bagController;
 
     public MiniMapController miniMapController;
     public TimeController timeController;
     int score = 0;
+    public GameController(){
+
+    }
 
 
     public GameController(JFrame f){

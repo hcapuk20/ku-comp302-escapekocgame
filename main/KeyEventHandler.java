@@ -1,16 +1,27 @@
 package main;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import main.controllers.GameController;
+import main.models.Alien.Alien;
+import main.models.BuildingsDataSource;
 import main.models.Character;
 import main.models.PowerUp.Hint;
 import main.models.PowerUp.PlasticBottle;
 import main.models.PowerUp.PowerUp;
 import main.models.PowerUp.ProtectionVest;
+import org.json.simple.JSONObject;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.regex.Pattern;
 
 public class KeyEventHandler implements KeyListener {
     final private Character character;
@@ -48,6 +59,39 @@ public class KeyEventHandler implements KeyListener {
             System.out.println("pressed escape.");
             gameController.paused = !gameController.paused;
             gameController.stop();
+        } else if (key == KeyEvent.VK_Z) {
+            //ProtectionVest pvest = new ProtectionVest(0,0,0,0);
+            var mapper = new ObjectMapper();
+            try {
+                var json = mapper.writeValueAsString(gameController.character);
+                System.out.println(json);
+                var json2 = mapper.writeValueAsString(BuildingsDataSource.buildings);
+                System.out.println(json2);
+                var json3 = mapper.writeValueAsString(gameController.currentBuilding);
+                System.out.println(json3);
+                var json4 = mapper.writeValueAsString(gameController.currentRoom);
+                System.out.println(json4);
+                var json5 = mapper.writeValueAsString(Alien.aliens);
+                System.out.println(json5);
+                var json6 = mapper.writeValueAsString(gameController.timeController.time);
+                System.out.println(json6);
+                JSONObject jsonpObject = new JSONObject();
+                jsonpObject.put("character",json);
+                jsonpObject.put("buildings",json2);
+                jsonpObject.put("currentBuilding",json3);
+                jsonpObject.put("currentRoom",json4);
+                jsonpObject.put("aliens",json5);
+                jsonpObject.put("time",json6);
+                File saveGameFile = new File("savedGame.json");
+                FileWriter myWriter = new FileWriter("savedGame.json");
+                myWriter.write(jsonpObject.toJSONString());
+                myWriter.close();
+
+            } catch (JsonProcessingException es) {
+                es.printStackTrace();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         } else if (key == KeyEvent.VK_M) {
             gameController.miniMapController.keyEventOperation();
 

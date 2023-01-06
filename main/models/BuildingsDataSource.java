@@ -65,13 +65,6 @@ public class BuildingsDataSource {
         building6.rooms[1][2].addDoor(3);
         buildings[5] = building6;
 
-        var mapper = new ObjectMapper();
-        try {
-            var json = mapper.writeValueAsString(buildings);
-            System.out.println(json);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
     }
 
 }
