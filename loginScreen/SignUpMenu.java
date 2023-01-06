@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.io.IOException;
 
 import javax.swing.BorderFactory;
@@ -21,12 +22,18 @@ import javax.swing.LayoutStyle;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
+import loginScreen.controllers.FileEncryptionHandler;
 import loginScreen.controllers.UserController;
 
 public class SignUpMenu extends JFrame {
 	
 	// Declaration of components and the user controller
 	private UserController usc = new UserController();
+	
+	// Declarations of the file encryption handler and other components
+	private FileEncryptionHandler enc = new FileEncryptionHandler();
+	private final String key = "Encryption key for users";
+	private File userFile = new File("assets/users.txt");
 	
 	private JButton exitButton;
     private JButton signUpButton;
@@ -734,6 +741,7 @@ public class SignUpMenu extends JFrame {
 
     // Button event that checks the user file and registers user in the file
     private void signUpButtonMouseClicked(MouseEvent evt) throws IOException {  
+    	enc.decryptFile(key, userFile, userFile);
     	String username = usernameField.getText();
         String email = emailField.getText();
         String password = passwordField.getText();
@@ -753,5 +761,6 @@ public class SignUpMenu extends JFrame {
         	registerStatus.setForeground(new Color(255, 51, 51));
         	registerStatus.setText("User already exists!");
         }
+        enc.encryptFile(key, userFile, userFile);
     }                                                                            
 }
