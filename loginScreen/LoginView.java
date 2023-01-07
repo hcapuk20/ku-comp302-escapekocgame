@@ -27,13 +27,16 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 import loginScreen.controllers.FileEncryptionHandler;
+import loginScreen.controllers.ScreenEventHandler;
 import loginScreen.controllers.UserController;
 import main.Main;
 
-public class LoginView extends JFrame {
+public class LoginView {
 
 	// Declaration of components and the user controller
 	private UserController usc = new UserController();
+	private ScreenEventHandler scr = new ScreenEventHandler();
+	private static JFrame loginView = new JFrame();
 	
 	// Declarations of the file encryption handler and other components
 	private FileEncryptionHandler enc = new FileEncryptionHandler();
@@ -50,7 +53,7 @@ public class LoginView extends JFrame {
     private JLabel logoGame;
     private JLabel titleFrom;
     private JLabel loginStatus;
-    private JPanel screenDeco5;
+    private JPanel titleLogoPanel;
     private JPanel screenDeco1;
     private JPanel screenDeco2;
     private JPanel screenDeco3;
@@ -65,29 +68,35 @@ public class LoginView extends JFrame {
     private JSeparator passwordSeparator;
     private JTextField usernameField;
     private JPasswordField passwordField;
-    private Font mainTitleFont;
 
     // Constructor for the login screen UI
     public LoginView() {
-        setTitleFont();
-    	loginViewComponents();
+    	
+    	setTitleFont();
+    	setComponents();
+    	setFrameProperties();
+        setLeftPanelLayout();
+        setRightPanelLayout();
+        setButtons();
+        setLabels();
+        setTextFields();
+        setDecorations();
+
+    	loginView.pack();
+        loginView.setLocationRelativeTo(null);
+
     }
     
-    // Private method that sets the title font for the login screen
-    private void setTitleFont() {
-    	try {
-		     GraphicsEnvironment ge = 
-		         GraphicsEnvironment.getLocalGraphicsEnvironment();
-		     ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("assets/fonts/GeoSlab703MdBT.ttf")));
-		} catch (IOException|FontFormatException e) {
-		     e.printStackTrace();
-		}
+    public JFrame getWindow() {
+    	return loginView;
     }
-   
-    // Private method that generates UI components and event listeners
-    private void loginViewComponents() {
+    
+    public static void closeWindow() {
+    	loginView.dispose();
+    }
 
-        screenDeco5 = new JPanel();
+    private void setComponents() {
+    	titleLogoPanel = new JPanel();
         titleEscape = new JLabel();
         titleKoç = new JLabel();
         logoGame = new JLabel();
@@ -112,57 +121,47 @@ public class LoginView extends JFrame {
         screenDeco3 = new JPanel();
         screenDeco8 = new JPanel();
         loginStatus = new JLabel();
-        
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Login Screen");
-        setUndecorated(true);
-        setResizable(false);
-        addMouseListener(new MouseAdapter() {
+    }
+    
+    private void setFrameProperties() {
+    	loginView.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        loginView.setTitle("Login Screen");
+        loginView.setUndecorated(true);
+        loginView.setResizable(false);
+        loginView.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
                 formMouseClicked(evt);
             }
         });
-
-        screenDeco5.setBackground(new Color(255, 255, 255));
-        
-        titleEscape.setFont(new Font("GeoSlab703 Md BT", Font.PLAIN, 48)); 
-        titleEscape.setHorizontalAlignment(SwingConstants.CENTER);
-        titleEscape.setText(" ESCAPE ");
-
-        titleKoç.setFont(new Font("GeoSlab703 Md BT", 0, 48)); 
-        titleKoç.setHorizontalAlignment(SwingConstants.CENTER);
-        titleKoç.setText("KOÇ");
-
-        logoGame.setIcon(new ImageIcon(getClass().getResource("/assets/logo.png"))); 
-        logoGame.setText("logoGame");
-
-        titleFrom.setFont(new Font("GeoSlab703 Md BT", 0, 48)); 
-        titleFrom.setText("FROM");
-
-        GroupLayout screenDeco5Layout = new GroupLayout(screenDeco5);
-        screenDeco5.setLayout(screenDeco5Layout);
-        screenDeco5Layout.setHorizontalGroup(
-            screenDeco5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(screenDeco5Layout.createSequentialGroup()
+    }
+    
+    private void setLeftPanelLayout() {
+    	titleLogoPanel.setBackground(new Color(255, 255, 255));
+    	
+    	GroupLayout titleLogoPanelLayout = new GroupLayout(titleLogoPanel);
+        titleLogoPanel.setLayout(titleLogoPanelLayout);
+        titleLogoPanelLayout.setHorizontalGroup(
+            titleLogoPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(titleLogoPanelLayout.createSequentialGroup()
                 .addContainerGap(28, Short.MAX_VALUE)
-                .addGroup(screenDeco5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addGroup(GroupLayout.Alignment.TRAILING, screenDeco5Layout.createSequentialGroup()
+                .addGroup(titleLogoPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addGroup(GroupLayout.Alignment.TRAILING, titleLogoPanelLayout.createSequentialGroup()
                         .addComponent(logoGame, GroupLayout.PREFERRED_SIZE, 159, GroupLayout.PREFERRED_SIZE)
                         .addGap(58, 58, 58))
-                    .addGroup(GroupLayout.Alignment.TRAILING, screenDeco5Layout.createSequentialGroup()
+                    .addGroup(GroupLayout.Alignment.TRAILING, titleLogoPanelLayout.createSequentialGroup()
                         .addComponent(titleEscape, GroupLayout.PREFERRED_SIZE, 230, GroupLayout.PREFERRED_SIZE)
                         .addGap(25, 25, 25))
-                    .addGroup(GroupLayout.Alignment.TRAILING, screenDeco5Layout.createSequentialGroup()
-                        .addGroup(screenDeco5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addGroup(GroupLayout.Alignment.TRAILING, titleLogoPanelLayout.createSequentialGroup()
+                        .addGroup(titleLogoPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                             .addComponent(titleFrom)
-                            .addGroup(screenDeco5Layout.createSequentialGroup()
+                            .addGroup(titleLogoPanelLayout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addComponent(titleKoç, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)))
                         .addGap(68, 68, 68))))
         );
-        screenDeco5Layout.setVerticalGroup(
-            screenDeco5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(screenDeco5Layout.createSequentialGroup()
+        titleLogoPanelLayout.setVerticalGroup(
+            titleLogoPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(titleLogoPanelLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addComponent(logoGame, GroupLayout.PREFERRED_SIZE, 148, GroupLayout.PREFERRED_SIZE)
                 .addGap(44, 44, 44)
@@ -172,56 +171,148 @@ public class LoginView extends JFrame {
                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(titleKoç, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-        );
-
-        inputScreen.setBackground(new Color(51, 51, 51));
+        );             
+    }
+    
+    private void setRightPanelLayout() {
+    	inputScreen.setBackground(new Color(51, 51, 51));
         inputScreen.setBorder(BorderFactory.createLineBorder(new Color(255, 255, 255)));
         inputScreen.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
                 inputScreenMouseClicked(evt);
             }
         });
+    	
+    	GroupLayout inputScreenLayout = new GroupLayout(inputScreen);
+        inputScreen.setLayout(inputScreenLayout);
+        inputScreenLayout.setHorizontalGroup(
+            inputScreenLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(inputScreenLayout.createSequentialGroup()
+                .addGroup(inputScreenLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addGroup(inputScreenLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(screenDeco10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(inputScreenLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                            .addComponent(passwordCheck, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
+                            .addGroup(inputScreenLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(deleteAccountCheck, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)))
+                        .addGap(138, 138, 138))
+                    .addGroup(inputScreenLayout.createSequentialGroup()
+                        .addComponent(screenDeco9, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(screenDeco4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(inputScreenLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(screenDeco1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addGroup(GroupLayout.Alignment.TRAILING, inputScreenLayout.createSequentialGroup()
+                        .addComponent(screenDeco2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
+            .addGroup(inputScreenLayout.createSequentialGroup()
+                .addGroup(inputScreenLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addGroup(inputScreenLayout.createSequentialGroup()
+                        .addGroup(inputScreenLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                            .addGroup(inputScreenLayout.createSequentialGroup()
+                                .addComponent(screenDeco6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(screenDeco7, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                            .addGroup(inputScreenLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(screenDeco8, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(exitButton, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
+                    .addGroup(GroupLayout.Alignment.TRAILING, inputScreenLayout.createSequentialGroup()
+                        .addGap(120, 426, Short.MAX_VALUE)
+                        .addComponent(screenDeco3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27))
+                    .addGroup(inputScreenLayout.createSequentialGroup()
+                        .addGap(115, 115, 115)
+                        .addGroup(inputScreenLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                            .addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(passwordSeparator, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
+                            .addGroup(inputScreenLayout.createSequentialGroup()
+                                .addComponent(loginButton, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
+                                .addGap(80, 80, 80)
+                                .addComponent(signUpButton, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE))
+                            .addGroup(inputScreenLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                                .addComponent(usernameField, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(usernameSeparator, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(inputScreenLayout.createSequentialGroup()
+                .addGap(124, 124, 124)
+                .addComponent(loginStatus, GroupLayout.PREFERRED_SIZE, 222, GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        inputScreenLayout.setVerticalGroup(
+            inputScreenLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(inputScreenLayout.createSequentialGroup()
+                .addGroup(inputScreenLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addGroup(inputScreenLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(exitButton, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
+                    .addGroup(inputScreenLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(screenDeco7, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                .addGroup(inputScreenLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                    .addGroup(inputScreenLayout.createSequentialGroup()
+                        .addGap(84, 84, 84)
+                        .addComponent(usernameField, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(usernameSeparator, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+                        .addGap(15, 15, 15)
+                        .addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(passwordSeparator, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addGroup(inputScreenLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                            .addComponent(loginButton, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(signUpButton, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
+                        .addGap(35, 35, 35)
+                        .addComponent(loginStatus, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(passwordCheck, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(deleteAccountCheck)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                        .addGroup(inputScreenLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                            .addComponent(screenDeco4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(screenDeco3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())
+                    .addGroup(inputScreenLayout.createSequentialGroup()
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(screenDeco2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(screenDeco1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+            .addGroup(inputScreenLayout.createSequentialGroup()
+                .addComponent(screenDeco6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(screenDeco8, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(screenDeco10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(screenDeco9, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        );
 
-        usernameField.setBackground(new Color(51, 51, 51));
-        usernameField.setFont(new Font("Dialog", 0, 12)); 
-        usernameField.setForeground(new Color(204, 204, 204));
-        usernameField.setText("Username");
-        usernameField.setBorder(null);
-        usernameField.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent evt) {
-                usernameFieldMouseClicked(evt);
-            }
-        });
-        usernameField.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                usernameFieldActionPerformed(evt);
-            }
-        });
-
-        passwordField.setEchoChar((char) 0);
-        passwordField.setBackground(new Color(51, 51, 51));
-        passwordField.setFont(new Font("Dialog", 0, 12)); 
-        passwordField.setForeground(new Color(204, 204, 204));
-        passwordField.setText("Password");
-        passwordField.setBorder(null);
-        passwordField.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent evt) {
-                passwordFieldMouseClicked(evt);
-            }
-        });
-        passwordField.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                passwordFieldActionPerformed(evt);
-            }
-        });
-
-        usernameSeparator.setBackground(new Color(255, 255, 255));
-        usernameSeparator.setForeground(new Color(255, 255, 255));
-
-        passwordSeparator.setBackground(new Color(255, 255, 255));
-        passwordSeparator.setForeground(new Color(255, 255, 255));
-
-        loginButton.setBackground(new Color(51, 51, 51));
+        GroupLayout layout = new GroupLayout(loginView.getContentPane());
+        loginView.getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(titleLogoPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addComponent(inputScreen, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(titleLogoPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(inputScreen, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+    }
+    
+    private void setButtons() {
+    	loginButton.setBackground(new Color(51, 51, 51));
         loginButton.setFont(new Font("Dialog", 0, 12)); 
         loginButton.setForeground(new Color(255, 255, 255));
         loginButton.setText("Login");
@@ -244,7 +335,35 @@ public class LoginView extends JFrame {
                 signUpButtonMouseClicked(evt);
             }
         });
+        
+        exitButton.setFont(new Font("Segoe UI", 1, 24)); 
+        exitButton.setForeground(new Color(255, 255, 255));
+        exitButton.setText(" X");
+        exitButton.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                exitButtonMouseClicked(evt);
+            }
+            public void mouseEntered(MouseEvent evt) {
+                exitButtonMouseEntered(evt);
+            }
+        });
+    }
+    
+    private void setLabels() {
+    	titleEscape.setFont(new Font("GeoSlab703 Md BT", Font.PLAIN, 48)); 
+        titleEscape.setHorizontalAlignment(SwingConstants.CENTER);
+        titleEscape.setText(" ESCAPE ");
 
+        titleKoç.setFont(new Font("GeoSlab703 Md BT", 0, 48)); 
+        titleKoç.setHorizontalAlignment(SwingConstants.CENTER);
+        titleKoç.setText("KOÇ");
+
+        logoGame.setIcon(new ImageIcon(getClass().getResource("/assets/logo.png"))); 
+        logoGame.setText("logoGame");
+
+        titleFrom.setFont(new Font("GeoSlab703 Md BT", 0, 48)); 
+        titleFrom.setText("FROM");
+        
         passwordCheck.setFont(new Font("Segoe UI", 1, 12)); 
         passwordCheck.setForeground(new Color(255, 255, 255));
         passwordCheck.setText("Forgot password?");
@@ -275,20 +394,45 @@ public class LoginView extends JFrame {
                 deleteAccountCheckMouseExited(evt);
             }
         });
-
-        exitButton.setFont(new Font("Segoe UI", 1, 24)); 
-        exitButton.setForeground(new Color(255, 255, 255));
-        exitButton.setText(" X");
-        exitButton.addMouseListener(new MouseAdapter() {
+        loginStatus.setFont(new Font("Segoe UI", 3, 12)); 
+        loginStatus.setForeground(new Color(255, 51, 51));
+        loginStatus.setHorizontalAlignment(SwingConstants.CENTER);
+        loginStatus.setText("                                      ");
+        loginStatus.setHorizontalTextPosition(SwingConstants.CENTER);
+        
+    }
+    private void setTextFields() {
+    	usernameField.setBackground(new Color(51, 51, 51));
+        usernameField.setFont(new Font("Dialog", 0, 12)); 
+        usernameField.setForeground(new Color(204, 204, 204));
+        usernameField.setText("Username");
+        usernameField.setBorder(null);
+        usernameField.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                exitButtonMouseClicked(evt);
-            }
-            public void mouseEntered(MouseEvent evt) {
-                exitButtonMouseEntered(evt);
+                usernameFieldMouseClicked(evt);
             }
         });
+               
+        passwordField.setEchoChar((char) 0);
+        passwordField.setBackground(new Color(51, 51, 51));
+        passwordField.setFont(new Font("Dialog", 0, 12)); 
+        passwordField.setForeground(new Color(204, 204, 204));
+        passwordField.setText("Password");
+        passwordField.setBorder(null);
+        passwordField.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                passwordFieldMouseClicked(evt);
+            }
+        });
+        
+        usernameSeparator.setBackground(new Color(255, 255, 255));
+        usernameSeparator.setForeground(new Color(255, 255, 255));
 
-        screenDeco6.setBackground(new Color(204, 153, 255));
+        passwordSeparator.setBackground(new Color(255, 255, 255));
+        passwordSeparator.setForeground(new Color(255, 255, 255));
+    }
+    private void setDecorations() {
+    	screenDeco6.setBackground(new Color(204, 153, 255));
 
         GroupLayout screenDeco6Layout = new GroupLayout(screenDeco6);
         screenDeco6.setLayout(screenDeco6Layout);
@@ -404,148 +548,19 @@ public class LoginView extends JFrame {
             screenDeco8Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGap(0, 11, Short.MAX_VALUE)
         );
-
-        loginStatus.setFont(new Font("Segoe UI", 3, 12)); 
-        loginStatus.setForeground(new Color(255, 51, 51));
-        loginStatus.setHorizontalAlignment(SwingConstants.CENTER);
-        loginStatus.setText("                                      ");
-        loginStatus.setHorizontalTextPosition(SwingConstants.CENTER);
-
-        GroupLayout inputScreenLayout = new GroupLayout(inputScreen);
-        inputScreen.setLayout(inputScreenLayout);
-        inputScreenLayout.setHorizontalGroup(
-            inputScreenLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(inputScreenLayout.createSequentialGroup()
-                .addGroup(inputScreenLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addGroup(inputScreenLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(screenDeco10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(inputScreenLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                            .addComponent(passwordCheck, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
-                            .addGroup(inputScreenLayout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(deleteAccountCheck, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)))
-                        .addGap(138, 138, 138))
-                    .addGroup(inputScreenLayout.createSequentialGroup()
-                        .addComponent(screenDeco9, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(screenDeco4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGroup(inputScreenLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(screenDeco1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addGroup(GroupLayout.Alignment.TRAILING, inputScreenLayout.createSequentialGroup()
-                        .addComponent(screenDeco2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
-            .addGroup(inputScreenLayout.createSequentialGroup()
-                .addGroup(inputScreenLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addGroup(inputScreenLayout.createSequentialGroup()
-                        .addGroup(inputScreenLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                            .addGroup(inputScreenLayout.createSequentialGroup()
-                                .addComponent(screenDeco6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(screenDeco7, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                            .addGroup(inputScreenLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(screenDeco8, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(exitButton, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
-                    .addGroup(GroupLayout.Alignment.TRAILING, inputScreenLayout.createSequentialGroup()
-                        .addGap(120, 426, Short.MAX_VALUE)
-                        .addComponent(screenDeco3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27))
-                    .addGroup(inputScreenLayout.createSequentialGroup()
-                        .addGap(115, 115, 115)
-                        .addGroup(inputScreenLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                            .addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
-                            .addComponent(passwordSeparator, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
-                            .addGroup(inputScreenLayout.createSequentialGroup()
-                                .addComponent(loginButton, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
-                                .addGap(80, 80, 80)
-                                .addComponent(signUpButton, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE))
-                            .addGroup(inputScreenLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                .addComponent(usernameField, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(usernameSeparator, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(inputScreenLayout.createSequentialGroup()
-                .addGap(124, 124, 124)
-                .addComponent(loginStatus, GroupLayout.PREFERRED_SIZE, 222, GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        inputScreenLayout.setVerticalGroup(
-            inputScreenLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(inputScreenLayout.createSequentialGroup()
-                .addGroup(inputScreenLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addGroup(inputScreenLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(exitButton, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
-                    .addGroup(inputScreenLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(screenDeco7, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-                .addGroup(inputScreenLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                    .addGroup(inputScreenLayout.createSequentialGroup()
-                        .addGap(84, 84, 84)
-                        .addComponent(usernameField, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(usernameSeparator, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-                        .addGap(15, 15, 15)
-                        .addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(passwordSeparator, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-                        .addGap(50, 50, 50)
-                        .addGroup(inputScreenLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                            .addComponent(loginButton, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-                            .addComponent(signUpButton, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
-                        .addGap(35, 35, 35)
-                        .addComponent(loginStatus, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(passwordCheck, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(deleteAccountCheck)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
-                        .addGroup(inputScreenLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                            .addComponent(screenDeco4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addComponent(screenDeco3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())
-                    .addGroup(inputScreenLayout.createSequentialGroup()
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(screenDeco2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(screenDeco1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-            .addGroup(inputScreenLayout.createSequentialGroup()
-                .addComponent(screenDeco6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(screenDeco8, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(screenDeco10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(screenDeco9, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-        );
-
-        GroupLayout layout = new GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(screenDeco5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1)
-                .addComponent(inputScreen, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addComponent(screenDeco5, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(inputScreen, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        pack();
-        setLocationRelativeTo(null);
-    }                       
-
-    // Events for different components of the login screen
-    private void usernameFieldActionPerformed(ActionEvent evt) {}                                           
-    private void passwordFieldActionPerformed(ActionEvent evt) {}                                           
-
+    }
+    
+    // Private method that sets the title font for the login screen
+    private void setTitleFont() {
+    	try {
+		     GraphicsEnvironment ge = 
+		         GraphicsEnvironment.getLocalGraphicsEnvironment();
+		     ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("assets/fonts/GeoSlab703MdBT.ttf")));
+		} catch (IOException|FontFormatException e) {
+		     e.printStackTrace();
+		}
+    }
+                                          
     // Event that terminates the entire program with the exit button of the login screen
     private void exitButtonMouseClicked(MouseEvent evt) {                                     
         System.exit(0);
@@ -553,100 +568,61 @@ public class LoginView extends JFrame {
 
     // Events that handle the creation of other UI frames of the login screen
     private void passwordCheckMouseClicked(MouseEvent evt) {                                     
-        ForgotPasswordWindow forgotPassword = new ForgotPasswordWindow();
-        forgotPassword.setVisible(true);
+        scr.loginViewCheckPassClick();
     }                                    
 
     private void passwordCheckMouseEntered(MouseEvent evt) {                                     
-        passwordCheck.setText("<HTML><u>Forgot password?</u></HTML>");
-        passwordCheck.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        scr.loginViewCheckPassEnter(passwordCheck);
     }                                    
 
     private void passwordCheckMouseExited(MouseEvent evt) {                                    
-        passwordCheck.setText("Forgot password?");
+        scr.loginViewCheckPassExit(passwordCheck);
     }                                   
 
     private void deleteAccountCheckMouseEntered(MouseEvent evt) {                                     
-        deleteAccountCheck.setText("<HTML><u>Delete account</u></HTML>");
-        deleteAccountCheck.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        scr.loginViewDeleteAccEnter(deleteAccountCheck);
     }                                    
 
     private void deleteAccountCheckMouseExited(MouseEvent evt) {                                    
-        deleteAccountCheck.setText("Delete account");
+        scr.loginViewDeleteAccExit(deleteAccountCheck);
     }                                   
 
     private void exitButtonMouseEntered(MouseEvent evt) {                                     
-        exitButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        scr.loginViewExitButtonEnter(exitButton);
     }                                    
 
     private void signUpButtonMouseClicked(MouseEvent evt) {                                      
-        SignUpMenu signUpPanel = new SignUpMenu();
-        signUpPanel.setVisible(true);
-        
+        scr.loginViewSignUpClick();     
     }                                     
 
     private void deleteAccountCheckMouseClicked(MouseEvent evt) {                                     
-        DeleteAccountWindow deleteAccount = new DeleteAccountWindow();
-        deleteAccount.setVisible(true);
+        scr.loginViewDeleteAccClick();
     }                                    
 
     // Events that update the view of the fields based on their contents
     private void inputScreenMouseClicked(MouseEvent evt) {                                     
-    	if (usernameField.getText().equals("")) {
-            usernameField.setText("Username");
-        }
-        if (passwordField.getText().equals("")) {
-            passwordField.setEchoChar((char) 0);
-        	passwordField.setText("Password");
-        }
+        scr.loginViewInputScreenClick(usernameField, passwordField);
     }                                    
 
     private void formMouseClicked(MouseEvent evt) {                                  
-    	if (usernameField.getText().equals("")) {
-            usernameField.setText("Username");
-        }
-        if (passwordField.getText().equals("")) {
-            passwordField.setText("Password");
-        }
+        scr.loginViewFrameClick(usernameField, passwordField);
     }                                 
 
     private void passwordFieldMouseClicked(MouseEvent evt) {                                         
-    	if (passwordField.getText().equals("Password")) {
-            passwordField.setText("");
-            passwordField.setEchoChar('*');
-        }
-        if (usernameField.getText().equals("")) {
-            usernameField.setText("Username");
-        }
+        scr.loginViewPasswordFieldClick(usernameField, passwordField);
     }                                        
 
     private void usernameFieldMouseClicked(MouseEvent evt) {                                         
-    	if (usernameField.getText().equals("Username")) {
-            usernameField.setText("");
-        }
-        if (passwordField.getText().equals("")) {
-        	passwordField.setText("Password");
-        }
+        scr.loginViewUsernameFieldClick(usernameField, passwordField);
     }                                        
 
     // Button event that handles the login process based on inputs and user file contents
     private void loginButtonMouseClicked(MouseEvent evt) throws IOException {                                      
-    	enc.decryptFile(key, userFile, userFile);
-    	String username = usernameField.getText();
-    	String password = passwordField.getText();
-    	String[] user = usc.getUser("username", username);
-    	if (user == null || !user[0].equals(username) || !user[1].equals(password)) {
-    		loginStatus.setForeground(new Color(255, 51, 51));
-        	loginStatus.setText("Invalid username or password!");
-        }
-    	else if (user[0].equals(username) && user[1].equals(password)) {
-    		loginStatus.setForeground(new Color(102, 255, 102));
-            loginStatus.setText("Login successful! Launching the game...");	
-            
-            Main main = new Main();
-            main.startMainMenu();
-            this.dispose();
-    	}
-    	enc.encryptFile(key, userFile, userFile);
-    }                                                         
+    	scr.loginViewLoginClick(usernameField, passwordField, key, userFile, loginStatus, usc, enc);
+    	
+    }
+    
+
+   
+ 
 }

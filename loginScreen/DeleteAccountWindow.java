@@ -23,12 +23,14 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 import loginScreen.controllers.FileEncryptionHandler;
+import loginScreen.controllers.ScreenEventHandler;
 import loginScreen.controllers.UserController;
 
 public class DeleteAccountWindow extends JFrame {
 
 	// Declaration of components and the user controller
 	private UserController usc = new UserController();
+	private ScreenEventHandler scr = new ScreenEventHandler();
 	
 	// Declarations of the file encryption handler and other components
 	private FileEncryptionHandler enc = new FileEncryptionHandler();
@@ -60,13 +62,35 @@ public class DeleteAccountWindow extends JFrame {
 	
 	// Constructor for the delete account window
     public DeleteAccountWindow() {
-        initComponents();
+    	
+    	setComponents();
+    	setFrameProperties();
+    	setFrameLayout();
+    	setButtons();
+        setLabels();
+        setTextFields();
+        setDecorations();
+        
+        pack();
+        setLocationRelativeTo(null);
+
     }
     
-    // Private method that generates UI components and event listeners
-    private void initComponents() {
-
-        menuPanel = new JPanel();
+    private void setFrameProperties() {
+    	setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Delete User");
+        setUndecorated(true);
+        addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
+        
+        menuPanel.setBackground(new Color(51, 51, 51));
+        menuPanel.setBorder(BorderFactory.createLineBorder(new Color(255, 255, 255)));
+    }
+    private void setComponents() {
+    	menuPanel = new JPanel();
         emailPasswordPrompt = new JLabel();
         submitButton = new JButton();
         emailField = new JTextField();
@@ -87,42 +111,40 @@ public class DeleteAccountWindow extends JFrame {
         deleteStatus = new JLabel();
         passwordField = new JPasswordField();
         passwordSeparator = new JSeparator();
-
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Delete User");
-        setUndecorated(true);
-        addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent evt) {
-                formMouseClicked(evt);
-            }
-        });
-
-        menuPanel.setBackground(new Color(51, 51, 51));
-        menuPanel.setBorder(BorderFactory.createLineBorder(new Color(255, 255, 255)));
-
-        emailPasswordPrompt.setFont(new Font("Segoe UI", 1, 18)); 
-        emailPasswordPrompt.setForeground(new Color(255, 255, 255));
-        emailPasswordPrompt.setText("Please enter your email and password to delete your account.");
-
-        submitButton.setBackground(new Color(51, 51, 51));
+    }
+    private void setButtons() {
+    	submitButton.setBackground(new Color(51, 51, 51));
         submitButton.setForeground(new Color(255, 255, 255));
         submitButton.setText("Submit");
         submitButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                try {
-					submitButtonMouseClicked(evt);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+                submitButtonMouseClicked(evt);
             }
         });
-        submitButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                submitButtonActionPerformed(evt);
+        
+        exitButton.setBackground(new Color(51, 51, 51));
+        exitButton.setForeground(new Color(255, 255, 255));
+        exitButton.setText("Exit");
+        exitButton.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent evt) {
+                exitButtonMousePressed(evt);
             }
         });
 
-        emailField.setBackground(new Color(51, 51, 51));
+    }
+    private void setLabels() {
+    	emailPasswordPrompt.setFont(new Font("Segoe UI", 1, 18)); 
+        emailPasswordPrompt.setForeground(new Color(255, 255, 255));
+        emailPasswordPrompt.setText("Please enter your email and password to delete your account.");
+        
+        deleteStatus.setFont(new Font("Segoe UI", 3, 12)); 
+        deleteStatus.setForeground(new Color(255, 51, 51));
+        deleteStatus.setHorizontalAlignment(SwingConstants.CENTER);
+        deleteStatus.setHorizontalTextPosition(SwingConstants.RIGHT);
+        
+    }
+    private void setTextFields() {
+    	emailField.setBackground(new Color(51, 51, 51));
         emailField.setFont(new Font("Dialog", 0, 12)); 
         emailField.setForeground(new Color(204, 204, 204));
         emailField.setText("Email");
@@ -132,16 +154,27 @@ public class DeleteAccountWindow extends JFrame {
                 emailFieldMouseClicked(evt);
             }
         });
-        emailField.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                emailFieldActionPerformed(evt);
-            }
-        });
 
         emailSeparator.setBackground(new Color(255, 255, 255));
         emailSeparator.setForeground(new Color(255, 255, 255));
+        
+        passwordField.setEchoChar((char) 0);
+        passwordField.setBackground(new Color(51, 51, 51));
+        passwordField.setFont(new Font("Dialog", 0, 12)); 
+        passwordField.setForeground(new Color(204, 204, 204));
+        passwordField.setText("Password");
+        passwordField.setBorder(null);
+        passwordField.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                passwordFieldMouseClicked(evt);
+            }
+        });
 
-        screenDeco9.setBackground(new Color(255, 255, 102));
+        passwordSeparator.setBackground(new Color(255, 255, 255));
+        passwordSeparator.setForeground(new Color(255, 255, 255));
+    }
+    private void setDecorations() {
+    	screenDeco9.setBackground(new Color(255, 255, 102));
 
         GroupLayout screenDeco9Layout = new GroupLayout(screenDeco9);
         screenDeco9.setLayout(screenDeco9Layout);
@@ -296,47 +329,10 @@ public class DeleteAccountWindow extends JFrame {
             screenDeco8Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGap(0, 10, Short.MAX_VALUE)
         );
+    }  
+    private void setFrameLayout() {
 
-        exitButton.setBackground(new Color(51, 51, 51));
-        exitButton.setForeground(new Color(255, 255, 255));
-        exitButton.setText("Exit");
-        exitButton.addMouseListener(new MouseAdapter() {
-            public void mousePressed(MouseEvent evt) {
-                exitButtonMousePressed(evt);
-            }
-        });
-        exitButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                exitButtonActionPerformed(evt);
-            }
-        });
-
-        deleteStatus.setFont(new Font("Segoe UI", 3, 12)); 
-        deleteStatus.setForeground(new Color(255, 51, 51));
-        deleteStatus.setHorizontalAlignment(SwingConstants.CENTER);
-        deleteStatus.setHorizontalTextPosition(SwingConstants.RIGHT);
-
-        passwordField.setEchoChar((char) 0);
-        passwordField.setBackground(new Color(51, 51, 51));
-        passwordField.setFont(new Font("Dialog", 0, 12)); 
-        passwordField.setForeground(new Color(204, 204, 204));
-        passwordField.setText("Password");
-        passwordField.setBorder(null);
-        passwordField.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent evt) {
-                passwordFieldMouseClicked(evt);
-            }
-        });
-        passwordField.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                passwordFieldActionPerformed(evt);
-            }
-        });
-
-        passwordSeparator.setBackground(new Color(255, 255, 255));
-        passwordSeparator.setForeground(new Color(255, 255, 255));
-
-        GroupLayout menuPanelLayout = new GroupLayout(menuPanel);
+    	GroupLayout menuPanelLayout = new GroupLayout(menuPanel);
         menuPanel.setLayout(menuPanelLayout);
         menuPanelLayout.setHorizontalGroup(
             menuPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -456,72 +452,33 @@ public class DeleteAccountWindow extends JFrame {
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addComponent(menuPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-
-        pack();
-        setLocationRelativeTo(null);
-    }                      
-
-    // Events for different components for the delete account view 
-    private void submitButtonActionPerformed(ActionEvent evt) {}                                        
-    private void emailFieldActionPerformed(ActionEvent evt) {}                                           
-    private void exitButtonActionPerformed(ActionEvent evt) {}                                        
-
+    }
+                                           
     private void exitButtonMousePressed(MouseEvent evt) {                                      
         this.dispose();
     }                                     
 
     // Events that update the view of the fields based on their contents
     private void emailFieldMouseClicked(MouseEvent evt) {                                         
-        if (emailField.getText().equals("Email")) {
-            emailField.setText("");
-        }
-        if (passwordField.getText().equals("")) {
-            passwordField.setEchoChar((char) 0);
-        	passwordField.setText("Password");
-        }
+        scr.deleteAccountEmailField(emailField, passwordField);
     }                                        
 
     private void formMouseClicked(MouseEvent evt) {                                  
-        if (emailField.getText().equals("")) {
-            emailField.setText("Email");
-        }
-        if (passwordField.getText().equals("")) {
-            passwordField.setEchoChar((char) 0);
-        	passwordField.setText("Password");
-        }
+        scr.deleteAccountFrameClick(emailField, passwordField);
     }                                 
     
     // Button event that handles user deletion based on the input and user file contents
-    private void submitButtonMouseClicked(MouseEvent evt) throws IOException {                                      
-    	enc.decryptFile(key, userFile, userFile);
-    	String email = emailField.getText();
-    	String password = passwordField.getText();
-    	String[] user = usc.getUser("email", email);
-    	if (user == null) {
-    		deleteStatus.setForeground(new Color(255, 51, 51));
-		    deleteStatus.setText("Account does not exist!");
-    	} else if (email.equals("Email") || email.equals("") || password.equals("Password") || password.equals("") ||
-    			!user[1].equals(password)) {
-    		deleteStatus.setForeground(new Color(255, 51, 51));
-    		deleteStatus.setText("Invalid email or password!");
-        } else if (user[1].equals(password) && user[2].equals(email)) {
-			usc.deleteUser(email);
-			deleteStatus.setForeground(new Color(102, 255, 102));
-		    deleteStatus.setText("Account deleted successfully!");
+    private void submitButtonMouseClicked(MouseEvent evt) {                                      
+    	try {
+			scr.deleteAccountSubmitClick(emailField, passwordField, key, userFile, deleteStatus, usc, enc);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-    	enc.encryptFile(key, userFile, userFile);
     }                                       
 
     private void passwordFieldMouseClicked(MouseEvent evt) {                                         
-        if (passwordField.getText().equals("Password")) {
-            passwordField.setEchoChar('*');
-        	passwordField.setText("");
-        }
-        if (emailField.getText().equals("")) {
-        	emailField.setText("Email");
-        }
+        scr.deleteAccountPasswordField(emailField, passwordField);
     }                                        
-
-    private void passwordFieldActionPerformed(ActionEvent evt) {}                                           
-                      
+                       
+             
 }
