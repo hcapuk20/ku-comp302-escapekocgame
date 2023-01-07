@@ -7,6 +7,9 @@ import java.awt.*;
 import java.io.File;
 
 public class ExtraTime extends PowerUp{
+    public ExtraTime(){
+
+    }
 
     public ExtraTime(int locationX, int locationY, int width, int height){
         super(locationX, locationY, width, height);

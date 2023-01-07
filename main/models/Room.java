@@ -8,6 +8,9 @@ import java.util.ArrayList;
 public class Room {
 
     public GameObject[][] tileMap;
+    public Room(){
+
+    }
 
     public Room( GameObject[][] tileMap){
         this.tileMap = tileMap;

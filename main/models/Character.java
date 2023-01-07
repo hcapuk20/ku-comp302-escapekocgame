@@ -22,6 +22,35 @@ public class Character extends GameObject{
     public boolean bottleUsed = false;
 
     public ArrayList<PowerUp> bag;
+    public Character(){
+        try {
+            this.fullHeart = ImageIO.read(new File("assets/heart.png"));
+            this.emptyHeart = ImageIO.read(new File("assets/heart-empty.png"));
+            this.timeIcon = ImageIO.read(new File("assets/timer_new.png"));
+            this.up1 = ImageIO.read(new File("assets/character_move/boy_up_1.png"));
+            this.up2 = ImageIO.read(new File("assets/character_move/boy_up_2.png"));
+            this.down1 = ImageIO.read(new File("assets/character_move/boy_down_1.png"));
+            this.down2 = ImageIO.read(new File("assets/character_move/boy_down_2.png"));
+            this.left1 = ImageIO.read(new File("assets/character_move/boy_left_1.png"));
+            this.left2 = ImageIO.read(new File("assets/character_move/boy_left_2.png"));
+            this.right1 = ImageIO.read(new File("assets/character_move/boy_right_1.png"));
+            this.right2 = ImageIO.read(new File("assets/character_move/boy_right_2.png"));
+            this.up1p = ImageIO.read(new File("assets/character_move_protected/boy_up_1.png"));
+            this.up2p = ImageIO.read(new File("assets/character_move_protected/boy_up_2.png"));
+            this.down1p = ImageIO.read(new File("assets/character_move_protected/boy_down_1.png"));
+            this.down2p = ImageIO.read(new File("assets/character_move_protected/boy_down_2.png"));
+            this.left1p = ImageIO.read(new File("assets/character_move_protected/boy_left_1.png"));
+            this.left2p = ImageIO.read(new File("assets/character_move_protected/boy_left_2.png"));
+            this.right1p = ImageIO.read(new File("assets/character_move_protected/boy_right_1.png"));
+            this.right2p = ImageIO.read(new File("assets/character_move_protected/boy_right_2.png"));
+
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+        this.image = down1;
+
+    }
 
     public Character(int x, int y, int height, int width, int speed){
         this.locationX = x;

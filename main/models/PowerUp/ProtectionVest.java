@@ -10,6 +10,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 @JsonIgnoreProperties({"image"})
 public class ProtectionVest extends PowerUp{
+
+    public ProtectionVest(){
+
+    }
     public ProtectionVest(int locationX, int locationY, int width, int height){
         super(locationX, locationY, width, height);
         try {

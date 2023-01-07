@@ -4,6 +4,9 @@ import javax.imageio.ImageIO;
 import java.io.File;
 
 public class Wall extends GameObject {
+    public Wall(){
+
+    }
 
     public Wall(int locationX, int locationY, int width, int height){
         this.locationX = locationX;

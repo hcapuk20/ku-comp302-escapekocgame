@@ -1,11 +1,13 @@
 package main.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 @JsonIgnoreProperties({"image","collisionArea"})
-public abstract class GameObject {
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
+public  class GameObject {
     // game object is the parent class for visible objects in the running mode,
     // such as the player, aliens, furniture, power-ups etc.
 

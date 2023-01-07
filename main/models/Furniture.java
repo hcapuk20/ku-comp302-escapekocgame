@@ -9,10 +9,14 @@ import java.io.File;
 public class Furniture extends GameObject{
 
 
+
     static String[] imageNames = new String[] {"assets/furnitures/bed.png", "assets/furnitures/cabinet.png",
             "assets/furnitures/chest.png", "assets/furnitures/nightstand.png", "assets/furnitures/table.png"};
     public boolean hasKey;
     public int type;
+    public Furniture(){
+
+    }
 
     public Furniture(int locationX, int locationY, int width, int height, int type){
         this.locationX = locationX;

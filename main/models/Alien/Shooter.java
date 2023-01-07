@@ -10,6 +10,13 @@ import java.io.File;
 import java.io.IOException;
 
 public class Shooter extends Alien{
+    public Shooter(){
+        try {
+            this.image = ImageIO.read(new File("assets/alien2.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
     private int count = 0;
     public Shooter(int x, int y, int height, int width, String alien_type, Room currentRoom) {
         this.locationX = x;

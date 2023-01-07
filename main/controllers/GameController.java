@@ -30,8 +30,8 @@ public class GameController extends JPanel implements Runnable{
     ItemInteractionHandler itemInteractionHandler;
     public int currentBuildingCount = 0;
     public Building currentBuilding;
-    int roomCountX = 1;
-    int roomCountY = 1;
+    public int roomCountX = 1;
+    public int roomCountY = 1;
     public Room currentRoom;
     public JFrame frame;
     public String displayedMessage = "";
@@ -46,8 +46,43 @@ public class GameController extends JPanel implements Runnable{
     public MiniMapController miniMapController;
     public TimeController timeController;
     int score = 0;
-    public GameController(){
+    public GameController(JFrame f, Character loadChar,int loadTime,int loadBuildingCount,int loadRoomX,int loadRoomY){
+        this.frame =f;
+        this.setPreferredSize(new Dimension(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT));
+        this.setBackground(Color.BLACK);
+        this.setDoubleBuffered(true);
+        character = loadChar;
+        keyListener = new KeyEventHandler(this,character);
+        this.addKeyListener(keyListener);
+        this.setFocusable(true);
+        //buildingsDataSource = new BuildingsDataSource();
+        currentBuilding = BuildingsDataSource.buildings[loadBuildingCount];
+        System.out.println(loadRoomX);
+        System.out.println(loadRoomY);
+        currentRoom = currentBuilding.rooms[loadRoomX][loadRoomY];
+        //this.mapController = new MapController(this);
+        this.collisionChecker = new CollisionChecker(currentRoom);
+        this.characterController = new CharacterController(character, collisionChecker,this);
+        this.itemInteractionHandler = new ItemInteractionHandler(this);
+        this.addMouseListener(itemInteractionHandler);
+        //currentRoom.tileMap[12][12] = new Furniture(12*Constants.tileSize,12*Constants.tileSize,Constants.tileSize,Constants.tileSize,1);
 
+        this.powerUpController = new PowerUpController(this);
+        powerUpController.spawnPowerUp();
+
+
+        this.miniMapController = new MiniMapController(this);
+
+
+
+        this.alienController = new AlienController(collisionChecker, this, character);
+
+        this.bagController = new BagController(this);
+        this.timeController = new TimeController(this);
+        timeController.time = loadTime;
+        timeController.minute = loadTime/60;
+        timeController.second = loadTime %60;
+        this.setLayout(null);
     }
 
 

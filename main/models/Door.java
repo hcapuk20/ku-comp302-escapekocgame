@@ -4,6 +4,9 @@ import javax.imageio.ImageIO;
 import java.io.File;
 
 public class Door extends GameObject{
+    public Door(){
+
+    }
 
     public Door(int locationX, int locationY, int width, int height){
         this.locationX = locationX;

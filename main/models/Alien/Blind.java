@@ -10,6 +10,13 @@ import java.io.IOException;
 import java.util.Random;
 
 public class Blind extends Alien{
+    public Blind(){
+        try {
+            this.image = ImageIO.read(new File("assets/alien4.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public int counter = 0;
     public Blind(int x, int y, int height, int width, String alien_type, Room currentRoom){
