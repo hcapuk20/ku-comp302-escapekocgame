@@ -32,7 +32,6 @@ public class Shooter extends Alien{
         this.collidable = true;
         int hitBoxIndex = width/6;
         int hitBoxSize = width - (2 * hitBoxIndex);
-        this.collisionArea = new Rectangle(hitBoxIndex,hitBoxIndex,hitBoxSize,hitBoxSize);
         this.alien_type = alien_type;
     }
     public void specialPower(Character player, Room room){

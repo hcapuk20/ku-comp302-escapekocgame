@@ -26,9 +26,9 @@ public class TimeController {
 	public int time, minute, second;
 	int Xdistance = 1050;
 	
-	public TimeController(GameController gameController) {
+	public TimeController(GameController gameController, int time) {
 		this.gameController = gameController;
-		this.time = gameController.currentBuilding.getTotalFurnitures() * 5;
+		this.time = time;
 		this.minute = (int) (time / 60);
 		this.second = (int) time - 60*((int) time / 60);
 		
@@ -58,6 +58,7 @@ public class TimeController {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(!gameController.paused){
+					time--;
 					second--;
 					ddSecond = dFormat.format(second);
 					ddMinute = dFormat.format(minute);

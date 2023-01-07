@@ -1,11 +1,10 @@
 package main.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import constants.Constants;
+import main.models.*;
 import main.models.Alien.Alien;
-import main.models.Building;
-import main.models.BuildingsDataSource;
 import main.models.Character;
-import main.models.Room;
 
 import javax.swing.*;
 import java.nio.file.Paths;
@@ -13,7 +12,7 @@ import java.util.Map;
 
 public class SaveLoadController {
 
-    public void loadGameFromFile(JFrame jframe){
+    public static void loadGameFromFile(JFrame jframe, JPanel panel){
         try {
             // create object mapper instance
             ObjectMapper mapper = new ObjectMapper();
@@ -64,7 +63,28 @@ public class SaveLoadController {
                 }
             }
 
+            for(Building building: BuildingsDataSource.buildings){
+                for(Room[] rooms: building.rooms){
+                    for(Room room: rooms){
+                        if(room != null){
+                            for(GameObject[] gameObjects: room.tileMap){
+                                for(GameObject gameObject: gameObjects){
+                                    if(gameObject instanceof Furniture){
+                                        ((Furniture) gameObject).initializeImage();
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
+
             GameController gameController = new GameController(jframe,loadChar,loadTime,loadCurrentBuildingCount,loadRoomX,loadRoomY);
+            jframe.add(gameController);
+            gameController.setBounds(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
+            gameController.startGame();
+            jframe.remove(panel);
 
         } catch (Exception ex) {
             ex.printStackTrace();

@@ -35,6 +35,14 @@ public class Furniture extends GameObject{
         }
     }
 
+    public void initializeImage(){
+        try {
+            this.image = ImageIO.read(new File(imageNames[type]));
+        }
+        catch (Exception e){
+
+        }
+    }
 
     public static int getTotalFurnitures(){
         return imageNames.length;

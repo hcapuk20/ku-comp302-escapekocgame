@@ -5,7 +5,11 @@ import java.io.File;
 
 public class Door extends GameObject{
     public Door(){
-
+        try {
+            this.image = ImageIO.read(new File("assets/open_door.png"));
+        }
+        catch (Exception e){
+        }
     }
 
     public Door(int locationX, int locationY, int width, int height){

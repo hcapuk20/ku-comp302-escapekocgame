@@ -60,6 +60,10 @@ public class GameController extends JPanel implements Runnable{
         System.out.println(loadRoomX);
         System.out.println(loadRoomY);
         currentRoom = currentBuilding.rooms[loadRoomX][loadRoomY];
+        roomCountX = loadRoomX;
+        roomCountY = loadRoomY;
+        currentBuildingCount = loadBuildingCount;
+
         //this.mapController = new MapController(this);
         this.collisionChecker = new CollisionChecker(currentRoom);
         this.characterController = new CharacterController(character, collisionChecker,this);
@@ -78,10 +82,7 @@ public class GameController extends JPanel implements Runnable{
         this.alienController = new AlienController(collisionChecker, this, character);
 
         this.bagController = new BagController(this);
-        this.timeController = new TimeController(this);
-        timeController.time = loadTime;
-        timeController.minute = loadTime/60;
-        timeController.second = loadTime %60;
+        this.timeController = new TimeController(this, loadTime);
         this.setLayout(null);
     }
 
@@ -116,7 +117,7 @@ public class GameController extends JPanel implements Runnable{
         this.alienController = new AlienController(collisionChecker, this, character);
 
         this.bagController = new BagController(this);
-        this.timeController = new TimeController(this);
+        this.timeController = new TimeController(this, currentBuilding.getTotalFurnitures() * 5);
         this.setLayout(null);
     }
 
@@ -219,7 +220,7 @@ public class GameController extends JPanel implements Runnable{
             character.locationY = 150;
             timeController.counterLabel.setVisible(false);
             timeController.activeTimer = false;
-            timeController = new TimeController(this);
+            timeController = new TimeController(this, currentBuilding.getTotalFurnitures() * 5);
             this.displayedMessage = "Congratulations! You moved on to building "+currentBuildingCount;
             java.util.Timer t = new Timer();
             t.schedule(new TimerTask() {

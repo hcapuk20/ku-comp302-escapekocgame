@@ -20,8 +20,6 @@ public  class GameObject {
     public String direction;
     public boolean collidable = false;
     public boolean interactable = false;
-    public Rectangle collisionArea;
-
     public GameObject(){
 
     }

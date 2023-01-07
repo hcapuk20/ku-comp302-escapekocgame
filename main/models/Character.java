@@ -94,7 +94,7 @@ public class Character extends GameObject{
         this.hasKey = false;
         int hitBoxIndex = width/6;
         int hitBoxSize = width - (2 * hitBoxIndex);
-        this.collisionArea = new Rectangle(hitBoxIndex,hitBoxIndex,hitBoxSize,hitBoxSize);
+
     }
     public void printBag(){
         for (GameObject gameObject: bag){
