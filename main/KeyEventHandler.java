@@ -45,7 +45,7 @@ public class KeyEventHandler implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
-        if (key == KeyEvent.VK_RIGHT) {
+        if (key == KeyEvent.VK_RIGHT) { //Hakan
             character.direction = "right";
             character.moving = true;
         }
@@ -61,7 +61,7 @@ public class KeyEventHandler implements KeyListener {
             character.direction = "down";
             character.moving = true;
         }
-        else if(key == KeyEvent.VK_ESCAPE){
+        else if(key == KeyEvent.VK_ESCAPE){ //Bartu
             System.out.println("pressed escape.");
             gameController.paused = !gameController.paused;
             gameController.stop();
@@ -69,70 +69,11 @@ public class KeyEventHandler implements KeyListener {
             //ProtectionVest pvest = new ProtectionVest(0,0,0,0);
 
         } else if (key == KeyEvent.VK_L) {
-            try {
-                // create object mapper instance
-                ObjectMapper mapper = new ObjectMapper();
 
-                // convert JSON file to map
-                Map<?, ?> map = mapper.readValue(Paths.get("savedGame.json").toFile(), Map.class);
-                // print map entries
-                Character loadChar = null;
-                Room loadCurrentRoom;
-                Building loadCurrentBuilding;
-                BuildingsDataSource.createBuildingDataSource();
-                Alien[] loadAliens;
-                int loadTime = 0;
-                int loadCurrentBuildingCount = 0;
-                int loadRoomX = 0;
-                int loadRoomY = 0;
-
-                for (Map.Entry<?, ?> entry : map.entrySet()) {
-                    //System.out.println(entry.getKey() + "=" + entry.getValue());
-                    System.out.println(entry.getKey());
-                    if (entry.getKey().equals("character")){
-                        loadChar = mapper.readValue((String) entry.getValue(),Character.class);
-                    }
-                    else if (entry.getKey().equals("buildings")){
-                        BuildingsDataSource.buildings = mapper.readValue((String) entry.getValue(),Building[].class);
-                    }
-                    else if (entry.getKey().equals("currentBuilding")){
-                        loadCurrentBuilding = mapper.readValue((String) entry.getValue(),Building.class);
-                    }
-                    else if (entry.getKey().equals("currentRoom")){
-                        loadCurrentRoom = mapper.readValue((String) entry.getValue(),Room.class);
-                    }
-                    else if (entry.getKey().equals("aliens")){
-                        loadAliens = mapper.readValue((String) entry.getValue(),Alien[].class);
-                        Alien.aliens = loadAliens;
-                    }
-                    else if (entry.getKey().equals("time")){
-                        loadTime = mapper.readValue((String) entry.getValue(),Integer.class);
-
-                    }
-                    else if (entry.getKey().equals("currentBuildingCount")){
-                        loadCurrentBuildingCount = mapper.readValue((String) entry.getValue(),Integer.class);
-                        System.out.println("currentBuildingCount:"+ loadCurrentBuildingCount);
-                    }
-                    else if (entry.getKey().equals("roomCountX")){
-                        loadRoomX = mapper.readValue((String) entry.getValue(),Integer.class);
-                    }
-                    else if (entry.getKey().equals("roomCountY")){
-                        loadRoomY = mapper.readValue((String) entry.getValue(),Integer.class);
-                        System.out.println("Y1:"+loadRoomY);
-                    }
-                    System.out.println("Y2"+loadRoomY);
-                }
-                gameController = new GameController(gameController.frame,loadChar,loadTime,loadCurrentBuildingCount,loadRoomX,loadRoomY);
-
-
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-
-        } else if (key == KeyEvent.VK_M) {
+        } else if (key == KeyEvent.VK_M) { //Eren
             gameController.miniMapController.keyEventOperation();
 
-        } else if (key == KeyEvent.VK_H){
+        } else if (key == KeyEvent.VK_H){ //berfan
             for (PowerUp powerUp: character.bag){
                 if (powerUp instanceof Hint){
                     gameController.powerUpController.hintUsed = true;
@@ -149,7 +90,7 @@ public class KeyEventHandler implements KeyListener {
                     break;
                 }
             }
-        } else if (key == KeyEvent.VK_P){
+        } else if (key == KeyEvent.VK_P){ //berfan
             // hint powerUp
             for (PowerUp powerUp: character.bag){
                 if (powerUp instanceof ProtectionVest){
@@ -167,7 +108,7 @@ public class KeyEventHandler implements KeyListener {
                     break;
                 }
             }
-        } else if (key == KeyEvent.VK_B){
+        } else if (key == KeyEvent.VK_B){ //erim
             for (PowerUp powerUp: character.bag){
                 if (powerUp instanceof PlasticBottle){
                     PlasticBottle bottle = (PlasticBottle) powerUp;
@@ -184,7 +125,7 @@ public class KeyEventHandler implements KeyListener {
                     break;
                 }
             }
-        } else if (key == KeyEvent.VK_W && character.bottleUsed){
+        } else if (key == KeyEvent.VK_W && character.bottleUsed){ //erim
             gameController.powerUpController.bottleUsed = true;
             gameController.powerUpController.bottleDirection = "up";
             character.bottleUsed = false;

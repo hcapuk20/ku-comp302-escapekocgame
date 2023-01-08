@@ -10,8 +10,8 @@ public class Furniture extends GameObject{
 
 
 
-    static String[] imageNames = new String[] {"assets/furnitures/bed.png", "assets/furnitures/cabinet.png",
-            "assets/furnitures/chest.png", "assets/furnitures/nightstand.png", "assets/furnitures/table.png"};
+    static String[] imageNames = new String[] {"assets/furnitures/computer.png", "assets/furnitures/bookshelf.png",
+            "assets/furnitures/chair2.png", "assets/furnitures/nightstand.png", "assets/furnitures/table.png"};
     public boolean hasKey;
     public int type;
     public Furniture(){
