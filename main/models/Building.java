@@ -1,10 +1,13 @@
 package main.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import constants.Constants;
 
 import javax.swing.*;
 import java.awt.*;
 
+
+@JsonIgnoreProperties({"totalFurnitures"})
 public class Building {
 
     public Room[][] rooms = new Room[3][3];
@@ -14,6 +17,9 @@ public class Building {
     public int roomX, roomY;
 
     int minFurniture;
+    public Building(){
+
+    }
     public Building(String name, int minFurniture) {
         this.name = name;
         this.minFurniture = minFurniture;

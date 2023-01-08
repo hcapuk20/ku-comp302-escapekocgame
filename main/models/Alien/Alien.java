@@ -1,5 +1,6 @@
 package main.models.Alien;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import main.models.GameObject;
 import main.models.Room;
 
@@ -8,9 +9,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
 public class Alien extends GameObject {
-    public BufferedImage up1,up2,down1,down2,left1,left2,right1,right2;
+    //public BufferedImage up1,up2,down1,down2,left1,left2,right1,right2;
     public boolean moving;
     public String alien_type;
     public Room current_room;

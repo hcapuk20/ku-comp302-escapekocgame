@@ -1,5 +1,6 @@
 package main.controllers;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import constants.Constants;
 import main.CollisionChecker;
 import main.ItemInteractionHandler;
@@ -13,7 +14,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Timer;
 import java.util.TimerTask;
-
+@JsonIgnoreProperties({"frame"})
 public class GameController extends JPanel implements Runnable{
 
     Thread gameThread;
@@ -29,8 +30,8 @@ public class GameController extends JPanel implements Runnable{
     ItemInteractionHandler itemInteractionHandler;
     public int currentBuildingCount = 0;
     public Building currentBuilding;
-    int roomCountX = 1;
-    int roomCountY = 1;
+    public int roomCountX = 1;
+    public int roomCountY = 1;
     public Room currentRoom;
     public JFrame frame;
     public String displayedMessage = "";
@@ -38,13 +39,52 @@ public class GameController extends JPanel implements Runnable{
     public PowerUpController powerUpController;
 
     //public Alien[] aliens = new Alien[100];
-    AlienController alienController;
+    public AlienController alienController;
 
     BagController bagController;
 
     public MiniMapController miniMapController;
     public TimeController timeController;
     int score = 0;
+    public GameController(JFrame f, Character loadChar,int loadTime,int loadBuildingCount,int loadRoomX,int loadRoomY){
+        this.frame =f;
+        this.setPreferredSize(new Dimension(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT));
+        this.setBackground(Color.BLACK);
+        this.setDoubleBuffered(true);
+        character = loadChar;
+        keyListener = new KeyEventHandler(this,character);
+        this.addKeyListener(keyListener);
+        this.setFocusable(true);
+        //buildingsDataSource = new BuildingsDataSource();
+        currentBuilding = BuildingsDataSource.buildings[loadBuildingCount];
+        System.out.println(loadRoomX);
+        System.out.println(loadRoomY);
+        currentRoom = currentBuilding.rooms[loadRoomX][loadRoomY];
+        roomCountX = loadRoomX;
+        roomCountY = loadRoomY;
+        currentBuildingCount = loadBuildingCount;
+
+        //this.mapController = new MapController(this);
+        this.collisionChecker = new CollisionChecker(currentRoom);
+        this.characterController = new CharacterController(character, collisionChecker,this);
+        this.itemInteractionHandler = new ItemInteractionHandler(this);
+        this.addMouseListener(itemInteractionHandler);
+        //currentRoom.tileMap[12][12] = new Furniture(12*Constants.tileSize,12*Constants.tileSize,Constants.tileSize,Constants.tileSize,1);
+
+        this.powerUpController = new PowerUpController(this);
+        powerUpController.spawnPowerUp();
+
+
+        this.miniMapController = new MiniMapController(this);
+
+
+
+        this.alienController = new AlienController(collisionChecker, this, character);
+
+        this.bagController = new BagController(this);
+        this.timeController = new TimeController(this, loadTime);
+        this.setLayout(null);
+    }
 
 
     public GameController(JFrame f){
@@ -77,7 +117,7 @@ public class GameController extends JPanel implements Runnable{
         this.alienController = new AlienController(collisionChecker, this, character);
 
         this.bagController = new BagController(this);
-        this.timeController = new TimeController(this);
+        this.timeController = new TimeController(this, currentBuilding.getTotalFurnitures() * 5);
         this.setLayout(null);
     }
 
@@ -180,7 +220,7 @@ public class GameController extends JPanel implements Runnable{
             character.locationY = 150;
             timeController.counterLabel.setVisible(false);
             timeController.activeTimer = false;
-            timeController = new TimeController(this);
+            timeController = new TimeController(this, currentBuilding.getTotalFurnitures() * 5);
             this.displayedMessage = "Congratulations! You moved on to building "+currentBuildingCount;
             java.util.Timer t = new Timer();
             t.schedule(new TimerTask() {

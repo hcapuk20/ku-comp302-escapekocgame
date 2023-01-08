@@ -8,6 +8,9 @@ import java.awt.*;
 import java.io.File;
 
 public class PlasticBottle extends PowerUp {
+    public PlasticBottle(){
+
+    }
 
     public PlasticBottle(int locationX, int locationY, int width, int height){
         super(locationX, locationY, width, height);

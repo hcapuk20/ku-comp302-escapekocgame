@@ -4,6 +4,13 @@ import javax.imageio.ImageIO;
 import java.io.File;
 
 public class Wall extends GameObject {
+    public Wall(){
+        try {
+            this.image = ImageIO.read(new File("assets/wall.png"));
+        }
+        catch (Exception e){
+        }
+    }
 
     public Wall(int locationX, int locationY, int width, int height){
         this.locationX = locationX;

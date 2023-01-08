@@ -1,5 +1,6 @@
 package main.models.PowerUp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import main.controllers.GameController;
 
 import javax.imageio.ImageIO;
@@ -7,9 +8,12 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.Timer;
 import java.util.TimerTask;
-
+@JsonIgnoreProperties({"image"})
 public class ProtectionVest extends PowerUp{
 
+    public ProtectionVest(){
+
+    }
     public ProtectionVest(int locationX, int locationY, int width, int height){
         super(locationX, locationY, width, height);
         try {

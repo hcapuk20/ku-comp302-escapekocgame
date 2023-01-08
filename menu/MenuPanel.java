@@ -4,6 +4,7 @@ import constants.Constants;
 import main.controllers.BuildingModeController;
 import main.controllers.FurniturePlacementController;
 import main.controllers.GameController;
+import main.controllers.SaveLoadController;
 import main.models.BuildingsDataSource;
 
 import javax.swing.*;
@@ -15,9 +16,9 @@ public class MenuPanel extends JPanel implements ActionListener {
 
 	protected static JButton playButton;
 	protected static JButton quickStartButton;
+	protected static JButton loadButton;
 	protected static JButton infoButton;
 	protected static JButton exitButton;
-
 	protected static JLabel titleLabel;
 
 	protected static int panelWidth = Constants.WINDOW_WIDTH;
@@ -89,6 +90,16 @@ public class MenuPanel extends JPanel implements ActionListener {
 		quickStartButton.setBounds((panelWidth - buttonWidth) / 2, (panelHeight - buttonHeight) / 2 - buttonHeight,
 				buttonWidth, buttonHeight);
 
+		loadButton = new JButton("LOAD GAME");
+		loadButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				loadButtonAction();
+			}
+		});
+		loadButton.setBounds((panelWidth - buttonWidth) / 2, (panelHeight - buttonHeight) / 2, buttonWidth,
+				buttonHeight);
+
 		infoButton = new JButton("INFO");
 		infoButton.addActionListener(new ActionListener() {
 			@Override
@@ -96,8 +107,8 @@ public class MenuPanel extends JPanel implements ActionListener {
 				infoButtonAction();
 			}
 		});
-		infoButton.setBounds((panelWidth - buttonWidth) / 2, (panelHeight - buttonHeight) / 2, buttonWidth,
-				buttonHeight);
+		infoButton.setBounds((panelWidth - buttonWidth) / 2, (panelHeight - buttonHeight) / 2 + buttonHeight,
+				buttonWidth, buttonHeight);
 
 		exitButton = new JButton("EXIT");
 		exitButton.addActionListener(new ActionListener() {
@@ -106,11 +117,12 @@ public class MenuPanel extends JPanel implements ActionListener {
 				exitButtonAction();
 			}
 		});
-		exitButton.setBounds((panelWidth - buttonWidth) / 2, (panelHeight - buttonHeight) / 2 + buttonHeight,
+		exitButton.setBounds((panelWidth - buttonWidth) / 2, (panelHeight - buttonHeight) / 2 + buttonHeight * 2,
 				buttonWidth, buttonHeight);
 
 		this.add(playButton);
 		this.add(quickStartButton);
+		this.add(loadButton);
 		this.add(infoButton);
 		this.add(exitButton);
 	}
@@ -143,6 +155,12 @@ public class MenuPanel extends JPanel implements ActionListener {
 		gameController.startGame();
 
 		frame.remove(this);
+	}
+
+	protected void loadButtonAction() {
+
+		SaveLoadController.loadGameFromFile(frame, this);
+
 	}
 
 	protected void infoButtonAction() {

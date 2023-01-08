@@ -11,6 +11,9 @@ import java.awt.*;
 import java.io.File;
 
 public class Hint extends  PowerUp{
+    public Hint(){
+
+    }
 
     public Hint(int locationX, int locationY, int width, int height){
         super(locationX, locationY, width, height);

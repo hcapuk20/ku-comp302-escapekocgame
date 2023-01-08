@@ -8,6 +8,9 @@ import java.io.File;
 import java.io.IOException;
 
 public class TimeWasting2  extends TimeWasting implements TimeWastingInterface {
+    public TimeWasting2(){
+        super();
+    }
 
     public TimeWasting2(int x, int y, int height, int width, String alien_type, Room currentRoom) {
         super(x, y, height, width, alien_type, currentRoom);

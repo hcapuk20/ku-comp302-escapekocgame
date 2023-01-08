@@ -16,10 +16,10 @@ public class CollisionChecker {
 
     public boolean checkCollision(GameObject object){
         // coordinates of the objects hit-box (collisionArea)
-        int collisionLeftX = object.locationX + object.collisionArea.x;
-        int collisionRightX = object.locationX + object.collisionArea.x + object.collisionArea.width;
-        int collisionTopY = object.locationY + object.collisionArea.y;
-        int collisionBottomY = object.locationY + object.collisionArea.y + object.collisionArea.height;
+        int collisionLeftX = object.locationX;
+        int collisionRightX = object.locationX + object.width;
+        int collisionTopY = object.locationY;
+        int collisionBottomY = object.locationY + object.height;
         int tileSize = Constants.tileSize;
         int collisionLeftTile = collisionLeftX / tileSize;
         int collisionRightTile = collisionRightX / tileSize;
