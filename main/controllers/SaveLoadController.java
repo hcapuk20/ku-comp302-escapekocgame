@@ -1,12 +1,17 @@
 package main.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import constants.Constants;
 import main.models.*;
 import main.models.Alien.Alien;
 import main.models.Character;
+import org.json.simple.JSONObject;
 
 import javax.swing.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Map;
 
@@ -88,6 +93,39 @@ public class SaveLoadController {
 
         } catch (Exception ex) {
             ex.printStackTrace();
+        }
+    }
+
+    public static void saveGameToFile(GameController gameController){
+        var mapper = new ObjectMapper();
+        try {
+            var json = mapper.writeValueAsString(gameController.character);
+            var json2 = mapper.writeValueAsString(BuildingsDataSource.buildings);
+            var json3 = mapper.writeValueAsString(Alien.aliens);
+            var json4 = mapper.writeValueAsString(gameController.timeController.time);
+            var json5 = mapper.writeValueAsString(gameController.currentBuildingCount);
+            var json6 = mapper.writeValueAsString(gameController.roomCountX);
+            var json7 = mapper.writeValueAsString(gameController.roomCountY);
+
+            JSONObject jsonpObject = new JSONObject();
+            jsonpObject.put("character",json);
+            jsonpObject.put("buildings",json2);
+            jsonpObject.put("aliens",json3);
+            jsonpObject.put("time",json4);
+            jsonpObject.put("currentBuildingCount",json5);
+            jsonpObject.put("roomCountX",json6);
+            jsonpObject.put("roomCountY",json7);
+
+            File saveGameFile = new File("savedGame.json");
+            FileWriter myWriter = new FileWriter("savedGame.json");
+            myWriter.write(jsonpObject.toJSONString());
+            myWriter.close();
+
+
+        } catch (JsonProcessingException es) {
+            es.printStackTrace();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
         }
     }
 
