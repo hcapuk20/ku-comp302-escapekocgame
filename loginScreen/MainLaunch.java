@@ -23,7 +23,8 @@ public class MainLaunch {
 		// Launches the login view 
         EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoginView().setVisible(true);
+                LoginView log = new LoginView();
+                log.getWindow().setVisible(true);
             }
         });
 

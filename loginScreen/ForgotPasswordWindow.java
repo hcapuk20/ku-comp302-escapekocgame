@@ -19,6 +19,7 @@ import javax.swing.LayoutStyle;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
+import loginScreen.controllers.ScreenEventHandler;
 import loginScreen.controllers.UserController;
 
 public class ForgotPasswordWindow extends JFrame {
@@ -26,6 +27,7 @@ public class ForgotPasswordWindow extends JFrame {
 	// Declaration of components and the user controller
 	// Email sending functionality not implemented
 	private UserController usc = new UserController();
+	private ScreenEventHandler scr = new ScreenEventHandler();
 	
 	private JButton submitButton;
 	private JButton exitButton;
@@ -49,13 +51,21 @@ public class ForgotPasswordWindow extends JFrame {
 	
 	// Constructor for the forgot password window
     public ForgotPasswordWindow() {
-        forgotPasswordWindowComponents();
+    	
+    	setComponents();
+    	setFrameProperties();
+    	setFrameLayout();
+    	setButtons();
+    	setLabels();
+    	setTextFields();
+    	setDecorations();
+    	
+        pack();
+        setLocationRelativeTo(null);
     }
      
-    // Private method that generates UI components and event listeners
-    private void forgotPasswordWindowComponents() {
-
-        menuPanel = new JPanel();
+    private void setComponents() {
+    	menuPanel = new JPanel();
         emailPrompt = new JLabel();
         submitButton = new JButton();
         emailField = new JTextField();
@@ -75,8 +85,9 @@ public class ForgotPasswordWindow extends JFrame {
         screenDeco10 = new JPanel();
         screenDeco11 = new JPanel();
         screenDeco12 = new JPanel();
-
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    }
+    private void setFrameProperties() {
+    	setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Forgot Password");
         setUndecorated(true);
         addMouseListener(new MouseAdapter() {
@@ -84,15 +95,128 @@ public class ForgotPasswordWindow extends JFrame {
                 formMouseClicked(evt);
             }
         });
-
-        menuPanel.setBackground(new Color(51, 51, 51));
+    }
+    private void setFrameLayout() {
+    	menuPanel.setBackground(new Color(51, 51, 51));
         menuPanel.setBorder(BorderFactory.createLineBorder(new Color(255, 255, 255)));
+        
+        GroupLayout menuPanelLayout = new GroupLayout(menuPanel);
+        menuPanel.setLayout(menuPanelLayout);
+        menuPanelLayout.setHorizontalGroup(
+            menuPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(GroupLayout.Alignment.TRAILING, menuPanelLayout.createSequentialGroup()
+                .addComponent(screenDeco11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(screenDeco1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addGroup(menuPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addGroup(menuPanelLayout.createSequentialGroup()
+                        .addGap(127, 127, 127)
+                        .addComponent(passwordStatus, GroupLayout.PREFERRED_SIZE, 180, GroupLayout.PREFERRED_SIZE)
+                        .addGap(131, 131, 131)
+                        .addComponent(screenDeco8, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(screenDeco9, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(emailPrompt, GroupLayout.PREFERRED_SIZE, 426, GroupLayout.PREFERRED_SIZE)))
+            .addGroup(menuPanelLayout.createSequentialGroup()
+                .addComponent(screenDeco10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(screenDeco4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(screenDeco7, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(screenDeco12, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+            .addGroup(menuPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(menuPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addGroup(menuPanelLayout.createSequentialGroup()
+                        .addComponent(screenDeco3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(screenDeco6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addGroup(menuPanelLayout.createSequentialGroup()
+                        .addComponent(screenDeco2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(screenDeco5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+            .addGroup(menuPanelLayout.createSequentialGroup()
+                .addGap(122, 122, 122)
+                .addGroup(menuPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addGroup(menuPanelLayout.createSequentialGroup()
+                        .addGroup(menuPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                            .addComponent(emailField)
+                            .addComponent(emailSeparator, GroupLayout.PREFERRED_SIZE, 312, GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(menuPanelLayout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(submitButton)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(exitButton)
+                        .addGap(123, 123, 123))))
+        );
+        menuPanelLayout.setVerticalGroup(
+            menuPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(menuPanelLayout.createSequentialGroup()
+                .addGroup(menuPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(screenDeco10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(screenDeco12, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addGroup(menuPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(menuPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                            .addComponent(screenDeco4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(screenDeco7, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+                .addGroup(menuPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addGroup(GroupLayout.Alignment.TRAILING, menuPanelLayout.createSequentialGroup()
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(screenDeco1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(menuPanelLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(menuPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                            .addGroup(menuPanelLayout.createSequentialGroup()
+                                .addComponent(screenDeco6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(screenDeco5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(menuPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                    .addComponent(screenDeco9, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(menuPanelLayout.createSequentialGroup()
+                                        .addGap(9, 9, 9)
+                                        .addComponent(screenDeco8, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(menuPanelLayout.createSequentialGroup()
+                                .addComponent(screenDeco3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(screenDeco2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(screenDeco11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                            .addGroup(menuPanelLayout.createSequentialGroup()
+                                .addGap(11, 11, 11)
+                                .addComponent(emailPrompt, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(emailField, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(emailSeparator, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                                .addGroup(menuPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                    .addComponent(submitButton)
+                                    .addComponent(exitButton))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(passwordStatus, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12))))))
+        );
 
-        emailPrompt.setFont(new Font("Segoe UI", 1, 18)); 
-        emailPrompt.setForeground(new Color(255, 255, 255));
-        emailPrompt.setText("Please enter your email to receive your password.");
-
-        submitButton.setBackground(new Color(51, 51, 51));
+        GroupLayout layout = new GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(menuPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(menuPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+    }
+    private void setButtons() {
+    	submitButton.setBackground(new Color(51, 51, 51));
         submitButton.setForeground(new Color(255, 255, 255));
         submitButton.setText("Submit");
         submitButton.addMouseListener(new MouseAdapter() {
@@ -100,13 +224,28 @@ public class ForgotPasswordWindow extends JFrame {
                 submitButtonMouseClicked(evt);
             }
         });
-        submitButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                submitButtonActionPerformed(evt);
+        
+        exitButton.setBackground(new Color(51, 51, 51));
+        exitButton.setForeground(new Color(255, 255, 255));
+        exitButton.setText("Exit");
+        exitButton.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent evt) {
+                exitButtonMousePressed(evt);
             }
         });
-
-        emailField.setBackground(new Color(51, 51, 51));
+    }
+    private void setLabels() {
+    	emailPrompt.setFont(new Font("Segoe UI", 1, 18)); 
+        emailPrompt.setForeground(new Color(255, 255, 255));
+        emailPrompt.setText("Please enter your email to receive your password.");
+        
+        passwordStatus.setFont(new Font("Segoe UI", 3, 12)); 
+        passwordStatus.setForeground(new Color(255, 51, 51));
+        passwordStatus.setHorizontalAlignment(SwingConstants.CENTER);
+        passwordStatus.setHorizontalTextPosition(SwingConstants.RIGHT);
+    }
+    private void setTextFields() {
+    	emailField.setBackground(new Color(51, 51, 51));
         emailField.setFont(new Font("Dialog", 0, 12)); 
         emailField.setForeground(new Color(204, 204, 204));
         emailField.setText("Email");
@@ -116,16 +255,12 @@ public class ForgotPasswordWindow extends JFrame {
                 emailFieldMouseClicked(evt);
             }
         });
-        emailField.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                emailFieldActionPerformed(evt);
-            }
-        });
 
         emailSeparator.setBackground(new Color(255, 255, 255));
         emailSeparator.setForeground(new Color(255, 255, 255));
-
-        screenDeco9.setBackground(new Color(102, 153, 255));
+    }
+    private void setDecorations() {
+    	screenDeco9.setBackground(new Color(102, 153, 255));
 
         GroupLayout screenDeco9Layout = new GroupLayout(screenDeco9);
         screenDeco9.setLayout(screenDeco9Layout);
@@ -280,150 +415,8 @@ public class ForgotPasswordWindow extends JFrame {
             screenDeco8Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGap(0, 10, Short.MAX_VALUE)
         );
-
-        exitButton.setBackground(new Color(51, 51, 51));
-        exitButton.setForeground(new Color(255, 255, 255));
-        exitButton.setText("Exit");
-        exitButton.addMouseListener(new MouseAdapter() {
-            public void mousePressed(MouseEvent evt) {
-                exitButtonMousePressed(evt);
-            }
-        });
-        exitButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                exitButtonActionPerformed(evt);
-            }
-        });
-
-        passwordStatus.setFont(new Font("Segoe UI", 3, 12)); 
-        passwordStatus.setForeground(new Color(255, 51, 51));
-        passwordStatus.setHorizontalAlignment(SwingConstants.CENTER);
-        passwordStatus.setHorizontalTextPosition(SwingConstants.RIGHT);
-
-        GroupLayout menuPanelLayout = new GroupLayout(menuPanel);
-        menuPanel.setLayout(menuPanelLayout);
-        menuPanelLayout.setHorizontalGroup(
-            menuPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(GroupLayout.Alignment.TRAILING, menuPanelLayout.createSequentialGroup()
-                .addComponent(screenDeco11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(screenDeco1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addGroup(menuPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addGroup(menuPanelLayout.createSequentialGroup()
-                        .addGap(127, 127, 127)
-                        .addComponent(passwordStatus, GroupLayout.PREFERRED_SIZE, 180, GroupLayout.PREFERRED_SIZE)
-                        .addGap(131, 131, 131)
-                        .addComponent(screenDeco8, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(screenDeco9, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addComponent(emailPrompt, GroupLayout.PREFERRED_SIZE, 426, GroupLayout.PREFERRED_SIZE)))
-            .addGroup(menuPanelLayout.createSequentialGroup()
-                .addComponent(screenDeco10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(screenDeco4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(screenDeco7, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(screenDeco12, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-            .addGroup(menuPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(menuPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addGroup(menuPanelLayout.createSequentialGroup()
-                        .addComponent(screenDeco3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(screenDeco6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addGroup(menuPanelLayout.createSequentialGroup()
-                        .addComponent(screenDeco2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(screenDeco5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-            .addGroup(menuPanelLayout.createSequentialGroup()
-                .addGap(122, 122, 122)
-                .addGroup(menuPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addGroup(menuPanelLayout.createSequentialGroup()
-                        .addGroup(menuPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                            .addComponent(emailField)
-                            .addComponent(emailSeparator, GroupLayout.PREFERRED_SIZE, 312, GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(menuPanelLayout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(submitButton)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(exitButton)
-                        .addGap(123, 123, 123))))
-        );
-        menuPanelLayout.setVerticalGroup(
-            menuPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(menuPanelLayout.createSequentialGroup()
-                .addGroup(menuPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(screenDeco10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(screenDeco12, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addGroup(menuPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(menuPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                            .addComponent(screenDeco4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addComponent(screenDeco7, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-                .addGroup(menuPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addGroup(GroupLayout.Alignment.TRAILING, menuPanelLayout.createSequentialGroup()
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(screenDeco1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(menuPanelLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addGroup(menuPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                            .addGroup(menuPanelLayout.createSequentialGroup()
-                                .addComponent(screenDeco6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(screenDeco5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(menuPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                    .addComponent(screenDeco9, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(menuPanelLayout.createSequentialGroup()
-                                        .addGap(9, 9, 9)
-                                        .addComponent(screenDeco8, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(menuPanelLayout.createSequentialGroup()
-                                .addComponent(screenDeco3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(screenDeco2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(screenDeco11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                            .addGroup(menuPanelLayout.createSequentialGroup()
-                                .addGap(11, 11, 11)
-                                .addComponent(emailPrompt, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(emailField, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
-                                .addComponent(emailSeparator, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                                .addGroup(menuPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                    .addComponent(submitButton)
-                                    .addComponent(exitButton))
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(passwordStatus, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
-                                .addGap(12, 12, 12))))))
-        );
-
-        GroupLayout layout = new GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addComponent(menuPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addComponent(menuPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        pack();
-        setLocationRelativeTo(null);
-    }                       
-
-    // Events for different components for the forgot password view 
-    private void submitButtonActionPerformed(ActionEvent evt) {}                                        
-    private void emailFieldActionPerformed(ActionEvent evt) {}                                           
-    private void exitButtonActionPerformed(ActionEvent evt) {}                                        
-
+    }
+                                         
     // Exit button event that disposes this instance of a JFrame  
     private void exitButtonMousePressed(MouseEvent evt) {                                      
         this.dispose();
@@ -431,25 +424,16 @@ public class ForgotPasswordWindow extends JFrame {
 
     // Events that update the view of the fields based on their contents
     private void emailFieldMouseClicked(MouseEvent evt) {                                         
-        if (emailField.getText().equals("Email")) {
-            emailField.setText("");
-        }
+    	scr.forgotPasswordEmailField(emailField);	
     }                                        
 
     private void formMouseClicked(MouseEvent evt) {                                  
-        if (emailField.getText().equals("")) {
-            emailField.setText("Email");
-        }
+        scr.forgotPasswordFrameClick(emailField);
     }                                 
     
     // Button event that checks for the email input and sends email (not implemented)
     private void submitButtonMouseClicked(MouseEvent evt) {                                      
-    	String email = emailField.getText();
-        if (!usc.checkEmailValidity(email) || email.equals("Email") || email.equals("")) {
-            passwordStatus.setText("Invalid email! Try again.");
-        } else if (usc.checkEmailValidity(email)) {
-            passwordStatus.setForeground(new Color(102, 255, 102));
-            passwordStatus.setText("Email sent successfully!");
-        }
-    }                                                             
+        scr.forgotPasswordSubmitClick(usc, emailField, passwordStatus);
+    }
+
 }
