@@ -209,6 +209,7 @@ public class GameController extends JPanel implements Runnable{
     public void changeBuilding(){
         System.out.println("Changing Building..");
         Alien.aliens = new Alien[100];
+        score += 1;
 
         if (currentBuildingCount < 5){
             currentBuildingCount +=1;

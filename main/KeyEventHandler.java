@@ -67,48 +67,7 @@ public class KeyEventHandler implements KeyListener {
             gameController.stop();
         } else if (key == KeyEvent.VK_Z) {
             //ProtectionVest pvest = new ProtectionVest(0,0,0,0);
-            var mapper = new ObjectMapper();
-            try {
-                var json = mapper.writeValueAsString(gameController.character);
-                //System.out.println(json);
-                var json2 = mapper.writeValueAsString(BuildingsDataSource.buildings);
-                //System.out.println(json2);
-                var json3 = mapper.writeValueAsString(gameController.currentBuilding);
-                //System.out.println(json3);
-                var json4 = mapper.writeValueAsString(gameController.currentRoom);
-                //System.out.println(json4);
-                var json5 = mapper.writeValueAsString(Alien.aliens);
-                //System.out.println(json5);
-                var json6 = mapper.writeValueAsString(gameController.timeController.time);
-                //System.out.println(json6);
-                var json7 = mapper.writeValueAsString(gameController.currentBuildingCount);
-                //System.out.println(json7);
-                var json8 = mapper.writeValueAsString(gameController.roomCountX);
-                //System.out.println(json8);
-                var json9 = mapper.writeValueAsString(gameController.roomCountY);
-                //System.out.println(json9);
-                JSONObject jsonpObject = new JSONObject();
-                jsonpObject.put("character",json);
-                jsonpObject.put("buildings",json2);
-                //jsonpObject.put("currentBuilding",json3);
-                //jsonpObject.put("currentRoom",json4);
-                jsonpObject.put("aliens",json5);
-                jsonpObject.put("time",json6);
-                jsonpObject.put("currentBuildingCount",json7);
-                jsonpObject.put("roomCountX",json8);
-                jsonpObject.put("roomCountY",json9);
 
-                File saveGameFile = new File("savedGame.json");
-                FileWriter myWriter = new FileWriter("savedGame.json");
-                myWriter.write(jsonpObject.toJSONString());
-                myWriter.close();
-
-
-            } catch (JsonProcessingException es) {
-                es.printStackTrace();
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
         } else if (key == KeyEvent.VK_L) {
             try {
                 // create object mapper instance

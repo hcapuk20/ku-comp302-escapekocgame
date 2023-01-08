@@ -2,6 +2,7 @@ package pause;
 
 import constants.Constants;
 import main.controllers.GameController;
+import main.controllers.SaveLoadController;
 import menu.MenuPanel;
 
 import javax.swing.*;
@@ -12,6 +13,7 @@ import java.awt.event.ActionListener;
 public class PausePanel extends JPanel implements ActionListener {
 
     protected static JButton resumeButton;
+    protected static JButton saveButton;
     protected static JButton helpButton;
     protected static JButton exitButton;
 
@@ -81,6 +83,16 @@ public class PausePanel extends JPanel implements ActionListener {
         resumeButton.setBounds((panelWidth - buttonWidth) / 2, (panelHeight - buttonHeight) / 2 - buttonHeight,
                 buttonWidth, buttonHeight);
 
+        saveButton = new JButton("SAVE GAME");
+        saveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                saveButtonAction();
+            }
+        });
+        saveButton.setBounds((panelWidth - buttonWidth) / 2, (panelHeight - buttonHeight) / 2, buttonWidth,
+                buttonHeight);
+
         helpButton = new JButton("HELP");
         helpButton.addActionListener(new ActionListener() {
             @Override
@@ -88,8 +100,8 @@ public class PausePanel extends JPanel implements ActionListener {
 
             }
         });
-        helpButton.setBounds((panelWidth - buttonWidth) / 2, (panelHeight - buttonHeight) / 2, buttonWidth,
-                buttonHeight);
+        helpButton.setBounds((panelWidth - buttonWidth) / 2, (panelHeight - buttonHeight) / 2 + buttonHeight,
+                buttonWidth, buttonHeight);
 
         exitButton = new JButton("EXIT");
         exitButton.addActionListener(new ActionListener() {
@@ -98,12 +110,17 @@ public class PausePanel extends JPanel implements ActionListener {
                 exitButtonAction();
             }
         });
-        exitButton.setBounds((panelWidth - buttonWidth) / 2, (panelHeight - buttonHeight) / 2 + buttonHeight,
+        exitButton.setBounds((panelWidth - buttonWidth) / 2, (panelHeight - buttonHeight) / 2 + buttonHeight * 2,
                 buttonWidth, buttonHeight);
 
         this.add(resumeButton);
+        this.add(saveButton);
         this.add(helpButton);
         this.add(exitButton);
+    }
+
+    protected void saveButtonAction() {
+        SaveLoadController.saveGameToFile(panel);
     }
 
     protected void resumeButtonAction() {
