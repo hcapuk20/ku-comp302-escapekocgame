@@ -6,7 +6,7 @@ import java.io.File;
 public class Wall extends GameObject {
     public Wall(){
         try {
-            this.image = ImageIO.read(new File("assets/wall2.png"));
+            this.image = ImageIO.read(new File("assets/wall3.png"));
         }
         catch (Exception e){
         }
@@ -19,7 +19,7 @@ public class Wall extends GameObject {
         this.width = width;
         this.collidable = true;
         try {
-            this.image = ImageIO.read(new File("assets/wall2.png"));
+            this.image = ImageIO.read(new File("assets/wall3.png"));
         }
         catch (Exception e){
         }

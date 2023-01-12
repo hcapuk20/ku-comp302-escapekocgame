@@ -49,7 +49,7 @@ public class GameController extends JPanel implements Runnable{
     public GameController(JFrame f, Character loadChar,int loadTime,int loadBuildingCount,int loadRoomX,int loadRoomY){
         this.frame =f;
         this.setPreferredSize(new Dimension(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT));
-        this.setBackground(Color.BLACK);
+        this.setBackground(new Color(254, 185, 123));
         this.setDoubleBuffered(true);
         character = loadChar;
         keyListener = new KeyEventHandler(this,character);
@@ -90,7 +90,7 @@ public class GameController extends JPanel implements Runnable{
     public GameController(JFrame f){
         this.frame =f;
         this.setPreferredSize(new Dimension(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT));
-        this.setBackground(Color.BLACK);
+        this.setBackground(new Color(254, 229, 204));
         this.setDoubleBuffered(true);
         character = new Character(150,150,Constants.tileSize,Constants.tileSize,6);
         keyListener = new KeyEventHandler(this,character);
