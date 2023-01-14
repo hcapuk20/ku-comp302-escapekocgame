@@ -1,7 +1,15 @@
 package main.controllers;
 
+import static com.mongodb.client.model.Filters.eq;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mongodb.*;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
 import constants.Constants;
 import main.Main;
 import main.models.*;
@@ -15,6 +23,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Map;
+import org.bson.Document;
 
 public class SaveLoadController {
 
@@ -134,6 +143,61 @@ public class SaveLoadController {
             es.printStackTrace();
         } catch (IOException ex) {
             throw new RuntimeException(ex);
+        }
+    }
+
+    public static void saveGameToDB(GameController gameController, String userName){
+        var mapper = new ObjectMapper();
+        try {
+
+            var json = mapper.writeValueAsString(gameController.character);
+            var json2 = mapper.writeValueAsString(BuildingsDataSource.buildings);
+            var json3 = mapper.writeValueAsString(Alien.aliens);
+            var json4 = mapper.writeValueAsString(gameController.timeController.time);
+            var json5 = mapper.writeValueAsString(gameController.currentBuildingCount);
+            var json6 = mapper.writeValueAsString(gameController.roomCountX);
+            var json7 = mapper.writeValueAsString(gameController.roomCountY);
+
+            JSONObject jsonpObject = new JSONObject();
+            jsonpObject.put("character",json);
+            jsonpObject.put("buildings",json2);
+            jsonpObject.put("aliens",json3);
+            jsonpObject.put("time",json4);
+            jsonpObject.put("currentBuildingCount",json5);
+            jsonpObject.put("roomCountX",json6);
+            jsonpObject.put("roomCountY",json7);
+
+            try {
+                ConnectionString connectionString = new ConnectionString("mongodb+srv://erim:deneme123@escapekoc.5csekqp.mongodb.net/?retryWrites=true&w=majority");
+                MongoClientSettings settings = MongoClientSettings.builder()
+                        .applyConnectionString(connectionString)
+                        .build();
+                MongoClient mongoClient = MongoClients.create(settings);
+
+                MongoDatabase database = mongoClient.getDatabase("escapeKocTest");
+                //database.createCollection("escapeKocTestCollection");
+
+                System.out.println("Collection created successfully");
+
+                MongoCollection<Document> collection = database.getCollection("escapeKocTestCollection");
+                System.out.println("Collection got successfully");
+
+                Document doc = collection.find(eq("user", userName)).first();
+                if (doc == null){
+                    System.out.println("No data found, new data will be inserted");
+                    Document document = new Document("user",userName).append("gamedata",jsonpObject);
+                    collection.insertOne(document);
+                    System.out.println("Document inserted successfully");
+                } else {
+                    // update
+                    collection.updateOne(Filters.eq("user", userName), Updates.set("gamedata", jsonpObject));;
+                }
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+        } catch (JsonProcessingException es) {
+            es.printStackTrace();
         }
     }
 

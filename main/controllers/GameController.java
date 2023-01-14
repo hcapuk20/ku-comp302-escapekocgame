@@ -49,8 +49,8 @@ public class GameController extends JPanel implements Runnable{
     public TimeController timeController;
     int score = 0;
 
-    String username = Main.username;
-    String password = Main.password;
+    public String username = Main.username;
+    public String password = Main.password;
 
     public GameController(JFrame f, Character loadChar,int loadTime,int loadBuildingCount,int loadRoomX,int loadRoomY){
         this.frame =f;
