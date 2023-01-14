@@ -1,6 +1,7 @@
 package menu;
 
 import constants.Constants;
+import main.Main;
 import main.controllers.BuildingModeController;
 import main.controllers.FurniturePlacementController;
 import main.controllers.GameController;
@@ -159,7 +160,8 @@ public class MenuPanel extends JPanel implements ActionListener {
 
 	protected void loadButtonAction() {
 
-		SaveLoadController.loadGameFromFile(frame, this);
+		//SaveLoadController.loadGameFromFile(frame, this);
+		SaveLoadController.loadFromDB(this,frame, Main.username);
 
 	}
 

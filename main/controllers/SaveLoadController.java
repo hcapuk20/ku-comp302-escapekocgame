@@ -201,4 +201,103 @@ public class SaveLoadController {
         }
     }
 
+    public static void loadFromDB(JPanel panel, JFrame jframe, String userName){
+        try {
+            ConnectionString connectionString = new ConnectionString("mongodb+srv://erim:deneme123@escapekoc.5csekqp.mongodb.net/?retryWrites=true&w=majority");
+            MongoClientSettings settings = MongoClientSettings.builder()
+                    .applyConnectionString(connectionString)
+                    .build();
+            MongoClient mongoClient = MongoClients.create(settings);
+
+            MongoDatabase database = mongoClient.getDatabase("escapeKocTest");
+            //database.createCollection("escapeKocTestCollection");
+
+            System.out.println("Collection created successfully");
+
+            MongoCollection<Document> collection = database.getCollection("escapeKocTestCollection");
+            System.out.println("Collection got successfully");
+
+            Document doc = collection.find(eq("user", userName)).first();
+            if (doc == null){
+                return;
+            } else {
+                ObjectMapper mapper = new ObjectMapper();
+                // print map entries
+                Character loadChar = null;
+                Room loadCurrentRoom;
+                Building loadCurrentBuilding;
+                BuildingsDataSource.createBuildingDataSource();
+                Alien[] loadAliens;
+                int loadTime = 0;
+                int loadCurrentBuildingCount = 0;
+                int loadRoomX = 0;
+                int loadRoomY = 0;
+                Map<?, ?> map = null;
+                try {
+                    map = mapper.readValue(doc.get("gamedata", Document.class).toJson(), Map.class);
+                } catch (Exception e) {
+                    return;
+                }
+                for (Map.Entry<?, ?> entry : map.entrySet()) {
+                    //System.out.println(entry.getKey() + "=" + entry.getValue());
+                    System.out.println(entry.getKey());
+                    if (entry.getKey().equals("character")){
+                        loadChar = mapper.readValue((String) entry.getValue(),Character.class);
+                    }
+                    else if (entry.getKey().equals("buildings")){
+                        BuildingsDataSource.buildings = mapper.readValue((String) entry.getValue(),Building[].class);
+                    }
+                    else if (entry.getKey().equals("currentBuilding")){
+                        loadCurrentBuilding = mapper.readValue((String) entry.getValue(),Building.class);
+                    }
+                    else if (entry.getKey().equals("currentRoom")){
+                        loadCurrentRoom = mapper.readValue((String) entry.getValue(),Room.class);
+                    }
+                    else if (entry.getKey().equals("aliens")){
+                        loadAliens = mapper.readValue((String) entry.getValue(),Alien[].class);
+                        Alien.aliens = loadAliens;
+                    }
+                    else if (entry.getKey().equals("time")){
+                        loadTime = mapper.readValue((String) entry.getValue(),Integer.class);
+                    }
+                    else if (entry.getKey().equals("currentBuildingCount")){
+                        loadCurrentBuildingCount = mapper.readValue((String) entry.getValue(),Integer.class);
+                    }
+                    else if (entry.getKey().equals("roomCountX")){
+                        loadRoomX = mapper.readValue((String) entry.getValue(),Integer.class);
+                    }
+                    else if (entry.getKey().equals("roomCountY")){
+                        loadRoomY = mapper.readValue((String) entry.getValue(),Integer.class);
+                    }
+                }
+
+                for(Building building: BuildingsDataSource.buildings){
+                    for(Room[] rooms: building.rooms){
+                        for(Room room: rooms){
+                            if(room != null){
+                                for(GameObject[] gameObjects: room.tileMap){
+                                    for(GameObject gameObject: gameObjects){
+                                        if(gameObject instanceof Furniture){
+                                            ((Furniture) gameObject).initializeImage();
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+
+                GameController gameController = new GameController(jframe,loadChar,loadTime,loadCurrentBuildingCount,loadRoomX,loadRoomY);
+                jframe.add(gameController);
+                gameController.setBounds(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
+                gameController.startGame();
+                jframe.remove(panel);
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
 }
