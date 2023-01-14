@@ -253,7 +253,7 @@ public class ScreenEventHandler {
         	loginStatus.setText("Invalid username or password!");
         }
     	else if (user[0].equals(username) && user[1].equals(password)) {
-    		startMain();
+    		startMain(username, password);
     		LoginView.closeWindow();
     		loginStatus.setForeground(new Color(102, 255, 102));
             loginStatus.setText("Login successful! Launching the game...");	           
@@ -261,9 +261,9 @@ public class ScreenEventHandler {
     	enc.encryptFile(key, userFile, userFile);
 	}
 	
-	public void startMain() {
+	public void startMain(String username, String password) {
 		Main main = new Main();
-        main.startMainMenu();
+        main.startMainMenu(username, password);
 	}
 
 	

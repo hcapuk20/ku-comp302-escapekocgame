@@ -50,7 +50,7 @@ public class Hint extends  PowerUp{
         int drawY = (yMiddle - (2 *tileSize));
 
 
-        g.setColor(Color.ORANGE);
+        g.setColor(Color.blue);
         g.drawRect(drawX,drawY,tileSize*4,tileSize*4);
     }
     public void drawMessage(Graphics g,GameController gameController){

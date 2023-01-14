@@ -5,6 +5,7 @@ import constants.Constants;
 import main.CollisionChecker;
 import main.ItemInteractionHandler;
 import main.KeyEventHandler;
+import main.Main;
 import main.models.*;
 import main.models.Alien.Alien;
 import main.models.Character;
@@ -12,6 +13,7 @@ import pause.PausePanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLOutput;
 import java.util.Timer;
 import java.util.TimerTask;
 @JsonIgnoreProperties({"frame"})
@@ -46,10 +48,14 @@ public class GameController extends JPanel implements Runnable{
     public MiniMapController miniMapController;
     public TimeController timeController;
     int score = 0;
+
+    public String username = Main.username;
+    public String password = Main.password;
+
     public GameController(JFrame f, Character loadChar,int loadTime,int loadBuildingCount,int loadRoomX,int loadRoomY){
         this.frame =f;
         this.setPreferredSize(new Dimension(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT));
-        this.setBackground(new Color(254, 185, 123));
+        this.setBackground(new Color(254, 229, 204));
         this.setDoubleBuffered(true);
         character = loadChar;
         keyListener = new KeyEventHandler(this,character);
@@ -108,7 +114,6 @@ public class GameController extends JPanel implements Runnable{
 
         this.powerUpController = new PowerUpController(this);
         powerUpController.spawnPowerUp();
-
 
         this.miniMapController = new MiniMapController(this);
         
