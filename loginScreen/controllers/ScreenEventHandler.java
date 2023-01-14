@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.JButton;
 
 import loginScreen.DeleteAccountWindow;
 import loginScreen.ForgotPasswordWindow;
@@ -260,10 +261,35 @@ public class ScreenEventHandler {
     	}    	
     	enc.encryptFile(key, userFile, userFile);
 	}
+
+	public void toggleButtonEntered(JButton toggleSaveButton) {
+        toggleSaveButton.setToolTipText("Toggle between saving your info as file or database by clicking here.");
+
+	}
+
+	public void toggleButtonClick(JButton toggleSaveButton) {
+		if (toggleSaveButton.getText().equals("Save as file")) {
+            toggleSaveButton.setText("Save as database");
+            toggleSaveButton.setBackground(new Color(102, 255, 102));
+        }
+        else if (toggleSaveButton.getText().equals("Save as database")) {
+            toggleSaveButton.setText("Save as file");
+            toggleSaveButton.setBackground(new Color(0, 255, 255));
+        }
+	}
 	
 	public void startMain(String username, String password) {
 		Main main = new Main();
+		setSaveStatus(LoginView.getToggleSaveButton());
         main.startMainMenu(username, password);
+	}
+	
+	private void setSaveStatus(JButton toggleSaveButton) {
+		if (toggleSaveButton.getText().equals("Save as file")) {
+			Main.isFile = true;
+		} else if (toggleSaveButton.getText().equals("Save as database")) {
+			Main.isFile = false;
+		}
 	}
 
 	

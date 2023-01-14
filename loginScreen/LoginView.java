@@ -45,6 +45,7 @@ public class LoginView {
 	
 	private JButton loginButton;
     private JButton signUpButton;
+    private static JButton toggleSaveButton;
     private JLabel passwordCheck;
     private JLabel titleEscape;
     private JLabel titleKoç;
@@ -94,6 +95,10 @@ public class LoginView {
     public static void closeWindow() {
     	loginView.dispose();
     }
+    
+    public static JButton getToggleSaveButton() {
+    	return toggleSaveButton;
+    }
 
     private void setComponents() {
     	titleLogoPanel = new JPanel();
@@ -108,6 +113,7 @@ public class LoginView {
         passwordSeparator = new JSeparator();
         loginButton = new JButton();
         signUpButton = new JButton();
+        toggleSaveButton = new JButton();
         passwordCheck = new JLabel();
         deleteAccountCheck = new JLabel();
         exitButton = new JLabel();
@@ -309,6 +315,9 @@ public class LoginView {
             .addComponent(titleLogoPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(inputScreen, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+        
+        toggleSaveButton.setBounds(185, 25, 109, 24);
+        inputScreen.add(toggleSaveButton);
     }
     
     private void setButtons() {
@@ -345,6 +354,19 @@ public class LoginView {
             }
             public void mouseEntered(MouseEvent evt) {
                 exitButtonMouseEntered(evt);
+            }
+        });
+        
+        toggleSaveButton.setBackground(new java.awt.Color(0, 255, 255));
+        toggleSaveButton.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        toggleSaveButton.setText("Save as file");
+        toggleSaveButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        toggleSaveButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toggleSaveButtonMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                toggleSaveButtonMouseEntered(evt);
             }
         });
     }
@@ -550,6 +572,10 @@ public class LoginView {
         );
     }
     
+    private JButton getToggleButton() {
+    	return this.toggleSaveButton;
+    }
+    
     // Private method that sets the title font for the login screen
     private void setTitleFont() {
     	try {
@@ -619,10 +645,13 @@ public class LoginView {
     // Button event that handles the login process based on inputs and user file contents
     private void loginButtonMouseClicked(MouseEvent evt) throws IOException {                                      
     	scr.loginViewLoginClick(usernameField, passwordField, key, userFile, loginStatus, usc, enc);
-    	
     }
     
+    private void toggleSaveButtonMouseEntered(MouseEvent evt) {                                      
+        scr.toggleButtonEntered(toggleSaveButton);
+    }                                     
 
-   
- 
+    private void toggleSaveButtonMouseClicked(MouseEvent evt) {                                      
+    	scr.toggleButtonClick(toggleSaveButton);
+    }    
 }
