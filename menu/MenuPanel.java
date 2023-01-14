@@ -161,7 +161,8 @@ public class MenuPanel extends JPanel implements ActionListener {
 	protected void loadButtonAction() {
 
 		//SaveLoadController.loadGameFromFile(frame, this);
-		SaveLoadController.loadFromDB(this,frame, Main.username);
+		SaveLoadController saveLoadController = new SaveLoadController(Main.isFile);
+		saveLoadController.load(this,frame,Main.username);
 
 	}
 

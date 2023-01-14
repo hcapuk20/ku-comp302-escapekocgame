@@ -1,6 +1,7 @@
 package pause;
 
 import constants.Constants;
+import main.Main;
 import main.controllers.GameController;
 import main.controllers.SaveLoadController;
 import menu.MenuPanel;
@@ -121,7 +122,8 @@ public class PausePanel extends JPanel implements ActionListener {
 
     protected void saveButtonAction() {
         //SaveLoadController.saveGameToFile(panel);
-        SaveLoadController.saveGameToDB(panel, panel.username);
+        SaveLoadController saveLoadController = new SaveLoadController(Main.isFile);
+        saveLoadController.save(panel, panel.username);
     }
 
     protected void resumeButtonAction() {
