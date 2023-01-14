@@ -3,6 +3,7 @@ package main.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import constants.Constants;
+import main.Main;
 import main.models.*;
 import main.models.Alien.Alien;
 import main.models.Character;
@@ -22,8 +23,14 @@ public class SaveLoadController {
             // create object mapper instance
             ObjectMapper mapper = new ObjectMapper();
 
+            String fileName = "savedFiles/" + Main.username + ".json";
             // convert JSON file to map
-            Map<?, ?> map = mapper.readValue(Paths.get("savedGame.json").toFile(), Map.class);
+            Map<?, ?> map = null;
+            try {
+                 map = mapper.readValue(Paths.get(fileName).toFile(), Map.class);
+            } catch (Exception e) {
+                return;
+            }
             // print map entries
             Character loadChar = null;
             Room loadCurrentRoom;
@@ -116,8 +123,9 @@ public class SaveLoadController {
             jsonpObject.put("roomCountX",json6);
             jsonpObject.put("roomCountY",json7);
 
-            File saveGameFile = new File("savedGame.json");
-            FileWriter myWriter = new FileWriter("savedGame.json");
+            String fileName = "savedFiles/" + gameController.username + ".json";
+
+            FileWriter myWriter = new FileWriter(fileName);
             myWriter.write(jsonpObject.toJSONString());
             myWriter.close();
 

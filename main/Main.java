@@ -6,9 +6,16 @@ import javax.swing.*;
 
 public class Main {
 
-	public void startMainMenu() {
+	public static String username;
+	public static String password;
+
+	public void startMainMenu(String username, String password) {
 		JFrame window = new JFrame();
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		Main.username = username;
+		Main.password = password;
+
 		window.setResizable(false);
 		window.setTitle("Escape Koc");
 
