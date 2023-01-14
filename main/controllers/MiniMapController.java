@@ -70,7 +70,7 @@ public class MiniMapController extends JPanel{
             g.setColor(Color.white);
             g.fillRect((screenWidth-frameWidth) / 2, (screenHeight-frameHeight) / 2, frameWidth, frameHeight);
 
-            g.setColor(Color.darkGray);
+            g.setColor(new Color(254, 204, 174));
             g.fillRect((screenWidth-panelWidth) / 2, (screenHeight-panelHeight) / 2, panelWidth, panelHeight);
 
             drawMiniCharacter(g, roomX, roomY);
@@ -86,7 +86,7 @@ public class MiniMapController extends JPanel{
     public void drawHint(Graphics g){
         if(showHint){
 
-            g.setColor(Color.orange);
+            g.setColor(Color.blue);
             int width = Constants.WINDOW_WIDTH / mapDivider;
             int height = Constants.WINDOW_HEIGHT / mapDivider;
             int initialX = (Constants.WINDOW_WIDTH - 3*width)/2;
