@@ -9,8 +9,7 @@ import main.models.GameObject;
 import java.awt.*;
 import java.util.Random;
 
-import static constants.Constants.WINDOW_HEIGHT;
-import static constants.Constants.WINDOW_WIDTH;
+import static constants.Constants.*;
 
 public class AlienController implements Runnable {
 
@@ -121,7 +120,7 @@ public class AlienController implements Runnable {
             randomXTile = rand.nextInt(tileMap.length);
             randomYTile = rand.nextInt(tileMap[0].length);
         }
-        int randomType = rand.nextInt(alienTypes.length);
+        int randomType = 0;//rand.nextInt(alienTypes.length);
         if(alienTypes[randomType].equals("shooter")){
             tempAlien = new Shooter(randomXTile * Constants.tileSize, randomYTile * Constants.tileSize, Constants.tileSize, Constants.tileSize, alienTypes[randomType],gameController.currentRoom);
         }
@@ -170,6 +169,11 @@ public class AlienController implements Runnable {
             }
         }*/
         g2.drawImage(alien.image, alien.locationX, alien.locationY,alien.width,alien.height,null);
+        if(alien.alien_type.equals("shooter")){
+            g2.setColor(Color.magenta);
+            g2.drawRect(alien.locationX-4*tileSize+alien.width/2, alien.locationY-4*tileSize+alien.height/2, 8*tileSize, 8*tileSize );
+        }
+
 
     }
 
@@ -183,7 +187,7 @@ public class AlienController implements Runnable {
         long currentRunTime;
         int number = 0;
         while(alienThread != null){
-            if (gameController.paused){ //change here to paused.
+            if (gameController.paused){
                 continue;
             }
             // main game loop
@@ -199,10 +203,10 @@ public class AlienController implements Runnable {
             }
 
 
-            if (spawnAlienDelta > 600){
+            if (spawnAlienDelta > 100){//600
 
                 this.spawnAlien();
-                spawnAlienDelta -= 600;
+                spawnAlienDelta -= 100;
             }
 
 
