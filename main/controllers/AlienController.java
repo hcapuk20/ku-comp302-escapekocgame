@@ -220,7 +220,10 @@ public class AlienController implements Runnable {
 
         for(Alien alien: Alien.aliens){
             if (alien != null && alien.alien_type.equals("shooter")){
-                ((Shooter) alien).specialPower(player, gameController.currentRoom);
+                boolean alive = ((Shooter) alien).specialPower(player, gameController.currentRoom);
+                if(!alive){
+                    gameController.endGame();
+                }
             }
             else if(alien != null && alien.alien_type.equals("time-wasting")){
                 double time = gameController.timeController.second + gameController.timeController.minute*60;
@@ -287,6 +290,7 @@ public class AlienController implements Runnable {
             else if (alien != null && alien.alien_type.equals("blind")){
                 if(player.locationX+player.width > alien.locationX && player.locationX-player.width < alien.locationX && player.locationY+player.height > alien.locationY && player.locationY-player.height < alien.locationY){
                     player.life = 0;
+                    gameController.endGame();
                 }
                 if(gameController.powerUpController.getBottle() != null){
                     ((Blind)alien).setDirection(gameController.powerUpController.getBottle().locationX, gameController.powerUpController.getBottle().locationY, gameController.powerUpController.getBottle());
@@ -297,6 +301,7 @@ public class AlienController implements Runnable {
                 move(alien);
                 if(player.locationX+player.width > alien.locationX && player.locationX-player.width < alien.locationX && player.locationY+player.height > alien.locationY && player.locationY-player.height < alien.locationY){
                     player.life = 0;
+                    gameController.endGame();
 
                 }
             }

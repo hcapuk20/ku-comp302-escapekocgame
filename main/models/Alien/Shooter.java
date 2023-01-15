@@ -34,7 +34,7 @@ public class Shooter extends Alien{
         int hitBoxSize = width - (2 * hitBoxIndex);
         this.alien_type = alien_type;
     }
-    public void specialPower(Character player, Room room){
+    public boolean specialPower(Character player, Room room){
         count++;
         if(count == 100) {
 
@@ -46,11 +46,15 @@ public class Shooter extends Alien{
                     player.life --;
                 }
 
-                if (player.life == 0){/*end game*/}
-                System.out.println(player.life);
-                //protection vest için modify edilecek
-            }}
-    }
+                if (player.life == 0){return false;}
+                else {
+                    return true;
+                }
 
-}
+
+            }
+    }
+        return true;
+
+}}
 
