@@ -183,7 +183,7 @@ public class AlienController implements Runnable {
         long currentRunTime;
         int number = 0;
         while(alienThread != null){
-            if (false){ //change here to paused.
+            if (gameController.paused){ //change here to paused.
                 continue;
             }
             // main game loop
