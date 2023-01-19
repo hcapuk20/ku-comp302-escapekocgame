@@ -1,6 +1,7 @@
 package menu;
 
 import constants.Constants;
+import helpScreen.HelpScreen;
 import main.Main;
 import main.controllers.BuildingModeController;
 import main.controllers.FurniturePlacementController;
@@ -28,10 +29,12 @@ public class MenuPanel extends JPanel implements ActionListener {
 	protected static int distanceBetweenButtons = 20;
 	protected static int buttonHeight = 60;
 	protected static int buttonWidth = 200;
+	
+	
 
 	protected static Image backgroundImage = new ImageIcon("assets/menuBackground.jpeg").getImage();
 
-	JFrame frame;
+	static JFrame frame;
 
 	public MenuPanel(JFrame f) {
 		this.addMouseListener(null);
@@ -39,6 +42,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 		this.setPreferredSize(new Dimension(panelWidth, panelHeight));
 
 		this.frame = f;
+		
 
 		setLayout(null);
 
@@ -152,30 +156,34 @@ public class MenuPanel extends JPanel implements ActionListener {
 
 		frame.add(gameController);
 		gameController.setBounds(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
-
 		gameController.startGame();
-
 		frame.remove(this);
 	}
 
 	protected void loadButtonAction() {
-
 		//SaveLoadController.loadGameFromFile(frame, this);
 		SaveLoadController saveLoadController = new SaveLoadController(Main.isFile);
 		saveLoadController.load(this,frame,Main.username);
-
 	}
 
+	
 	protected void infoButtonAction() {
-
-
-
+		HelpScreen helpPanel = new HelpScreen(frame);
+		frame.add(helpPanel);
+		frame.pack();
+        frame.setVisible(true);
+        frame.remove(this);
 	}
 
+	
 	protected void exitButtonAction() {
-
 		System.exit(0);
-
+	}	
+	
+	public static JFrame getFrame() {
+		return frame;
 	}
-
+	public static JButton getInfoButton() {
+		return infoButton;
+	}
 }
