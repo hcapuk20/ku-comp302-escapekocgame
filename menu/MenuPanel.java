@@ -30,11 +30,9 @@ public class MenuPanel extends JPanel implements ActionListener {
 	protected static int buttonHeight = 60;
 	protected static int buttonWidth = 200;
 	
-	
-
 	protected static Image backgroundImage = new ImageIcon("assets/menuBackground.jpeg").getImage();
 
-	static JFrame frame;
+	private static JFrame frame;
 
 	public MenuPanel(JFrame f) {
 		this.addMouseListener(null);
@@ -178,12 +176,5 @@ public class MenuPanel extends JPanel implements ActionListener {
 	
 	protected void exitButtonAction() {
 		System.exit(0);
-	}	
-	
-	public static JFrame getFrame() {
-		return frame;
-	}
-	public static JButton getInfoButton() {
-		return infoButton;
 	}
 }

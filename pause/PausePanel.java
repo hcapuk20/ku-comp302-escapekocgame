@@ -155,10 +155,6 @@ public class PausePanel extends JPanel implements ActionListener {
         frame.remove(this);
 
     }
-
-    public static JButton getHelpButton() {
-    	return helpButton;
-    }
     
     public static boolean getHelpPressed() {
     	return pauseHelpPressed;
