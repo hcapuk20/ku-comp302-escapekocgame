@@ -28,64 +28,76 @@ import javax.swing.LayoutStyle;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
+import helpScreen.HelpScreenEventHandler;
+
 public class HelpScreen extends JPanel {
 
-	private JLabel jLabel1;
-    private JLabel jLabel10;
-    private JLabel jLabel11;
-    private JLabel jLabel12;
-    private JLabel jLabel13;
-    private JLabel jLabel14;
-    private JLabel jLabel15;
-    private JLabel jLabel16;
-    private JLabel jLabel17;
-    private JLabel jLabel18;
-    private JLabel jLabel19;
-    private JLabel jLabel2;
-    private JLabel jLabel20;
-    private JLabel jLabel22;
-    private JLabel jLabel23;
-    private JLabel jLabel24;
-    private JLabel jLabel25;
-    private JLabel jLabel26;
-    private JLabel jLabel27;
-    private JLabel jLabel28;
-    private JLabel jLabel29;
-    private JLabel jLabel3;
-    private JLabel jLabel30;
-    private JLabel jLabel31;
-    private JLabel jLabel32;
-    private JLabel jLabel33;
-    private JLabel jLabel34;
-    private JLabel jLabel4;
-    private JLabel jLabel5;
-    private JLabel jLabel6;
-    private JLabel jLabel7;
-    private JLabel jLabel8;
-    private JLabel jLabel9;
-    private JPanel jPanel1;
-    private JPanel jPanel2;
-    private JPanel jPanel3;
-    private JPanel jPanel4;
-    private JPanel jPanel5;
-    private JSeparator jSeparator1;
-    private JSeparator jSeparator2;
-    private JSeparator jSeparator3; 
+	private JLabel gameInfoLabel;
+    private JLabel hintText;
+    private JLabel extraTimeText;
+    private JLabel extraLifeText;
+    private JLabel protectionVestText;
+    private JLabel plasticBottleText;
+    private JLabel shootingAlienText;
+    private JLabel blindAlienText;
+    private JLabel timeWastingAlienText;
+    private JLabel characterIcon;
+    private JLabel infoTextDisplayer;
+    private JLabel detailsLabel;
+    private JLabel backButton;
+    private JLabel bagIcon;
+    private JLabel keyIcon;
+    private JLabel furnitureIcon;
+    private JLabel wallIcon;
+    private JLabel doorIcon;
+    private JLabel hintIcon;
+    private JLabel extraTimeIcon;
+    private JLabel extraLifeIcon;
+    private JLabel characterText;
+    private JLabel protectionVestIcon;
+    private JLabel plasticBottleIcon;
+    private JLabel shootingAlienIcon;
+    private JLabel blindAlienIcon;
+    private JLabel timeWastingAlienIcon;
+    private JLabel infoText;
+    private JLabel bagText;
+    private JLabel keyText;
+    private JLabel furnitureText;
+    private JLabel wallText;
+    private JLabel doorText;
+    private JPanel infoTextPanel;
+    private JPanel infoTextPanelDeco1;
+    private JPanel infoTextPanelDeco2;
+    private JPanel infoTextPanelDeco3;
+    private JPanel infoTextPanelDeco4;
+    private JSeparator gameInfoSeparator;
+    private JSeparator infoTextSeparatorLeft;
+    private JSeparator infoTextSeparatorRight; 
+    private HelpScreenEventHandler help;
     
-    JFrame frame;
-    GameController panel;
+    private JFrame frame;
+    private GameController panel;
      
     public HelpScreen(JFrame f, GameController p) {
     	this.frame = f;
     	this.panel = p;
-    	setFont();
-    	initComponents();       
+    	createHelpScreen();      
     }
     
     public HelpScreen(JFrame f) {
     	this.frame = f;
+    	createHelpScreen();
+    }
+      
+    private void createHelpScreen() {
+    	help = new HelpScreenEventHandler();
     	setFont();
-    	initComponents();
+    	setComponents();
+    	setPanelProperties();
+    	setLabels();
+    	setIcons();
+    	setPanelLayout();
+    	setDecorations();
     }
     
     private void setFont() {
@@ -97,539 +109,461 @@ public class HelpScreen extends JPanel {
 		     e.printStackTrace();
 		}
     }
-    
-                        
-    private void initComponents() {
-
-        jLabel1 = new JLabel();
-        jSeparator1 = new JSeparator();
-        jLabel2 = new JLabel();
-        jLabel18 = new JLabel();
-        jLabel3 = new JLabel();
-        jPanel1 = new JPanel();
-        jPanel2 = new JPanel();
-        jPanel3 = new JPanel();
-        jPanel4 = new JPanel();
-        jPanel5 = new JPanel();
-        jLabel19 = new JLabel();
-        jLabel4 = new JLabel();
-        jSeparator2 = new JSeparator();
-        jSeparator3 = new JSeparator();
-        jLabel5 = new JLabel();
-        jLabel22 = new JLabel();
-        jLabel6 = new JLabel();
-        jLabel23 = new JLabel();
-        jLabel7 = new JLabel();
-        jLabel24 = new JLabel();
-        jLabel8 = new JLabel();
-        jLabel25 = new JLabel();
-        jLabel26 = new JLabel();
-        jLabel9 = new JLabel();
-        jLabel27 = new JLabel();
-        jLabel10 = new JLabel();
-        jLabel28 = new JLabel();
-        jLabel11 = new JLabel();
-        jLabel29 = new JLabel();
-        jLabel12 = new JLabel();
-        jLabel30 = new JLabel();
-        jLabel13 = new JLabel();
-        jLabel31 = new JLabel();
-        jLabel14 = new JLabel();
-        jLabel32 = new JLabel();
-        jLabel15 = new JLabel();
-        jLabel33 = new JLabel();
-        jLabel16 = new JLabel();
-        jLabel34 = new JLabel();
-        jLabel17 = new JLabel();
-        jLabel20 = new JLabel();
-
-        setBackground(new Color(51, 51, 51));
+    private void setComponents() {
+    	gameInfoLabel = new JLabel();
+        gameInfoSeparator = new JSeparator();
+        detailsLabel = new JLabel();
+        characterIcon = new JLabel();
+        characterText = new JLabel();
+        infoTextPanel = new JPanel();
+        infoTextPanelDeco1 = new JPanel();
+        infoTextPanelDeco2 = new JPanel();
+        infoTextPanelDeco3 = new JPanel();
+        infoTextPanelDeco4 = new JPanel();
+        infoTextDisplayer = new JLabel();
+        infoText = new JLabel();
+        infoTextSeparatorLeft = new JSeparator();
+        infoTextSeparatorRight = new JSeparator();
+        bagText = new JLabel();
+        bagIcon = new JLabel();
+        keyText = new JLabel();
+        keyIcon = new JLabel();
+        furnitureText = new JLabel();
+        furnitureIcon = new JLabel();
+        wallText = new JLabel();
+        wallIcon = new JLabel();
+        doorIcon = new JLabel();
+        doorText = new JLabel();
+        hintIcon = new JLabel();
+        hintText = new JLabel();
+        extraTimeIcon = new JLabel();
+        extraTimeText = new JLabel();
+        extraLifeIcon = new JLabel();
+        extraLifeText = new JLabel();
+        protectionVestIcon = new JLabel();
+        protectionVestText = new JLabel();
+        plasticBottleIcon = new JLabel();
+        plasticBottleText = new JLabel();
+        shootingAlienIcon = new JLabel();
+        shootingAlienText = new JLabel();
+        blindAlienIcon = new JLabel();
+        blindAlienText = new JLabel();
+        timeWastingAlienIcon = new JLabel();
+        timeWastingAlienText = new JLabel();
+        backButton = new JLabel();
+    }
+    private void setPanelProperties() {
+    	setBackground(new Color(51, 51, 51));
         setPreferredSize(new Dimension(1280, 720));
+    }
+    private void setLabels() {
+    	gameInfoLabel.setBackground(new Color(153, 255, 255));
+        gameInfoLabel.setFont(new Font("Pixeloid Sans", 1, 18)); 
+        gameInfoLabel.setForeground(new Color(255, 255, 51));
+        gameInfoLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        gameInfoLabel.setText("GAME INFO");
 
-        jLabel1.setBackground(new Color(153, 255, 255));
-        jLabel1.setFont(new Font("Pixeloid Sans", 1, 18)); 
-        jLabel1.setForeground(new Color(255, 255, 51));
-        jLabel1.setHorizontalAlignment(SwingConstants.CENTER);
-        jLabel1.setText("GAME INFO");
+        detailsLabel.setFont(new Font("Pixeloid Sans", 1, 12)); 
+        detailsLabel.setForeground(new Color(255, 255, 255));
+        detailsLabel.setText("Hover over an icon to know more about its controls/details.");
+        
+        characterText.setBackground(new Color(255, 255, 255));
+        characterText.setForeground(new Color(255, 255, 255));
+        characterText.setFont(new Font("Pixeloid Sans", 1, 12));
+        characterText.setText("Character");
+        
+        infoTextDisplayer.setFont(new Font("Pixeloid Sans", 1, 14)); 
+        infoTextDisplayer.setForeground(new Color(255, 255, 255));
+        infoTextDisplayer.setHorizontalAlignment(SwingConstants.CENTER);
+        infoTextDisplayer.setHorizontalTextPosition(SwingConstants.CENTER);
+        
+        infoText.setFont(new Font("Pixeloid Sans", 1, 18)); 
+        infoText.setForeground(new Color(255, 255, 255));
+        infoText.setText("INFO");
 
-        jLabel2.setFont(new Font("Pixeloid Sans", 1, 12)); 
-        jLabel2.setForeground(new Color(255, 255, 255));
-        jLabel2.setText("Hover over an icon to know more about its controls/details.");
+        bagText.setBackground(new Color(255, 255, 255));
+        bagText.setForeground(new Color(255, 255, 255));
+        bagText.setFont(new Font("Pixeloid Sans", 1, 12));
+        bagText.setText("Bag");
+        
+        keyText.setBackground(new Color(255, 255, 255));
+        keyText.setForeground(new Color(255, 255, 255));
+        keyText.setFont(new Font("Pixeloid Sans", 1, 12));
+        keyText.setText("Key");
+        
+        furnitureText.setBackground(new Color(255, 255, 255));
+        furnitureText.setForeground(new Color(255, 255, 255));
+        furnitureText.setFont(new Font("Pixeloid Sans", 1, 12));
+        furnitureText.setText("Furniture");
 
-        jLabel18.setForeground(new Color(255, 255, 255));
-        jLabel18.setHorizontalAlignment(SwingConstants.CENTER);
-        jLabel18.setIcon(new ImageIcon("assets/powerUps/boy_down_1.png"));
+        wallText.setBackground(new Color(255, 255, 255));
+        wallText.setForeground(new Color(255, 255, 255));
+        wallText.setFont(new Font("Pixeloid Sans", 1, 12));
+        wallText.setText("Wall");
+        
+        doorText.setBackground(new Color(255, 255, 255));
+        doorText.setForeground(new Color(255, 255, 255));
+        doorText.setFont(new Font("Pixeloid Sans", 1, 12));
+        doorText.setText("Door");
 
-        BufferedImage charImage;
-		try {
-			charImage = ImageIO.read(new File("assets/character_move/boy_down_1.png"));
-			Image newImage = charImage.getScaledInstance(50, 50, Image.SCALE_DEFAULT);
-			ImageIcon im = new ImageIcon(newImage);
-			jLabel18.setIcon(im);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-         
-        jLabel18.setMaximumSize(new Dimension(25, 25));
-        jLabel18.setMinimumSize(new Dimension(25, 25));
-        jLabel18.setPreferredSize(new Dimension(25, 25));
-        jLabel18.addMouseListener(new MouseAdapter() {
-            public void mouseEntered(MouseEvent evt) {
-                jLabel18MouseEntered(evt);
-            }
-            public void mouseExited(MouseEvent evt) {
-                jLabel18MouseExited(evt);
-            }
-        });
+        hintText.setBackground(new Color(255, 255, 255));
+        hintText.setForeground(new Color(255, 255, 255));
+        hintText.setFont(new Font("Pixeloid Sans", 1, 12));
+        hintText.setText("Hint");
+        
+        extraTimeText.setBackground(new Color(255, 255, 255));
+        extraTimeText.setForeground(new Color(255, 255, 255));
+        extraTimeText.setFont(new Font("Pixeloid Sans", 1, 12));
+        extraTimeText.setText("Extra Time");
+        
+        extraLifeText.setBackground(new Color(255, 255, 255));
+        extraLifeText.setForeground(new Color(255, 255, 255));
+        extraLifeText.setFont(new Font("Pixeloid Sans", 1, 12));
+        extraLifeText.setText("Extra Life");
+        
+        protectionVestText.setBackground(new Color(255, 255, 255));
+        protectionVestText.setForeground(new Color(255, 255, 255));
+        protectionVestText.setFont(new Font("Pixeloid Sans", 1, 12));
+        protectionVestText.setText("Protection Vest");
+        
+        plasticBottleText.setBackground(new Color(255, 255, 255));
+        plasticBottleText.setForeground(new Color(255, 255, 255));
+        plasticBottleText.setFont(new Font("Pixeloid Sans", 1, 12));
+        plasticBottleText.setText("Plastic Bottle");
+        
+        shootingAlienText.setBackground(new Color(255, 255, 255));
+        shootingAlienText.setForeground(new Color(255, 255, 255));
+        shootingAlienText.setFont(new Font("Pixeloid Sans", 1, 12));
+        shootingAlienText.setText("Shooting Alien");
+        
+        blindAlienText.setBackground(new Color(255, 255, 255));
+        blindAlienText.setForeground(new Color(255, 255, 255));
+        blindAlienText.setFont(new Font("Pixeloid Sans", 1, 12));
+        blindAlienText.setText("Blind Alien");
+        
+        timeWastingAlienText.setBackground(new Color(255, 255, 255));
+        timeWastingAlienText.setForeground(new Color(255, 255, 255));
+        timeWastingAlienText.setFont(new Font("Pixeloid Sans", 1, 12));
+        timeWastingAlienText.setText("Time-wasting Alien");
+    }
+    private void setDecorations() {
+    	infoTextPanel.setBackground(new Color(51, 51, 51));
+        infoTextPanel.setBorder(new LineBorder(new Color(255, 255, 255), 2, true));
+        infoTextPanel.setForeground(new Color(51, 51, 51));
+    	infoTextPanelDeco1.setBackground(new Color(153, 153, 255));
 
-        jLabel3.setBackground(new Color(255, 255, 255));
-        jLabel3.setForeground(new Color(255, 255, 255));
-        jLabel3.setFont(new Font("Pixeloid Sans", 1, 12));
-        jLabel3.setText("Character");
-
-        jPanel1.setBackground(new Color(51, 51, 51));
-        jPanel1.setBorder(new LineBorder(new Color(255, 255, 255), 2, true));
-        jPanel1.setForeground(new Color(51, 51, 51));
-
-        jPanel2.setBackground(new Color(153, 153, 255));
-
-        GroupLayout jPanel2Layout = new GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        GroupLayout infoTextPanelDeco1Layout = new GroupLayout(infoTextPanelDeco1);
+        infoTextPanelDeco1.setLayout(infoTextPanelDeco1Layout);
+        infoTextPanelDeco1Layout.setHorizontalGroup(
+            infoTextPanelDeco1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGap(0, 25, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        infoTextPanelDeco1Layout.setVerticalGroup(
+            infoTextPanelDeco1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGap(0, 25, Short.MAX_VALUE)
         );
 
-        jPanel3.setBackground(new Color(153, 255, 153));
+        infoTextPanelDeco2.setBackground(new Color(153, 255, 153));
 
-        GroupLayout jPanel3Layout = new GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        GroupLayout infoTextPanelDeco2Layout = new GroupLayout(infoTextPanelDeco2);
+        infoTextPanelDeco2.setLayout(infoTextPanelDeco2Layout);
+        infoTextPanelDeco2Layout.setHorizontalGroup(
+            infoTextPanelDeco2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGap(0, 25, Short.MAX_VALUE)
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 25, Short.MAX_VALUE)
-        );
-
-        jPanel4.setBackground(new Color(255, 102, 102));
-
-        GroupLayout jPanel4Layout = new GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 25, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        infoTextPanelDeco2Layout.setVerticalGroup(
+            infoTextPanelDeco2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGap(0, 25, Short.MAX_VALUE)
         );
 
-        jPanel5.setBackground(new Color(255, 255, 153));
+        infoTextPanelDeco3.setBackground(new Color(255, 102, 102));
 
-        GroupLayout jPanel5Layout = new GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        GroupLayout infoTextPanelDeco3Layout = new GroupLayout(infoTextPanelDeco3);
+        infoTextPanelDeco3.setLayout(infoTextPanelDeco3Layout);
+        infoTextPanelDeco3Layout.setHorizontalGroup(
+            infoTextPanelDeco3Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGap(0, 25, Short.MAX_VALUE)
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        infoTextPanelDeco3Layout.setVerticalGroup(
+            infoTextPanelDeco3Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGap(0, 25, Short.MAX_VALUE)
         );
 
-        jLabel19.setFont(new Font("Pixeloid Sans", 1, 14)); 
-        jLabel19.setForeground(new Color(255, 255, 255));
-        jLabel19.setHorizontalAlignment(SwingConstants.CENTER);
-        jLabel19.setHorizontalTextPosition(SwingConstants.CENTER);
+        infoTextPanelDeco4.setBackground(new Color(255, 255, 153));
 
-        GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        GroupLayout infoTextPanelDeco4Layout = new GroupLayout(infoTextPanelDeco4);
+        infoTextPanelDeco4.setLayout(infoTextPanelDeco4Layout);
+        infoTextPanelDeco4Layout.setHorizontalGroup(
+            infoTextPanelDeco4Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGap(0, 25, Short.MAX_VALUE)
+        );
+        infoTextPanelDeco4Layout.setVerticalGroup(
+            infoTextPanelDeco4Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGap(0, 25, Short.MAX_VALUE)
+        );
+        
+        GroupLayout infoTextPanelLayout = new GroupLayout(infoTextPanel);
+        infoTextPanel.setLayout(infoTextPanelLayout);
+        infoTextPanelLayout.setHorizontalGroup(
+            infoTextPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(infoTextPanelLayout.createSequentialGroup()
+                .addComponent(infoTextPanelDeco2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addComponent(infoTextPanelDeco4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+            .addGroup(infoTextPanelLayout.createSequentialGroup()
+                .addComponent(infoTextPanelDeco1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(infoTextPanelDeco3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+            .addGroup(infoTextPanelLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addComponent(jLabel19, GroupLayout.PREFERRED_SIZE, 368, GroupLayout.PREFERRED_SIZE)
+                .addComponent(infoTextDisplayer, GroupLayout.PREFERRED_SIZE, 368, GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(24, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        infoTextPanelLayout.setVerticalGroup(
+            infoTextPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(infoTextPanelLayout.createSequentialGroup()
+                .addGroup(infoTextPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(infoTextPanelDeco1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(infoTextPanelDeco3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addGap(7, 7, 7)
-                .addComponent(jLabel19, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
+                .addComponent(infoTextDisplayer, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel5, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                .addGroup(infoTextPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(infoTextPanelDeco2, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(infoTextPanelDeco4, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
         );
-
-        jLabel4.setFont(new Font("Pixeloid Sans", 1, 18)); 
-        jLabel4.setForeground(new Color(255, 255, 255));
-        jLabel4.setText("INFO");
-
-        jLabel5.setBackground(new Color(255, 255, 255));
-        jLabel5.setForeground(new Color(255, 255, 255));
-        jLabel5.setFont(new Font("Pixeloid Sans", 1, 12));
-
-        jLabel5.setText("Bag");
-
-        jLabel22.setForeground(new Color(255, 255, 255));
-        jLabel22.setHorizontalAlignment(SwingConstants.CENTER);
-        try {
-			jLabel22.setIcon(new ImageIcon(ImageIO.read(new File("assets/bagFrame.png")).getScaledInstance(50,  50, Image.SCALE_DEFAULT)));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-        jLabel22.setMaximumSize(new Dimension(25, 25));
-        jLabel22.setMinimumSize(new Dimension(25, 25));
-        jLabel22.setPreferredSize(new Dimension(25, 25));
-        jLabel22.addMouseListener(new MouseAdapter() {
+    }
+    private void setIcons() {
+    	characterIcon.setForeground(new Color(255, 255, 255));
+        characterIcon.setHorizontalAlignment(SwingConstants.CENTER);
+        characterIcon.setMaximumSize(new Dimension(25, 25));
+        characterIcon.setMinimumSize(new Dimension(25, 25));
+        characterIcon.setPreferredSize(new Dimension(25, 25));
+        characterIcon.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent evt) {
-                jLabel22MouseEntered(evt);
+                characterIconMouseEntered(evt);
             }
             public void mouseExited(MouseEvent evt) {
-                jLabel22MouseExited(evt);
+                characterIconMouseExited(evt);
             }
         });
-
-        jLabel6.setBackground(new Color(255, 255, 255));
-        jLabel6.setForeground(new Color(255, 255, 255));
-        jLabel6.setFont(new Font("Pixeloid Sans", 1, 12));
-
-        jLabel6.setText("Key");
-
-        jLabel23.setForeground(new Color(255, 255, 255));
-        jLabel23.setHorizontalAlignment(SwingConstants.CENTER);
-        try {
-			jLabel23.setIcon(new ImageIcon(ImageIO.read(new File("assets/key.png")).getScaledInstance(50,  50, Image.SCALE_DEFAULT)));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        jLabel23.setMaximumSize(new Dimension(25, 25));
-        jLabel23.setMinimumSize(new Dimension(25, 25));
-        jLabel23.setPreferredSize(new Dimension(25, 25));
-        jLabel23.addMouseListener(new MouseAdapter() {
-            public void mouseEntered(MouseEvent evt) {
-                jLabel23MouseEntered(evt);
-            }
-            public void mouseExited(MouseEvent evt) {
-                jLabel23MouseExited(evt);
-            }
-        });
-
-        jLabel7.setBackground(new Color(255, 255, 255));
-        jLabel7.setForeground(new Color(255, 255, 255));
-        jLabel7.setFont(new Font("Pixeloid Sans", 1, 12));
-
-        jLabel7.setText("Furniture");
-
-        jLabel24.setForeground(new Color(255, 255, 255));
-        jLabel24.setHorizontalAlignment(SwingConstants.CENTER);
-    	try {
-			jLabel24.setIcon(new ImageIcon(ImageIO.read(new File("assets/furnitures/bed.png")).getScaledInstance(50,  50, Image.SCALE_DEFAULT)));
-		} catch (IOException e2) {
-			e2.printStackTrace();
-		}
-        jLabel24.setMaximumSize(new Dimension(25, 25));
-        jLabel24.setMinimumSize(new Dimension(25, 25));
-        jLabel24.setPreferredSize(new Dimension(25, 25));
-        jLabel24.addMouseListener(new MouseAdapter() {
-            public void mouseEntered(MouseEvent evt) {
-                jLabel24MouseEntered(evt);
-            }
-            public void mouseExited(MouseEvent evt) {
-                jLabel24MouseExited(evt);
-            }
-        });
-
-        jLabel8.setBackground(new Color(255, 255, 255));
-        jLabel8.setForeground(new Color(255, 255, 255));
-        jLabel8.setFont(new Font("Pixeloid Sans", 1, 12));
-
-        jLabel8.setText("Wall");
-
-        jLabel25.setForeground(new Color(255, 255, 255));
-        jLabel25.setHorizontalAlignment(SwingConstants.CENTER);
-        try {
-			jLabel25.setIcon(new ImageIcon(ImageIO.read(new File("assets/wall3.png")).getScaledInstance(50,  50, Image.SCALE_DEFAULT)));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        jLabel25.setMaximumSize(new Dimension(25, 25));
-        jLabel25.setMinimumSize(new Dimension(25, 25));
-        jLabel25.setPreferredSize(new Dimension(25, 25));
-        jLabel25.addMouseListener(new MouseAdapter() {
-            public void mouseEntered(MouseEvent evt) {
-                jLabel25MouseEntered(evt);
-            }
-            public void mouseExited(MouseEvent evt) {
-                jLabel25MouseExited(evt);
-            }
-        });
-
-        jLabel26.setForeground(new Color(255, 255, 255));
-        jLabel26.setHorizontalAlignment(SwingConstants.CENTER);
-        try {
-			jLabel26.setIcon(new ImageIcon(ImageIO.read(new File("assets/open_door.png")).getScaledInstance(50,  50, Image.SCALE_DEFAULT)));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        jLabel26.setMaximumSize(new Dimension(25, 25));
-        jLabel26.setMinimumSize(new Dimension(25, 25));
-        jLabel26.setPreferredSize(new Dimension(25, 25));
-        jLabel26.addMouseListener(new MouseAdapter() {
-            public void mouseEntered(MouseEvent evt) {
-                jLabel26MouseEntered(evt);
-            }
-            public void mouseExited(MouseEvent evt) {
-                jLabel26MouseExited(evt);
-            }
-        });
-
-        jLabel9.setBackground(new Color(255, 255, 255));
-        jLabel9.setForeground(new Color(255, 255, 255));
-        jLabel9.setFont(new Font("Pixeloid Sans", 1, 12));
-
-        jLabel9.setText("Door");
-
-        jLabel27.setForeground(new Color(255, 255, 255));
-        jLabel27.setHorizontalAlignment(SwingConstants.CENTER);
-        try {
-			jLabel27.setIcon(new ImageIcon(ImageIO.read(new File("assets/powerUps/hint.png")).getScaledInstance(50,  50, Image.SCALE_DEFAULT)));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-        jLabel27.setMaximumSize(new Dimension(25, 25));
-        jLabel27.setMinimumSize(new Dimension(25, 25));
-        jLabel27.setPreferredSize(new Dimension(25, 25));
-        jLabel27.addMouseListener(new MouseAdapter() {
-            public void mouseEntered(MouseEvent evt) {
-                jLabel27MouseEntered(evt);
-            }
-            public void mouseExited(MouseEvent evt) {
-                jLabel27MouseExited(evt);
-            }
-        });
-
-        jLabel10.setBackground(new Color(255, 255, 255));
-        jLabel10.setForeground(new Color(255, 255, 255));
-        jLabel10.setFont(new Font("Pixeloid Sans", 1, 12));
-        jLabel10.setText("Hint");
-
-        jLabel28.setForeground(new Color(255, 255, 255));
-        jLabel28.setHorizontalAlignment(SwingConstants.CENTER);
-        try {
-			jLabel28.setIcon(new ImageIcon(ImageIO.read(new File("assets/powerUps/extra-time.png")).getScaledInstance(50,  50, Image.SCALE_DEFAULT)));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        jLabel28.setMaximumSize(new Dimension(25, 25));
-        jLabel28.setMinimumSize(new Dimension(25, 25));
-        jLabel28.setPreferredSize(new Dimension(25, 25));
-        jLabel28.addMouseListener(new MouseAdapter() {
-            public void mouseEntered(MouseEvent evt) {
-                jLabel28MouseEntered(evt);
-            }
-            public void mouseExited(MouseEvent evt) {
-                jLabel28MouseExited(evt);
-            }
-        });
-
-        jLabel11.setBackground(new Color(255, 255, 255));
-        jLabel11.setForeground(new Color(255, 255, 255));
-        jLabel11.setFont(new Font("Pixeloid Sans", 1, 12));
-
-        jLabel11.setText("Extra Time");
-
-        jLabel29.setForeground(new Color(255, 255, 255));
-        jLabel29.setHorizontalAlignment(SwingConstants.CENTER);
-        try {
-			jLabel29.setIcon(new ImageIcon(ImageIO.read(new File("assets/powerUps/extra-life.png")).getScaledInstance(50,  50, Image.SCALE_DEFAULT)));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
         
-        jLabel29.setMaximumSize(new Dimension(25, 25));
-        jLabel29.setMinimumSize(new Dimension(25, 25));
-        jLabel29.setPreferredSize(new Dimension(25, 25));
-        jLabel29.addMouseListener(new MouseAdapter() {
+        bagIcon.setForeground(new Color(255, 255, 255));
+        bagIcon.setHorizontalAlignment(SwingConstants.CENTER);
+        bagIcon.setMaximumSize(new Dimension(25, 25));
+        bagIcon.setMinimumSize(new Dimension(25, 25));
+        bagIcon.setPreferredSize(new Dimension(25, 25));
+        bagIcon.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent evt) {
-                jLabel29MouseEntered(evt);
+                bagIconMouseEntered(evt);
             }
             public void mouseExited(MouseEvent evt) {
-                jLabel29MouseExited(evt);
+                bagIconMouseExited(evt);
+            }
+        });
+        
+        keyIcon.setForeground(new Color(255, 255, 255));
+        keyIcon.setHorizontalAlignment(SwingConstants.CENTER);
+        keyIcon.setMaximumSize(new Dimension(25, 25));
+        keyIcon.setMinimumSize(new Dimension(25, 25));
+        keyIcon.setPreferredSize(new Dimension(25, 25));
+        keyIcon.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
+                keyIconMouseEntered(evt);
+            }
+            public void mouseExited(MouseEvent evt) {
+                keyIconMouseExited(evt);
+            }
+        });
+        
+        furnitureIcon.setForeground(new Color(255, 255, 255));
+        furnitureIcon.setHorizontalAlignment(SwingConstants.CENTER);
+        furnitureIcon.setMaximumSize(new Dimension(25, 25));
+        furnitureIcon.setMinimumSize(new Dimension(25, 25));
+        furnitureIcon.setPreferredSize(new Dimension(25, 25));
+        furnitureIcon.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
+                furnitureIconMouseEntered(evt);
+            }
+            public void mouseExited(MouseEvent evt) {
+                furnitureIconMouseExited(evt);
+            }
+        });
+        
+        wallIcon.setForeground(new Color(255, 255, 255));
+        wallIcon.setHorizontalAlignment(SwingConstants.CENTER);
+        wallIcon.setMaximumSize(new Dimension(25, 25));
+        wallIcon.setMinimumSize(new Dimension(25, 25));
+        wallIcon.setPreferredSize(new Dimension(25, 25));
+        wallIcon.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
+                wallIconMouseEntered(evt);
+            }
+            public void mouseExited(MouseEvent evt) {
+                wallIconMouseExited(evt);
             }
         });
 
-        jLabel12.setBackground(new Color(255, 255, 255));
-        jLabel12.setForeground(new Color(255, 255, 255));
-        jLabel12.setFont(new Font("Pixeloid Sans", 1, 12));
-
-        jLabel12.setText("Extra Life");
-
-        jLabel30.setForeground(new Color(255, 255, 255));
-        jLabel30.setHorizontalAlignment(SwingConstants.CENTER);
-        try {
-			jLabel30.setIcon(new ImageIcon(ImageIO.read(new File("assets/powerUps/protection-vest.png")).getScaledInstance(50,  50, Image.SCALE_DEFAULT)));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-        jLabel30.setMaximumSize(new Dimension(25, 25));
-        jLabel30.setMinimumSize(new Dimension(25, 25));
-        jLabel30.setPreferredSize(new Dimension(25, 25));
-        jLabel30.addMouseListener(new MouseAdapter() {
+        doorIcon.setForeground(new Color(255, 255, 255));
+        doorIcon.setHorizontalAlignment(SwingConstants.CENTER);
+        doorIcon.setMaximumSize(new Dimension(25, 25));
+        doorIcon.setMinimumSize(new Dimension(25, 25));
+        doorIcon.setPreferredSize(new Dimension(25, 25));
+        doorIcon.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent evt) {
-                jLabel30MouseEntered(evt);
+                doorIconMouseEntered(evt);
             }
             public void mouseExited(MouseEvent evt) {
-                jLabel30MouseExited(evt);
+                doorIconMouseExited(evt);
             }
         });
-
-        jLabel13.setBackground(new Color(255, 255, 255));
-        jLabel13.setForeground(new Color(255, 255, 255));
-        jLabel13.setFont(new Font("Pixeloid Sans", 1, 12));
-
-        jLabel13.setText("Protection Vest");
-
-        jLabel31.setForeground(new Color(255, 255, 255));
-        jLabel31.setHorizontalAlignment(SwingConstants.CENTER);
-        try {
-			jLabel31.setIcon(new ImageIcon(ImageIO.read(new File("assets/powerUps/plastic-bottle.png")).getScaledInstance(50,  50, Image.SCALE_DEFAULT)));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-        jLabel31.setMaximumSize(new Dimension(25, 25));
-        jLabel31.setMinimumSize(new Dimension(25, 25));
-        jLabel31.setPreferredSize(new Dimension(25, 25));
-        jLabel31.addMouseListener(new MouseAdapter() {
+        
+        hintIcon.setForeground(new Color(255, 255, 255));
+        hintIcon.setHorizontalAlignment(SwingConstants.CENTER);
+        hintIcon.setMaximumSize(new Dimension(25, 25));
+        hintIcon.setMinimumSize(new Dimension(25, 25));
+        hintIcon.setPreferredSize(new Dimension(25, 25));
+        hintIcon.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent evt) {
-                jLabel31MouseEntered(evt);
+                hintIconMouseEntered(evt);
             }
             public void mouseExited(MouseEvent evt) {
-                jLabel31MouseExited(evt);
+                hintIconMouseExited(evt);
             }
         });
-
-        jLabel14.setBackground(new Color(255, 255, 255));
-        jLabel14.setForeground(new Color(255, 255, 255));
-        jLabel14.setFont(new Font("Pixeloid Sans", 1, 12));
-
-        jLabel14.setText("Plastic Bottle");
-
-        jLabel32.setForeground(new Color(255, 255, 255));
-        jLabel32.setHorizontalAlignment(SwingConstants.CENTER);
-        try {
-			jLabel32.setIcon(new ImageIcon(ImageIO.read(new File("assets/alien2.png")).getScaledInstance(50,  50, Image.SCALE_DEFAULT)));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-        jLabel32.setMaximumSize(new Dimension(25, 25));
-        jLabel32.setMinimumSize(new Dimension(25, 25));
-        jLabel32.setPreferredSize(new Dimension(25, 25));
-        jLabel32.addMouseListener(new MouseAdapter() {
+        
+        extraTimeIcon.setForeground(new Color(255, 255, 255));
+        extraTimeIcon.setHorizontalAlignment(SwingConstants.CENTER);
+        extraTimeIcon.setMaximumSize(new Dimension(25, 25));
+        extraTimeIcon.setMinimumSize(new Dimension(25, 25));
+        extraTimeIcon.setPreferredSize(new Dimension(25, 25));
+        extraTimeIcon.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent evt) {
-                jLabel32MouseEntered(evt);
+                extraTimeIconMouseEntered(evt);
             }
             public void mouseExited(MouseEvent evt) {
-                jLabel32MouseExited(evt);
+                extraTimeIconMouseExited(evt);
             }
         });
-
-        jLabel15.setBackground(new Color(255, 255, 255));
-        jLabel15.setForeground(new Color(255, 255, 255));
-        jLabel15.setFont(new Font("Pixeloid Sans", 1, 12));
-
-        jLabel15.setText("Shooting Alien");
-
-        jLabel33.setForeground(new Color(255, 255, 255));
-        jLabel33.setHorizontalAlignment(SwingConstants.CENTER);
-        try {
-			jLabel33.setIcon(new ImageIcon(ImageIO.read(new File("assets/alien4.png")).getScaledInstance(50,  50, Image.SCALE_DEFAULT)));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-        jLabel33.setMaximumSize(new Dimension(25, 25));
-        jLabel33.setMinimumSize(new Dimension(25, 25));
-        jLabel33.setPreferredSize(new Dimension(25, 25));
-        jLabel33.addMouseListener(new MouseAdapter() {
+        
+        extraLifeIcon.setForeground(new Color(255, 255, 255));
+        extraLifeIcon.setHorizontalAlignment(SwingConstants.CENTER);    
+        extraLifeIcon.setMaximumSize(new Dimension(25, 25));
+        extraLifeIcon.setMinimumSize(new Dimension(25, 25));
+        extraLifeIcon.setPreferredSize(new Dimension(25, 25));
+        extraLifeIcon.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent evt) {
-                jLabel33MouseEntered(evt);
+                extraLifeIconMouseEntered(evt);
             }
             public void mouseExited(MouseEvent evt) {
-                jLabel33MouseExited(evt);
+                extraLifeIconMouseExited(evt);
             }
         });
-
-        jLabel16.setBackground(new Color(255, 255, 255));
-        jLabel16.setForeground(new Color(255, 255, 255));
-        jLabel16.setFont(new Font("Pixeloid Sans", 1, 12));
-
-        jLabel16.setText("Blind Alien");
-
-        jLabel34.setForeground(new Color(255, 255, 255));
-        jLabel34.setHorizontalAlignment(SwingConstants.CENTER);
-        try {
-			jLabel34.setIcon(new ImageIcon(ImageIO.read(new File("assets/alien1.png")).getScaledInstance(50,  50, Image.SCALE_DEFAULT)));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-        jLabel34.setMaximumSize(new Dimension(25, 25));
-        jLabel34.setMinimumSize(new Dimension(25, 25));
-        jLabel34.setPreferredSize(new Dimension(25, 25));
-        jLabel34.addMouseListener(new MouseAdapter() {
+        
+        protectionVestIcon.setForeground(new Color(255, 255, 255));
+        protectionVestIcon.setHorizontalAlignment(SwingConstants.CENTER);
+        protectionVestIcon.setMaximumSize(new Dimension(25, 25));
+        protectionVestIcon.setMinimumSize(new Dimension(25, 25));
+        protectionVestIcon.setPreferredSize(new Dimension(25, 25));
+        protectionVestIcon.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent evt) {
-                jLabel34MouseEntered(evt);
+                protectionVestIconMouseEntered(evt);
             }
             public void mouseExited(MouseEvent evt) {
-                jLabel34MouseExited(evt);
+                protectionVestIconMouseExited(evt);
             }
         });
-
-        jLabel17.setBackground(new Color(255, 255, 255));
-        jLabel17.setForeground(new Color(255, 255, 255));
-        jLabel17.setFont(new Font("Pixeloid Sans", 1, 12));
-
-        jLabel17.setText("Time-wasting Alien");
-
-        jLabel20.setBackground(new Color(255, 255, 255));
-        jLabel20.setForeground(new Color(255, 255, 255));
-        jLabel20.setHorizontalAlignment(SwingConstants.CENTER);
-        try {
-			jLabel20.setIcon(new ImageIcon(ImageIO.read(new File("assets/help-exit.png")).getScaledInstance(40,  40, Image.SCALE_DEFAULT)));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-        jLabel20.addMouseListener(new MouseAdapter() {
+        
+        plasticBottleIcon.setForeground(new Color(255, 255, 255));
+        plasticBottleIcon.setHorizontalAlignment(SwingConstants.CENTER);
+        plasticBottleIcon.setMaximumSize(new Dimension(25, 25));
+        plasticBottleIcon.setMinimumSize(new Dimension(25, 25));
+        plasticBottleIcon.setPreferredSize(new Dimension(25, 25));
+        plasticBottleIcon.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent evt) {
-                jLabel20MouseEntered(evt);
+                plasticBottleIconMouseEntered(evt);
+            }
+            public void mouseExited(MouseEvent evt) {
+                plasticBottleIconMouseExited(evt);
+            }
+        });
+        
+        shootingAlienIcon.setForeground(new Color(255, 255, 255));
+        shootingAlienIcon.setHorizontalAlignment(SwingConstants.CENTER);
+        shootingAlienIcon.setMaximumSize(new Dimension(25, 25));
+        shootingAlienIcon.setMinimumSize(new Dimension(25, 25));
+        shootingAlienIcon.setPreferredSize(new Dimension(25, 25));
+        shootingAlienIcon.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
+                shootingAlienIconMouseEntered(evt);
+            }
+            public void mouseExited(MouseEvent evt) {
+                shootingAlienIconMouseExited(evt);
+            }
+        });
+        
+        blindAlienIcon.setForeground(new Color(255, 255, 255));
+        blindAlienIcon.setHorizontalAlignment(SwingConstants.CENTER);
+        blindAlienIcon.setMaximumSize(new Dimension(25, 25));
+        blindAlienIcon.setMinimumSize(new Dimension(25, 25));
+        blindAlienIcon.setPreferredSize(new Dimension(25, 25));
+        blindAlienIcon.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
+                blindAlienIconMouseEntered(evt);
+            }
+            public void mouseExited(MouseEvent evt) {
+                blindAlienIconMouseExited(evt);
+            }
+        });
+        
+        timeWastingAlienIcon.setForeground(new Color(255, 255, 255));
+        timeWastingAlienIcon.setHorizontalAlignment(SwingConstants.CENTER);
+        timeWastingAlienIcon.setMaximumSize(new Dimension(25, 25));
+        timeWastingAlienIcon.setMinimumSize(new Dimension(25, 25));
+        timeWastingAlienIcon.setPreferredSize(new Dimension(25, 25));
+        timeWastingAlienIcon.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
+                timeWastingAlienIconMouseEntered(evt);
+            }
+            public void mouseExited(MouseEvent evt) {
+                timeWastingAlienIconMouseExited(evt);
+            }
+        });
+        
+        backButton.setBackground(new Color(255, 255, 255));
+        backButton.setForeground(new Color(255, 255, 255));
+        backButton.setHorizontalAlignment(SwingConstants.CENTER);
+        backButton.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
+                backButtonMouseEntered(evt);
             }
             public void mouseClicked(MouseEvent evt) {
-            	jLabel20MouseClicked(evt);
+            	backButtonMouseClicked(evt);
             }
         });
-
-        GroupLayout layout = new GroupLayout(this);
+        
+        try {
+        	characterIcon.setIcon(new ImageIcon(ImageIO.read(new File("assets/character_move/boy_down_1.png")).getScaledInstance(50,  50, Image.SCALE_DEFAULT)));
+			bagIcon.setIcon(new ImageIcon(ImageIO.read(new File("assets/bagFrame.png")).getScaledInstance(50,  50, Image.SCALE_DEFAULT)));
+			keyIcon.setIcon(new ImageIcon(ImageIO.read(new File("assets/key.png")).getScaledInstance(50,  50, Image.SCALE_DEFAULT)));
+			furnitureIcon.setIcon(new ImageIcon(ImageIO.read(new File("assets/furnitures/bed.png")).getScaledInstance(50,  50, Image.SCALE_DEFAULT)));
+			wallIcon.setIcon(new ImageIcon(ImageIO.read(new File("assets/wall3.png")).getScaledInstance(50,  50, Image.SCALE_DEFAULT)));
+			doorIcon.setIcon(new ImageIcon(ImageIO.read(new File("assets/open_door.png")).getScaledInstance(50,  50, Image.SCALE_DEFAULT)));
+			hintIcon.setIcon(new ImageIcon(ImageIO.read(new File("assets/powerUps/hint.png")).getScaledInstance(50,  50, Image.SCALE_DEFAULT)));
+			extraTimeIcon.setIcon(new ImageIcon(ImageIO.read(new File("assets/powerUps/extra-time.png")).getScaledInstance(50,  50, Image.SCALE_DEFAULT)));
+			extraLifeIcon.setIcon(new ImageIcon(ImageIO.read(new File("assets/powerUps/extra-life.png")).getScaledInstance(50,  50, Image.SCALE_DEFAULT)));
+			protectionVestIcon.setIcon(new ImageIcon(ImageIO.read(new File("assets/powerUps/protection-vest.png")).getScaledInstance(50,  50, Image.SCALE_DEFAULT)));
+			plasticBottleIcon.setIcon(new ImageIcon(ImageIO.read(new File("assets/powerUps/plastic-bottle.png")).getScaledInstance(50,  50, Image.SCALE_DEFAULT)));
+			shootingAlienIcon.setIcon(new ImageIcon(ImageIO.read(new File("assets/alien2.png")).getScaledInstance(50,  50, Image.SCALE_DEFAULT)));
+			blindAlienIcon.setIcon(new ImageIcon(ImageIO.read(new File("assets/alien4.png")).getScaledInstance(50,  50, Image.SCALE_DEFAULT)));
+			timeWastingAlienIcon.setIcon(new ImageIcon(ImageIO.read(new File("assets/alien1.png")).getScaledInstance(50,  50, Image.SCALE_DEFAULT)));
+			backButton.setIcon(new ImageIcon(ImageIO.read(new File("assets/help-exit.png")).getScaledInstance(40,  40, Image.SCALE_DEFAULT)));
+        } catch (IOException e) {
+        	e.printStackTrace();
+        }
+    }
+    private void setPanelLayout() {
+    	GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -637,103 +571,103 @@ public class HelpScreen extends JPanel {
                 .addGap(100, 100, 100)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel16, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(blindAlienText, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel17)
+                        .addComponent(timeWastingAlienText)
                         .addGap(80, 80, 80))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel18, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel27, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel33, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel3)
+                                .addComponent(characterIcon, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(hintIcon, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(blindAlienIcon, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE))
+                            .addComponent(characterText)
                             .addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGap(32, 32, 32)
-                                .addComponent(jLabel10)))
+                                .addComponent(hintText)))
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(135, 135, 135)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel22, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel28, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(bagIcon, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(extraTimeIcon, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(149, 149, 149)
-                                .addComponent(jLabel5))
+                                .addComponent(bagText))
                             .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             	.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            	.addComponent(jLabel11)))
+                            	.addComponent(extraTimeText)))
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(147, 147, 147)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel23, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel29, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(keyIcon, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(extraLifeIcon, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(161, 161, 161)
-                                .addComponent(jLabel6))
+                                .addComponent(keyText))
                             .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel12)))
+                                .addComponent(extraLifeText)))
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(155, 155, 155)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel24, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel30, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel7)))
+                                    .addComponent(furnitureIcon, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(protectionVestIcon, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(furnitureText)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(125, 125, 125)
-                                .addComponent(jLabel13)))
+                                .addComponent(protectionVestText)))
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(150, 150, 150)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel25, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel31, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(wallIcon, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(plasticBottleIcon, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(164, 164, 164)
-                                .addComponent(jLabel8))
+                                .addComponent(wallText))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(129, 129, 129)
-                                .addComponent(jLabel14)))
+                                .addComponent(plasticBottleText)))
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                             .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel26, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel32, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel34, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(doorIcon, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(shootingAlienIcon, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(timeWastingAlienIcon, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(6, 6, 6)
-                                        .addComponent(jLabel9, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(doorText, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)))
                                 .addGap(116, 116, 116))
                             .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel15)
+                                .addComponent(shootingAlienText)
                                 .addGap(99, 99, 99))))))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(421, 421, 421)
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(infoTextPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jSeparator2, GroupLayout.PREFERRED_SIZE, 180, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(infoTextSeparatorLeft, GroupLayout.PREFERRED_SIZE, 180, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel4)
+                                .addComponent(infoText)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSeparator3))))
+                                .addComponent(infoTextSeparatorRight))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(33, 33, 33)
-                        .addComponent(jLabel20, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(backButton, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
                         .addGap(349, 349, 349)
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, GroupLayout.PREFERRED_SIZE, 373, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(gameInfoLabel, GroupLayout.PREFERRED_SIZE, 373, GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(0, 0, 0)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                    .addComponent(jSeparator1, GroupLayout.PREFERRED_SIZE, 420, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 420, GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(gameInfoSeparator, GroupLayout.PREFERRED_SIZE, 420, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(detailsLabel, GroupLayout.PREFERRED_SIZE, 420, GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -746,221 +680,208 @@ public class HelpScreen extends JPanel {
                                 .addGap(132, 132, 132)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel22, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(bagIcon, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel5))
+                                        .addComponent(bagText))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel18, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(characterIcon, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel3))))
+                                        .addComponent(characterText))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(16, 16, 16)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel1)
+                                        .addComponent(gameInfoLabel)
                                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jSeparator1, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(gameInfoSeparator, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(7, 7, 7)
-                                        .addComponent(jLabel20, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                        .addComponent(backButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addGap(0, 0, 0)
-                                .addComponent(jLabel2)
+                                .addComponent(detailsLabel)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel23, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(keyIcon, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel6))
+                                        .addComponent(keyText))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel24, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(furnitureIcon, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel7))
+                                        .addComponent(furnitureText))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel25, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(wallIcon, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel8))
+                                        .addComponent(wallText))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel26, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(doorIcon, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel9)))))
+                                        .addComponent(doorText)))))
                         .addGap(59, 59, 59)
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel27, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(hintIcon, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel10))
+                                .addComponent(hintText))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel28, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(extraTimeIcon, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel11))
+                                .addComponent(extraTimeText))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel29, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(extraLifeIcon, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel12))
+                                .addComponent(extraLifeText))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel30, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(protectionVestIcon, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel13))
+                                .addComponent(protectionVestText))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel31, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(plasticBottleIcon, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel14))))
+                                .addComponent(plasticBottleText))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel32, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(shootingAlienIcon, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel15)))
+                        .addComponent(shootingAlienText)))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel33, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(blindAlienIcon, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel16)
+                        .addComponent(blindAlienText)
                         .addGap(1, 1, 1)
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, GroupLayout.Alignment.TRAILING)
-                            .addComponent(jSeparator2, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSeparator3, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 11, GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(infoText, GroupLayout.Alignment.TRAILING)
+                            .addComponent(infoTextSeparatorLeft, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(infoTextSeparatorRight, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 11, GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel34, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(timeWastingAlienIcon, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel17)))
+                        .addComponent(timeWastingAlienText)))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addComponent(infoTextPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48))
         );
-    }                      
-    protected void jLabel20MouseClicked(MouseEvent evt) {
-    	if (PausePanel.getHelpPressed()) {
-    		PausePanel pausePanel = new PausePanel(frame, panel);
-    		frame.add(pausePanel);
-    		PausePanel.setHelpPressed();
-    	} else {
-    		MenuPanel menuPanel = new MenuPanel(frame);
-    		frame.add(menuPanel);
-    	}    	
-    	frame.pack();
-    	frame.setVisible(true);
-    	frame.remove(this);
+    }
+     
+    protected void backButtonMouseClicked(MouseEvent evt) {
+    	help.backButtonPressed(frame, panel, this);
 	}
     
-	protected void jLabel20MouseEntered(MouseEvent evt) {
-		jLabel20.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		jLabel20.setToolTipText("Click here to go back to the game or main menu.");
-		
+	protected void backButtonMouseEntered(MouseEvent evt) {
+		help.backButtonEntered(backButton);
 	}
 
-	private void jLabel18MouseEntered(MouseEvent evt) {                                      
-        jLabel19.setText("<HTML><b><center>This is your character! You control them by pressing the arrow keys on the keyboard, and they move around. Their only hope lies within your skills, so try your best to escape!</center></b></HTML>");
-    }                                     
+	private void characterIconMouseEntered(MouseEvent evt) {                                      
+		help.characterIconEntered(infoTextDisplayer);
+	}                                     
 
-    private void jLabel18MouseExited(MouseEvent evt) {                                     
-        jLabel19.setText("");
+    private void characterIconMouseExited(MouseEvent evt) {                                     
+    	help.characterIconExited(infoTextDisplayer);
     }                                    
 
-    private void jLabel23MouseEntered(MouseEvent evt) {                                      
-        jLabel19.setText("<HTML><b><center>This is a key, which you can find one of in each building to escape the bulidings of the school, and then the school itself! It can be tricky to find, since one of the aliens likes to mess with it.</center></b></HTML>");
+    private void keyIconMouseEntered(MouseEvent evt) {                                      
+    	help.keyIconEntered(infoTextDisplayer);
     }                                     
 
-    private void jLabel23MouseExited(MouseEvent evt) {                                     
-        jLabel19.setText("");
+    private void keyIconMouseExited(MouseEvent evt) {                                     
+        help.keyIconExited(infoTextDisplayer);
     }                                    
 
-    private void jLabel22MouseEntered(MouseEvent evt) {                                      
-        jLabel19.setText("<HTML><b><center>This is your bag! This is one of the three slots you have as inventory, in which you can store the collectible power-ups. You can also stack them, where the counts will be displayed next to the slots. Use your power-ups wisely!</center></b></HTML>");
+    private void bagIconMouseEntered(MouseEvent evt) {                                      
+    	help.bagIconEntered(infoTextDisplayer);
     }                                     
 
-    private void jLabel22MouseExited(MouseEvent evt) {                                     
-        jLabel19.setText("");
+    private void bagIconMouseExited(MouseEvent evt) {                                     
+    	help.bagIconExited(infoTextDisplayer);
     }                                    
 
-    private void jLabel24MouseEntered(MouseEvent evt) {                                      
-        jLabel19.setText("<HTML><b><center>These are the furnitures scattered throughout the buildings, and they contain the keys you need to find to escape! One of these furnitures in your current building will have the key, so good luck finding it!</center></b></HTML>");
+    private void furnitureIconMouseEntered(MouseEvent evt) {                                      
+    	help.furnitureIconEntered(infoTextDisplayer);
     }                                     
 
-    private void jLabel24MouseExited(MouseEvent evt) {                                     
-        jLabel19.setText("");
+    private void furnitureIconMouseExited(MouseEvent evt) {                                     
+    	help.furnitureIconExited(infoTextDisplayer);
     }                                    
 
-    private void jLabel25MouseEntered(MouseEvent evt) {                                      
-        jLabel19.setText("<HTML><b><center>These are the walls that form the school buildings. Don't try to go through them to escape, as they won't be allowing that!</center></b></HTML>");
+    private void wallIconMouseEntered(MouseEvent evt) {                                      
+    	help.wallIconEntered(infoTextDisplayer);
     }                                     
 
-    private void jLabel25MouseExited(MouseEvent evt) {                                     
-        jLabel19.setText("");
+    private void wallIconMouseExited(MouseEvent evt) {                                     
+    	help.wallIconExited(infoTextDisplayer);
     }                                    
 
-    private void jLabel26MouseExited(MouseEvent evt) {                                     
-        jLabel19.setText("");
+    private void doorIconMouseExited(MouseEvent evt) {                                     
+    	help.doorIconExited(infoTextDisplayer);
+    }                                   
+
+    private void doorIconMouseEntered(MouseEvent evt) {                                      
+    	help.doorIconEntered(infoTextDisplayer);
+    }                                     
+
+    private void hintIconMouseEntered(MouseEvent evt) {                                      
+    	help.hintIconEntered(infoTextDisplayer);
+    }                                     
+
+    private void hintIconMouseExited(MouseEvent evt) {                                     
+    	help.hintIconExited(infoTextDisplayer);
     }                                    
 
-    private void jLabel26MouseEntered(MouseEvent evt) {                                      
-        jLabel19.setText("<HTML><b><center>This is part of the doors that you need to escape from after finding the key. You can't speak to the door to convince it to let you through, so make sure to find the key and get close enough to unlock it!</center></b></HTML>");
+    private void extraTimeIconMouseEntered(MouseEvent evt) {                                      
+    	help.extraTimeIconEntered(infoTextDisplayer);
     }                                     
 
-    private void jLabel27MouseEntered(MouseEvent evt) {                                      
-        jLabel19.setText("<HTML><b><center>This is the hint power-up. It will tell you if the key is located in the current room you're in. If the key is found, then the furniture containing the key will be clearly highlighted, so mind your surroundings!</center></b></HTML>");
-    }                                     
-
-    private void jLabel27MouseExited(MouseEvent evt) {                                     
-        jLabel19.setText("");
+    private void extraTimeIconMouseExited(MouseEvent evt) {                                     
+    	help.extraTimeIconExited(infoTextDisplayer);
     }                                    
 
-    private void jLabel28MouseEntered(MouseEvent evt) {                                      
-        jLabel19.setText("<HTML><b><center>This is the extra time power-up. It will add 5 more seconds to your remaining time. You will need these, as the time can run out quickly if you are unlucky. Be sure to collect them!</center></b></HTML>");
+    private void extraLifeIconMouseEntered(MouseEvent evt) {                                      
+    	help.extraLifeIconEntered(infoTextDisplayer);
     }                                     
 
-    private void jLabel28MouseExited(MouseEvent evt) {                                     
-        jLabel19.setText("");
+    private void extraLifeIconMouseExited(MouseEvent evt) {                                     
+    	help.extraLifeIconExited(infoTextDisplayer);
     }                                    
 
-    private void jLabel29MouseEntered(MouseEvent evt) {                                      
-        jLabel19.setText("<HTML><b><center>This is the extra life power-up. You will get one more life if you collect it. Try to get them whenever you see them, because the aliens surrounding you won't be forgiving!</center></b></HTML>");
+    private void protectionVestIconMouseEntered(MouseEvent evt) {                                      
+    	help.protectionVestIconEntered(infoTextDisplayer);
     }                                     
 
-    private void jLabel29MouseExited(MouseEvent evt) {                                     
-        jLabel19.setText("");
+    private void protectionVestIconMouseExited(MouseEvent evt) {                                     
+    	help.protectionVestIconExited(infoTextDisplayer);
     }                                    
 
-    private void jLabel30MouseEntered(MouseEvent evt) {                                      
-        jLabel19.setText("<HTML><b><center>This is the protection vest power-up. You will get a shield of defense for the shooter alien, so you won't take damage if you get near one. It doesn't last forever, though, so be wary of your surroundings while you bask in the glory of your armor.</center></b></HTML>");
+    private void plasticBottleIconMouseEntered(MouseEvent evt) {                                      
+    	help.plasticBottleIconEntered(infoTextDisplayer);
     }                                     
 
-    private void jLabel30MouseExited(MouseEvent evt) {                                     
-        jLabel19.setText("");
+    private void plasticBottleIconMouseExited(MouseEvent evt) {                                     
+    	help.plasticBottleIconExited(infoTextDisplayer);
     }                                    
 
-    private void jLabel31MouseEntered(MouseEvent evt) {                                      
-        jLabel19.setText("<HTML><b><center>This is the plastic bottle power-up. You can use it to distract a blind alien by pressing \"P\" on your keyboard, and then throw it based on this key configuration: (\"A\": west, \"D\": east, \"W\": north, \"X\": south). Make sure to watch out where you throw it!</center></b></HTML>");
+    private void shootingAlienIconMouseEntered(MouseEvent evt) {                                      
+    	help.shootingAlienIconEntered(infoTextDisplayer);
     }                                     
 
-    private void jLabel31MouseExited(MouseEvent evt) {                                     
-        jLabel19.setText("");
+    private void shootingAlienIconMouseExited(MouseEvent evt) {                                     
+    	help.shootingAlienIconExited(infoTextDisplayer);
     }                                    
 
-    private void jLabel32MouseEntered(MouseEvent evt) {                                      
-        jLabel19.setText("<HTML><b><center>This is a shooting alien. It will shoot bullets within a certain range, so try not to get too close to it as you will lose a life in doing so. Be careful!");
+    private void blindAlienIconMouseEntered(MouseEvent evt) {                                      
+    	help.blindAlienIconEntered(infoTextDisplayer);
     }                                     
 
-    private void jLabel32MouseExited(MouseEvent evt) {                                     
-        jLabel19.setText("");
+    private void blindAlienIconMouseExited(MouseEvent evt) {                                     
+        help.blindAlienIconExited(infoTextDisplayer);
     }                                    
 
-    private void jLabel33MouseEntered(MouseEvent evt) {                                      
-        jLabel19.setText("<HTML><b><center>This is a blind alien. It will randomly roam around in the room that it spawns, and it will kill you instantly if you come in contact with it. So mind where you are going; even a glorious armor won't be saving you!</center></b></HTML>");
+    private void timeWastingAlienIconMouseEntered(MouseEvent evt) {                                      
+    	help.timeWastingAlienIconEntered(infoTextDisplayer);
     }                                     
 
-    private void jLabel33MouseExited(MouseEvent evt) {                                     
-        jLabel19.setText("");
-    }                                    
-
-    private void jLabel34MouseEntered(MouseEvent evt) {                                      
-        jLabel19.setFont(new Font("Pixeloid Sans", 1, 11));
-    	jLabel19.setText("<HTML><b><center>This is a time-wasting alien. It will try changing the location of the key based on your remaining time. If you have more than 70% of your time remaining, then it is every 5 seconds. If it is between the 30%-70% range, then this guy becomes confused and disappears without doing anything. Things get fierce if it is less than 30%, as it will change the key location every 3 seconds. So try not to lose too much time!</center></b></HTML>");
-    }                                     
-
-    private void jLabel34MouseExited(MouseEvent evt) {                                     
-    	jLabel19.setFont(new Font("Pixeloid Sans", 1, 14));
-    	jLabel19.setText("");
+    private void timeWastingAlienIconMouseExited(MouseEvent evt) {                                     
+    	help.timeWastingAlienIconExited(infoTextDisplayer);
     }                  
 
 }
