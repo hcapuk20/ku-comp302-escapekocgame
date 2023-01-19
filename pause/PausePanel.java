@@ -1,6 +1,7 @@
 package pause;
 
 import constants.Constants;
+import helpScreen.HelpScreen;
 import main.Main;
 import main.controllers.GameController;
 import main.controllers.SaveLoadController;
@@ -26,14 +27,14 @@ public class PausePanel extends JPanel implements ActionListener {
     protected static int distanceBetweenButtons = 20;
     protected static int buttonHeight = 60;
     protected static int buttonWidth = 200;
-
-    //protected static Image backgroundImage = new ImageIcon("assets/menuBackground.jpeg").getImage();
-
-    JFrame frame;
+    
+    protected static boolean pauseHelpPressed = false;
+    
+    static JFrame frame;
 
     protected static Image backgroundImage = new ImageIcon("assets/pauseBackground.jpeg").getImage();
 
-    GameController panel;
+    static GameController panel;
 
     public PausePanel(JFrame f, GameController panel) {
         this.addMouseListener(null);
@@ -98,7 +99,7 @@ public class PausePanel extends JPanel implements ActionListener {
         helpButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+            	helpButtonAction();
             }
         });
         helpButton.setBounds((panelWidth - buttonWidth) / 2, (panelHeight - buttonHeight) / 2 + buttonHeight,
@@ -120,6 +121,16 @@ public class PausePanel extends JPanel implements ActionListener {
         this.add(exitButton);
     }
 
+    protected void helpButtonAction() {
+        HelpScreen helpPanel = new HelpScreen(frame, panel);
+        frame.add(helpPanel);
+        frame.pack();
+        frame.setVisible(true);
+        frame.remove(this);
+        pauseHelpPressed = true;
+    } 
+    
+    
     protected void saveButtonAction() {
         //SaveLoadController.saveGameToFile(panel);
         SaveLoadController saveLoadController = new SaveLoadController(Main.isFile);
@@ -132,7 +143,6 @@ public class PausePanel extends JPanel implements ActionListener {
         panel.setBounds(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
         frame.remove(this);
         frame.repaint();
-
     }
 
     protected void exitButtonAction() {
@@ -146,4 +156,14 @@ public class PausePanel extends JPanel implements ActionListener {
 
     }
 
+    public static JButton getHelpButton() {
+    	return helpButton;
+    }
+    
+    public static boolean getHelpPressed() {
+    	return pauseHelpPressed;
+    }
+    public static void setHelpPressed() {
+    	pauseHelpPressed = false;
+    }
 }
