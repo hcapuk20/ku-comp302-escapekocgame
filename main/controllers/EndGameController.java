@@ -16,6 +16,7 @@ public class EndGameController extends JPanel implements ActionListener{
     protected static JButton exitButton;
 
     protected static JLabel titleLabel;
+    protected static JLabel gameOverLabel;
 
     protected static int panelWidth = Constants.WINDOW_WIDTH;
     protected static int panelHeight = Constants.WINDOW_HEIGHT;
@@ -58,19 +59,29 @@ public class EndGameController extends JPanel implements ActionListener{
     }
 
     protected void setLabels() {
-        titleLabel = new JLabel("Your Score = " + score);
+    	gameOverLabel = new JLabel("GAME OVER");
+    	gameOverLabel.setForeground(Color.BLACK);
+    	gameOverLabel.setFont(new Font("Pixeloid Sans", Font.PLAIN, 80));
+    	gameOverLabel.setBounds(310, 50, 650, 70);
+    	gameOverLabel.setHorizontalAlignment(JLabel.CENTER);
+    	gameOverLabel.setVerticalAlignment(JLabel.CENTER);
+    	
+        titleLabel = new JLabel("YOUR SCORE: " + score);
         titleLabel.setForeground(Color.black);
-        titleLabel.setFont(new Font("Serif", Font.PLAIN, 30));
+        titleLabel.setFont(new Font("GeoSlab703 Md BT", Font.PLAIN, 30));
         titleLabel.setBounds((panelWidth - 2 * buttonWidth) / 2,
                 (panelHeight - buttonHeight) / 2 - 2 * buttonHeight - 15, 2 * buttonWidth, buttonHeight);
         titleLabel.setHorizontalAlignment(JLabel.CENTER);
         titleLabel.setVerticalAlignment(JLabel.CENTER);
 
         add(titleLabel);
+        add(gameOverLabel);
     }
 
     protected void setButtons() {
         menuButton = new JButton("MENU");
+        menuButton.setFont(new Font("Pixeloid Sans", Font.PLAIN, 15));
+
         menuButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -81,6 +92,8 @@ public class EndGameController extends JPanel implements ActionListener{
                 buttonWidth, buttonHeight);
 
         restartButton = new JButton("RESTART");
+        restartButton.setFont(new Font("Pixeloid Sans", Font.PLAIN, 15));
+
         restartButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -91,6 +104,10 @@ public class EndGameController extends JPanel implements ActionListener{
                 buttonHeight);
 
         exitButton = new JButton("EXIT");
+        exitButton.setFont(new Font("Pixeloid Sans", Font.PLAIN, 15));
+		exitButton.setBackground(new Color(255, 102, 102));
+		exitButton.setForeground(Color.white);
+
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

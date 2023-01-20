@@ -13,6 +13,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 public class MenuPanel extends JPanel implements ActionListener {
 
@@ -46,9 +48,20 @@ public class MenuPanel extends JPanel implements ActionListener {
 
 		setButtons();
 		setLabels();
-
+		setFont();
 	}
 
+	private void setFont() {
+		try {
+		     GraphicsEnvironment ge = 
+		         GraphicsEnvironment.getLocalGraphicsEnvironment();
+		     ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("assets/fonts/PixeloidSans-nR3g1.ttf")));
+		} catch (IOException|FontFormatException e) {
+		     e.printStackTrace();
+		}
+	}
+	
+	
 	@Override
 	protected void paintComponent(Graphics g) {
 		g.drawImage(backgroundImage, 0, 0, panelWidth, panelHeight, this);
@@ -61,9 +74,9 @@ public class MenuPanel extends JPanel implements ActionListener {
 	}
 
 	protected void setLabels() {
-		titleLabel = new JLabel("Escape From Koç");
+		titleLabel = new JLabel("ESCAPE FROM KOÇ");
 		titleLabel.setForeground(Color.white);
-		titleLabel.setFont(new Font("Serif", Font.PLAIN, 30));
+		titleLabel.setFont(new Font("GeoSlab703 Md BT", Font.PLAIN, 30));
 		titleLabel.setBounds((panelWidth - 2 * buttonWidth) / 2,
 				(panelHeight - buttonHeight) / 2 - 3 * buttonHeight - 15, 2 * buttonWidth, buttonHeight);
 		titleLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -74,6 +87,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 
 	protected void setButtons() {
 		playButton = new JButton("PLAY");
+		playButton.setFont(new Font("Pixeloid Sans", Font.PLAIN, 15));
 		playButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -84,6 +98,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 				buttonWidth, buttonHeight);
 
 		quickStartButton = new JButton("QUICK START");
+		quickStartButton.setFont(new Font("Pixeloid Sans", Font.PLAIN, 15));
 		quickStartButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -94,6 +109,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 				buttonWidth, buttonHeight);
 
 		loadButton = new JButton("LOAD GAME");
+		loadButton.setFont(new Font("Pixeloid Sans", Font.PLAIN, 15));
 		loadButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -104,6 +120,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 				buttonHeight);
 
 		infoButton = new JButton("INFO");
+		infoButton.setFont(new Font("Pixeloid Sans", Font.PLAIN, 15));
 		infoButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -114,6 +131,9 @@ public class MenuPanel extends JPanel implements ActionListener {
 				buttonWidth, buttonHeight);
 
 		exitButton = new JButton("EXIT");
+		exitButton.setFont(new Font("Pixeloid Sans", Font.PLAIN, 15));
+		exitButton.setBackground(new Color(255, 102, 102));
+		exitButton.setForeground(Color.white);
 		exitButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

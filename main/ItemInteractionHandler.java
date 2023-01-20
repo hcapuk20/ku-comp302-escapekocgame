@@ -41,7 +41,7 @@ public class ItemInteractionHandler implements MouseListener {
                     int playerTileY = gameController.character.locationY / tileSize;
 
                     if (Math.abs(playerTileX - tileX)> 2 || Math.abs(playerTileY - tileY)> 2){
-                        gameController.displayedMessage = "You are not close enough";
+                        gameController.displayedMessage = "You are not close enough!";
                         Timer t = new Timer();
                         t.schedule(new TimerTask() {
                             @Override
@@ -72,7 +72,7 @@ public class ItemInteractionHandler implements MouseListener {
 
                         fur.hasKey = false;
                     } else {
-                        gameController.displayedMessage = "Key not found";
+                        gameController.displayedMessage = "Key not found!";
                         Timer t = new Timer();
                         t.schedule(new TimerTask() {
                             @Override
@@ -94,7 +94,7 @@ public class ItemInteractionHandler implements MouseListener {
                         gameController.displayedMessage = "Remaining time increased!";
                     }
                     else{
-                        gameController.displayedMessage = "Picked up PowerUp!";
+                        gameController.displayedMessage = "Picked up power-up!";
                         gameController.character.bag.add((PowerUp) object);
                     }
                     Timer t = new Timer();
@@ -114,7 +114,7 @@ public class ItemInteractionHandler implements MouseListener {
                 int playerTileY = gameController.character.locationY / tileSize;
 
                 if (Math.abs(playerTileX - tileX)> 2 || Math.abs(playerTileY - tileY)> 2){
-                    gameController.displayedMessage = "You are not close enough";
+                    gameController.displayedMessage = "You are not close enough!";
                     Timer t = new Timer();
                     t.schedule(new TimerTask() {
                         @Override

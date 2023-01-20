@@ -63,9 +63,9 @@ public class PausePanel extends JPanel implements ActionListener {
     }
 
     protected void setLabels() {
-        titleLabel = new JLabel("Escape From Koç");
+        titleLabel = new JLabel("ESCAPE FROM KOÇ");
         titleLabel.setForeground(Color.white);
-        titleLabel.setFont(new Font("Serif", Font.PLAIN, 30));
+        titleLabel.setFont(new Font("GeoSlab703 Md BT", Font.PLAIN, 30));
         titleLabel.setBounds((panelWidth - 2 * buttonWidth) / 2,
                 (panelHeight - buttonHeight) / 2 - 2 * buttonHeight - 15, 2 * buttonWidth, buttonHeight);
         titleLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -76,6 +76,7 @@ public class PausePanel extends JPanel implements ActionListener {
 
     protected void setButtons() {
         resumeButton = new JButton("RESUME");
+        resumeButton.setFont(new Font("Pixeloid Sans", Font.PLAIN, 15));
         resumeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -86,6 +87,7 @@ public class PausePanel extends JPanel implements ActionListener {
                 buttonWidth, buttonHeight);
 
         saveButton = new JButton("SAVE GAME");
+        saveButton.setFont(new Font("Pixeloid Sans", Font.PLAIN, 15));
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -96,6 +98,7 @@ public class PausePanel extends JPanel implements ActionListener {
                 buttonHeight);
 
         helpButton = new JButton("HELP");
+        helpButton.setFont(new Font("Pixeloid Sans", Font.PLAIN, 15));
         helpButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -106,6 +109,9 @@ public class PausePanel extends JPanel implements ActionListener {
                 buttonWidth, buttonHeight);
 
         exitButton = new JButton("EXIT");
+        exitButton.setFont(new Font("Pixeloid Sans", Font.PLAIN, 15));
+		exitButton.setBackground(new Color(255, 102, 102));
+		exitButton.setForeground(Color.white);
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

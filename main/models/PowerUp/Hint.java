@@ -55,10 +55,10 @@ public class Hint extends  PowerUp{
     }
     public void drawMessage(Graphics g,GameController gameController){
         Graphics2D g2 = (Graphics2D) g;
-        g2.setColor(Color.white);
+        g2.setColor(Color.black);
         int drawLocX = gameController.character.locationX -Constants.tileSize;
         int drawLocY = gameController.character.locationY -Constants.tileSize/2;
-        g2.drawString("Key is not in this room",drawLocX,drawLocY);
+        g2.drawString("Key is not in this room!",drawLocX,drawLocY);
     }
 
 }
