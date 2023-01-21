@@ -94,6 +94,7 @@ public class KeyEventHandler implements KeyListener {
             // hint powerUp
             for (PowerUp powerUp: character.bag){
                 if (powerUp instanceof ProtectionVest){
+                    gameController.playSound("assets/sounds/protection-vest.wav");
                     ProtectionVest pvest = (ProtectionVest) powerUp;
                     pvest.doEffect(gameController);
                     character.bag.remove(powerUp);
@@ -126,18 +127,22 @@ public class KeyEventHandler implements KeyListener {
                 }
             }
         } else if (key == KeyEvent.VK_W && character.bottleUsed){ //erim
+            gameController.playSound("assets/sounds/bottle-used.wav");
             gameController.powerUpController.bottleUsed = true;
             gameController.powerUpController.bottleDirection = "up";
             character.bottleUsed = false;
         } else if (key == KeyEvent.VK_A && character.bottleUsed){
+            gameController.playSound("assets/sounds/bottle-used.wav");
             gameController.powerUpController.bottleUsed = true;
             gameController.powerUpController.bottleDirection = "left";
             character.bottleUsed = false;
         } else if (key == KeyEvent.VK_D && character.bottleUsed){
+            gameController.playSound("assets/sounds/bottle-used.wav");
             gameController.powerUpController.bottleUsed = true;
             gameController.powerUpController.bottleDirection = "right";
             character.bottleUsed = false;
         } else if (key == KeyEvent.VK_X && character.bottleUsed){
+            gameController.playSound("assets/sounds/bottle-used.wav");
             gameController.powerUpController.bottleUsed = true;
             gameController.powerUpController.bottleDirection = "down";
             character.bottleUsed = false;

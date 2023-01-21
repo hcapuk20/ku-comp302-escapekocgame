@@ -10,9 +10,12 @@ import main.models.*;
 import main.models.Alien.Alien;
 import main.models.Character;
 import pause.PausePanel;
+import javax.sound.sampled.*;
+
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.sql.SQLOutput;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -284,6 +287,17 @@ public class GameController extends JPanel implements Runnable{
         int drawLocX = this.character.locationX -Constants.tileSize;
         int drawLocY = this.character.locationY -Constants.tileSize/2;
         g2.drawString(this.displayedMessage,drawLocX,drawLocY);
+    }
+    public static void playSound(String soundFile) {
+        try {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundFile).getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+        } catch (Exception ex) {
+            System.out.println("Error with playing sound.");
+            ex.printStackTrace();
+        }
     }
 
 }
