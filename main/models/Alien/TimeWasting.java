@@ -11,6 +11,8 @@ import java.io.IOException;
 
 public class TimeWasting extends Alien {
 
+    int currentBuilding;
+
     public TimeWasting(){
         try {
             this.image = ImageIO.read(new File("assets/alien1.png"));
@@ -18,7 +20,8 @@ public class TimeWasting extends Alien {
             throw new RuntimeException(e);
         }
     }
-    public TimeWasting(int x, int y, int height, int width, String alien_type,int roomX, int roomY) {
+
+    public TimeWasting(int x, int y, int height, int width, String alien_type,int roomX, int roomY,int currentBuilding) {
         this.locationX = x;
         this.locationY = y;
         this.height = height;
@@ -34,6 +37,7 @@ public class TimeWasting extends Alien {
         int hitBoxIndex = width/6;
         int hitBoxSize = width - (2 * hitBoxIndex);
         this.alien_type = alien_type;
+        this.currentBuilding = currentBuilding;
     }
 
 

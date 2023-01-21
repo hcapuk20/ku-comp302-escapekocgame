@@ -101,7 +101,9 @@ public class AlienController implements Runnable {
             tempAlien = new Shooter(randomXTile * Constants.tileSize, randomYTile * Constants.tileSize, Constants.tileSize, Constants.tileSize, alienTypes[randomType],gameController.roomCountX,gameController.roomCountY);
         }
         else if (alienTypes[randomType].equals("time-wasting")) {
-            tempAlien = new TimeWasting(randomXTile * Constants.tileSize, randomYTile * Constants.tileSize, Constants.tileSize, Constants.tileSize, alienTypes[randomType],gameController.roomCountX,gameController.roomCountY);
+
+            tempAlien = new TimeWasting(randomXTile * Constants.tileSize, randomYTile * Constants.tileSize, Constants.tileSize, Constants.tileSize, alienTypes[randomType],gameController.roomCountX,gameController.roomCountY,gameController.currentBuildingCount);
+
         }
         else {
 
@@ -196,7 +198,9 @@ public class AlienController implements Runnable {
 
                 if (remaining_percentage < 0.3) {
 
-                    TimeWasting1 tempAlien1 = new TimeWasting1(alien.locationX, alien.locationY, alien.height, alien.width, alien.alien_type, gameController.roomCountX,gameController.roomCountY);
+
+                    TimeWasting1 tempAlien1 = new TimeWasting1(alien.locationX, alien.locationY, alien.height, alien.width, alien.alien_type, gameController.roomCountX,gameController.roomCountY,gameController.currentBuildingCount);
+
 
                     if (flag1 == 0) {tempAlien1.specialPower(alien); flag1 = 1;}
                     else if(Alien.timeWaste1Count == -1){
@@ -216,7 +220,8 @@ public class AlienController implements Runnable {
 
                 } else if (remaining_percentage > 0.7) {
 
-                    TimeWasting3 tempAlien2 = new TimeWasting3(alien.locationX, alien.locationY, alien.height, alien.width, alien.alien_type, gameController.roomCountX,gameController.roomCountY);
+
+                    TimeWasting3 tempAlien2 = new TimeWasting3(alien.locationX, alien.locationY, alien.height, alien.width, alien.alien_type, gameController.roomCountX,gameController.roomCountY, gameController.currentBuildingCount);
                     if (flag2 == 0){
 
                         flag2 = 1;
@@ -230,7 +235,8 @@ public class AlienController implements Runnable {
                 } else {
 
                     if(flag3 == 0){
-                        TimeWasting2 tempAlien3 = new TimeWasting2(alien.locationX, alien.locationY, alien.height, alien.width, alien.alien_type, gameController.roomCountX,gameController.roomCountY);
+
+                        TimeWasting2 tempAlien3 = new TimeWasting2(alien.locationX, alien.locationY, alien.height, alien.width, alien.alien_type, gameController.roomCountX,gameController.roomCountY,gameController.currentBuildingCount);
                         tempAlien3.specialPower(alien);
                         flag3 = 1;
                     }

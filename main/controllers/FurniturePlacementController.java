@@ -182,4 +182,32 @@ public class FurniturePlacementController {
         }
     }
 
+
+    public void randomizeKey(int currentBuilding) {
+
+        printFurnituresHasKey(currentBuilding);
+
+        if(BuildingsDataSource.buildings[currentBuilding].furnitureWithKey.hasKey) {
+            BuildingsDataSource.buildings[currentBuilding].furnitureWithKey.hasKey = false;
+            addKey(currentBuilding);
+        }
+
+        printFurnituresHasKey(currentBuilding);
+
+    }
+
+    private void printFurnituresHasKey(int currentBuilding) {
+        for(int i = 0; i < 3; i++) {
+            for(int j = 0; j < 3; j++) {
+                if (BuildingsDataSource.buildings[currentBuilding].rooms[i][j] != null)
+                    for (int a = 0; a < BuildingsDataSource.buildings[currentBuilding].rooms[i][j].furnitures.size(); a++){
+                        System.out.print(BuildingsDataSource.buildings[currentBuilding].rooms[i][j].furnitures.get(a).hasKey);
+                        System.out.print(" ");
+                    }
+            }
+        }
+        System.out.println();
+    }
+
 }
+
