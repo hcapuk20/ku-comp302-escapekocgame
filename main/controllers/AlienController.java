@@ -92,7 +92,7 @@ public class AlienController implements Runnable {
 
         int randomYTile = rand.nextInt(tileMap[0].length);
 
-        while (tileMap[randomXTile][randomYTile] != null){
+        while (tileMap[randomXTile][randomYTile] != null || (gameController.character.locationX / tileSize == randomXTile && gameController.character.locationY / tileSize == randomYTile)){
             randomXTile = rand.nextInt(tileMap.length);
             randomYTile = rand.nextInt(tileMap[0].length);
         }
@@ -186,7 +186,7 @@ public class AlienController implements Runnable {
 
         for(Alien alien: Alien.aliens){
             if (alien != null && alien.alien_type.equals("shooter")){
-                boolean alive = ((Shooter) alien).specialPower(player, gameController.currentRoom);
+                boolean alive = ((Shooter) alien).specialPower(player, gameController.roomCountX,gameController.roomCountY);
                 if(!alive){
                     gameController.endGame();
                 }
@@ -258,7 +258,7 @@ public class AlienController implements Runnable {
 
             }
             else if (alien != null && alien.alien_type.equals("blind")){
-                if(player.locationX+player.width > alien.locationX && player.locationX-player.width < alien.locationX && player.locationY+player.height > alien.locationY && player.locationY-player.height < alien.locationY && alien.current_room == gameController.currentRoom){
+                if(player.locationX+player.width > alien.locationX && player.locationX-player.width < alien.locationX && player.locationY+player.height > alien.locationY && player.locationY-player.height < alien.locationY && alien.roomX == gameController.roomCountX && alien.roomY == gameController.roomCountY){
                     player.life = 0;
                     gameController.endGame();
                 }
@@ -269,7 +269,7 @@ public class AlienController implements Runnable {
                     ((Blind) alien).setDirection();
                 }
                 move(alien);
-                if(player.locationX+player.width > alien.locationX && player.locationX-player.width < alien.locationX && player.locationY+player.height > alien.locationY && player.locationY-player.height < alien.locationY && alien.current_room == gameController.currentRoom){
+                if(player.locationX+player.width > alien.locationX && player.locationX-player.width < alien.locationX && player.locationY+player.height > alien.locationY && player.locationY-player.height < alien.locationY && alien.roomX == gameController.roomCountX && alien.roomY == gameController.roomCountY){
                     player.life = 0;
                     gameController.endGame();
 

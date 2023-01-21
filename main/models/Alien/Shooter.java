@@ -35,13 +35,13 @@ public class Shooter extends Alien{
         int hitBoxSize = width - (2 * hitBoxIndex);
         this.alien_type = alien_type;
     }
-    public boolean specialPower(Character player, Room room){
+    public boolean specialPower(Character player, int roomX, int roomY){
         count++;
         if(count == 100) {
 
             count = 0;
 
-            if(player.locationX < this.locationX+4 * Constants.tileSize && player.locationX > this.locationX-4 * Constants.tileSize && player.locationY < this.locationY+4 * Constants.tileSize && player.locationY > this.locationY-4 * Constants.tileSize && this.current_room == room ){
+            if(player.locationX < this.locationX+4 * Constants.tileSize && player.locationX > this.locationX-4 * Constants.tileSize && player.locationY < this.locationY+4 * Constants.tileSize && player.locationY > this.locationY-4 * Constants.tileSize && this.roomX == roomX && this.roomY == roomY ){
                // checks if the player in the range of shooter alien.
                 if (player.vulnerable){
                     player.life --;
