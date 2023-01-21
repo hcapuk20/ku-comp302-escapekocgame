@@ -46,7 +46,6 @@ public class LoginView {
 	private JButton loginButton;
     private JButton signUpButton;
     private static JButton toggleSaveButton;
-    private JLabel passwordCheck;
     private JLabel titleEscape;
     private JLabel titleKoç;
     private JLabel deleteAccountCheck;
@@ -114,7 +113,6 @@ public class LoginView {
         loginButton = new JButton();
         signUpButton = new JButton();
         toggleSaveButton = new JButton();
-        passwordCheck = new JLabel();
         deleteAccountCheck = new JLabel();
         exitButton = new JLabel();
         screenDeco6 = new JPanel();
@@ -200,7 +198,6 @@ public class LoginView {
                         .addComponent(screenDeco10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(inputScreenLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                            .addComponent(passwordCheck, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
                             .addGroup(inputScreenLayout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addComponent(deleteAccountCheck, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)))
@@ -278,7 +275,6 @@ public class LoginView {
                         .addGap(35, 35, 35)
                         .addComponent(loginStatus, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
-                        .addComponent(passwordCheck, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(deleteAccountCheck)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
@@ -385,23 +381,7 @@ public class LoginView {
 
         titleFrom.setFont(new Font("GeoSlab703 Md BT", 0, 48)); 
         titleFrom.setText("FROM");
-        
-        passwordCheck.setFont(new Font("Segoe UI", 1, 12)); 
-        passwordCheck.setForeground(new Color(255, 255, 255));
-        passwordCheck.setText("Forgot password?");
-        passwordCheck.setHorizontalTextPosition(SwingConstants.CENTER);
-        passwordCheck.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent evt) {
-                passwordCheckMouseClicked(evt);
-            }
-            public void mouseEntered(MouseEvent evt) {
-                passwordCheckMouseEntered(evt);
-            }
-            public void mouseExited(MouseEvent evt) {
-                passwordCheckMouseExited(evt);
-            }
-        });
-
+         
         deleteAccountCheck.setFont(new Font("Segoe UI", 1, 12)); 
         deleteAccountCheck.setForeground(new Color(255, 255, 255));
         deleteAccountCheck.setText("Delete account");
@@ -591,20 +571,7 @@ public class LoginView {
     private void exitButtonMouseClicked(MouseEvent evt) {                                     
         System.exit(0);
     }                                    
-
-    // Events that handle the creation of other UI frames of the login screen
-    private void passwordCheckMouseClicked(MouseEvent evt) {                                     
-        scr.loginViewCheckPassClick();
-    }                                    
-
-    private void passwordCheckMouseEntered(MouseEvent evt) {                                     
-        scr.loginViewCheckPassEnter(passwordCheck);
-    }                                    
-
-    private void passwordCheckMouseExited(MouseEvent evt) {                                    
-        scr.loginViewCheckPassExit(passwordCheck);
-    }                                   
-
+                     
     private void deleteAccountCheckMouseEntered(MouseEvent evt) {                                     
         scr.loginViewDeleteAccEnter(deleteAccountCheck);
     }                                    
