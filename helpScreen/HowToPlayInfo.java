@@ -33,7 +33,6 @@ public class HowToPlayInfo extends JFrame {
     private JPanel screenDeco6;
     private JSeparator jSeparator1;
 	
-	
     public HowToPlayInfo() {
         setFont();
     	initComponents();

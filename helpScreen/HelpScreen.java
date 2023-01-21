@@ -78,7 +78,7 @@ public class HelpScreen extends JPanel {
     private JFrame frame;
     private GameController panel;
     private JLabel howToPlay;
-    private HowToPlayInfo htpi;
+    private HowToPlayInfo htpi = new HowToPlayInfo();
      
     public HelpScreen(JFrame f, GameController p) {
     	this.frame = f;
@@ -786,13 +786,11 @@ public class HelpScreen extends JPanel {
     }
      
     private void howToPlayMouseEntered(MouseEvent evt) {
-		howToPlay.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		htpi = new HowToPlayInfo();
-		htpi.setVisible(true);
+		help.howToPlayEntered(howToPlay, htpi);
 
     }
     private void howToPlayMouseExited(MouseEvent evt) {
-    	htpi.dispose();
+    	help.howToPlayExited(htpi);
     }
     
     
