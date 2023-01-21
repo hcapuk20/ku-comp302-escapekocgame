@@ -7,6 +7,8 @@ import main.models.PowerUp.PowerUp;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 public class BagController {
 
@@ -19,9 +21,10 @@ public class BagController {
     int numberBackgroundSize = tileSize*6/10;
 
     public BagController(GameController gameController){
-        this.gameController = gameController;
+    	this.gameController = gameController;  
     }
-
+    
+    
 
     void drawFrames(Graphics g){
         Image frameImage = new ImageIcon("assets/bagFrame.png").getImage();
@@ -69,7 +72,7 @@ public class BagController {
 
         for(int i = 0; i<3; i++) {
 
-            g.setFont(new Font("Serif", Font.PLAIN, 20));
+            g.setFont(new Font("Pixeloid Sans", Font.PLAIN, 16));
             g.setColor(Color.white);
 
             g.drawString(contain[i] + "",

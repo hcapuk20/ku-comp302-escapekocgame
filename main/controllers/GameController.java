@@ -227,7 +227,7 @@ public class GameController extends JPanel implements Runnable{
             timeController.counterLabel.setVisible(false);
             timeController.activeTimer = false;
             timeController = new TimeController(this, currentBuilding.getTotalFurnitures() * 5);
-            this.displayedMessage = "Congratulations! You moved on to building "+currentBuildingCount;
+            this.displayedMessage = "Congratulations! You moved on to the "+currentBuilding.name;
             java.util.Timer t = new Timer();
             t.schedule(new TimerTask() {
                 @Override
@@ -274,7 +274,7 @@ public class GameController extends JPanel implements Runnable{
 
     public void drawMessage(Graphics g){
         Graphics2D g2 = (Graphics2D) g;
-        g2.setColor(Color.white);
+        g2.setColor(Color.black);
         int drawLocX = this.character.locationX -Constants.tileSize;
         int drawLocY = this.character.locationY -Constants.tileSize/2;
         g2.drawString(this.displayedMessage,drawLocX,drawLocY);

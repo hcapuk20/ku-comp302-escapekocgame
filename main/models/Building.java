@@ -5,13 +5,15 @@ import constants.Constants;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 
 @JsonIgnoreProperties({"totalFurnitures"})
 public class Building {
 
     public Room[][] rooms = new Room[3][3];
-    String name;
+    public String name;
 
     public Furniture furnitureWithKey;
     public int roomX, roomY;
@@ -21,7 +23,8 @@ public class Building {
 
     }
     public Building(String name, int minFurniture) {
-        this.name = name;
+        setFont();
+    	this.name = name;
         this.minFurniture = minFurniture;
     }
 
@@ -74,14 +77,14 @@ public class Building {
 
     private void drawNameLabel(Graphics g){
         g.setColor(Color.white);
-        g.setFont(new Font("Segoe Script", Font.BOLD, 20));
+        g.setFont(new Font("GeoSlab703 Md BT", Font.BOLD, 20));
         g.drawString(name, 20, 40);
     }
 
     public void drawMinCountLabel(Graphics g){
-        String txt = "You must place " + minFurniture + " furnitures before you continue";
+        String txt = "You must place " + minFurniture + " furnitures before you continue!";
         g.setColor(Color.white);
-        g.setFont(new Font("Segoe Script", Font.ITALIC, 15));
+        g.setFont(new Font("Pixeloid Sans", Font.PLAIN, 18));
         g.drawString(txt, 20, Constants.WINDOW_HEIGHT-40);
     }
 
@@ -98,6 +101,16 @@ public class Building {
             }
 
         }
+    }
+    
+    private void setFont() {
+    	try {
+		     GraphicsEnvironment ge = 
+		         GraphicsEnvironment.getLocalGraphicsEnvironment();
+		     ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("assets/fonts/PixeloidSans-nR3g1.ttf")));
+		} catch (IOException|FontFormatException e) {
+		     e.printStackTrace();
+		}
     }
 
 }
