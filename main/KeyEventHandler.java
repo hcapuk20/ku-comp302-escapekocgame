@@ -71,7 +71,7 @@ public class KeyEventHandler implements KeyListener {
         } else if (key == KeyEvent.VK_L) {
 
         } else if (key == KeyEvent.VK_M) { //Eren
-            gameController.miniMapController.keyEventOperation();
+            gameController.miniMapController.mClicked();
 
         } else if (key == KeyEvent.VK_H){ //berfan
             for (PowerUp powerUp: character.bag){
@@ -160,6 +160,10 @@ public class KeyEventHandler implements KeyListener {
         else if(key == KeyEvent.VK_DOWN){
             character.moving = false;
         }
+        else if(key == KeyEvent.VK_M){
+            gameController.miniMapController.mReleased();
+        }
+
 
     }
 }

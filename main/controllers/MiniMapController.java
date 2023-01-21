@@ -49,6 +49,14 @@ public class MiniMapController extends JPanel{
         }
     }
 
+    public void mClicked() {
+        opened = true;
+    }
+
+    public void mReleased() {
+        opened = false;
+    }
+
     private void drawMiniCharacter(Graphics g, int roomX, int roomY){
         g.setColor(Color.red);
         int width = Constants.WINDOW_WIDTH / mapDivider;
