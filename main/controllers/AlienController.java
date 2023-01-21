@@ -297,7 +297,7 @@ public class AlienController implements Runnable {
                 if(player.locationX+player.width > alien.locationX && player.locationX-player.width < alien.locationX && player.locationY+player.height > alien.locationY && player.locationY-player.height < alien.locationY && alien.current_room == gameController.currentRoom){
                     player.life = 0;
                     System.out.println("blindkill");
-                    //gameController.endGame();
+                    gameController.endGame();
                 }
                 if(gameController.powerUpController.getBottle() != null){
                     ((Blind)alien).setDirection(gameController.powerUpController.getBottle().locationX, gameController.powerUpController.getBottle().locationY, gameController.powerUpController.getBottle());
@@ -309,7 +309,7 @@ public class AlienController implements Runnable {
                 if(player.locationX+player.width > alien.locationX && player.locationX-player.width < alien.locationX && player.locationY+player.height > alien.locationY && player.locationY-player.height < alien.locationY && alien.current_room == gameController.currentRoom){
                     player.life = 0;
                     System.out.println("blindkill");
-                    //gameController.endGame();
+                    gameController.endGame();
 
                 }
             }
