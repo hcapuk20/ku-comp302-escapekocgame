@@ -41,43 +41,43 @@ public class AlienController implements Runnable {
         if (alien.moving && alien.direction.equals("up")) {
             if (!collisionChecker.checkCollision(alien)) {
 
-                if(alien.locationY < 44){
-
+                if(alien.locationY > 44){
+                    alien.locationY -= alien.speed;
                 }
                 else{
-                    alien.locationY -= alien.speed;
+
                 }
                 //System.out.println(alien.locationY);
             }
         } else if (alien.moving && alien.direction.equals("down")) {
             if (!collisionChecker.checkCollision(alien)) {
 
-                if(alien.locationY > WINDOW_HEIGHT-44 ){
-
+                if(alien.locationY < WINDOW_HEIGHT-(44 + alien.height)){
+                    alien.locationY += alien.speed;
                 }
                 else{
-                    alien.locationY += alien.speed;
+
                 }
                 //System.out.println(alien.locationY);
             }
         } else if (alien.moving && alien.direction.equals("left")) {
             if (!collisionChecker.checkCollision(alien)) {
 
-                if(alien.locationX < 44){
-
+                if(alien.locationX > 44){
+                    alien.locationX -= alien.speed;
                 }
                 else{
-                    alien.locationX -= alien.speed;
+
                 };
             }
         } else if (alien.moving && alien.direction.equals("right")) {
             if (!collisionChecker.checkCollision(alien)) {
 
-                if(alien.locationX > WINDOW_WIDTH-44 ){
-
+                if(alien.locationX < WINDOW_WIDTH-( 44 + alien.width ) ){
+                    alien.locationX += alien.speed;
                 }
                 else{
-                    alien.locationX += alien.speed;
+
                 }
             }
         }
@@ -112,6 +112,7 @@ public class AlienController implements Runnable {
     public void spawnAlien() {
         Alien tempAlien;
         GameObject[][] tileMap = gameController.currentRoom.tileMap;
+        System.out.println("alien spawnlanıyor");
         int randomXTile = rand.nextInt(tileMap.length);
 
         int randomYTile = rand.nextInt(tileMap[0].length);
@@ -120,7 +121,7 @@ public class AlienController implements Runnable {
             randomXTile = rand.nextInt(tileMap.length);
             randomYTile = rand.nextInt(tileMap[0].length);
         }
-        int randomType = rand.nextInt(alienTypes.length);
+        int randomType = 2;//rand.nextInt(alienTypes.length);
         if(alienTypes[randomType].equals("shooter")){
             tempAlien = new Shooter(randomXTile * Constants.tileSize, randomYTile * Constants.tileSize, Constants.tileSize, Constants.tileSize, alienTypes[randomType],gameController.currentRoom);
         }
@@ -128,6 +129,7 @@ public class AlienController implements Runnable {
             tempAlien = new TimeWasting(randomXTile * Constants.tileSize, randomYTile * Constants.tileSize, Constants.tileSize, Constants.tileSize, alienTypes[randomType],gameController.currentRoom);
         }
         else {
+
             tempAlien = new Blind(randomXTile * Constants.tileSize, randomYTile * Constants.tileSize, Constants.tileSize, Constants.tileSize, alienTypes[randomType],gameController.currentRoom);
 
         }
@@ -203,10 +205,10 @@ public class AlienController implements Runnable {
             }
 
 
-            if (spawnAlienDelta > 600){
+            if (spawnAlienDelta > 200){//600
 
                 this.spawnAlien();
-                spawnAlienDelta -= 600;
+                spawnAlienDelta -= 200;
             }
 
 
@@ -292,9 +294,10 @@ public class AlienController implements Runnable {
 
             }
             else if (alien != null && alien.alien_type.equals("blind")){
-                if(player.locationX+player.width > alien.locationX && player.locationX-player.width < alien.locationX && player.locationY+player.height > alien.locationY && player.locationY-player.height < alien.locationY){
+                if(player.locationX+player.width > alien.locationX && player.locationX-player.width < alien.locationX && player.locationY+player.height > alien.locationY && player.locationY-player.height < alien.locationY && alien.current_room == gameController.currentRoom){
                     player.life = 0;
-                    gameController.endGame();
+                    System.out.println("blindkill");
+                    //gameController.endGame();
                 }
                 if(gameController.powerUpController.getBottle() != null){
                     ((Blind)alien).setDirection(gameController.powerUpController.getBottle().locationX, gameController.powerUpController.getBottle().locationY, gameController.powerUpController.getBottle());
@@ -303,9 +306,10 @@ public class AlienController implements Runnable {
                     ((Blind) alien).setDirection();
                 }
                 move(alien);
-                if(player.locationX+player.width > alien.locationX && player.locationX-player.width < alien.locationX && player.locationY+player.height > alien.locationY && player.locationY-player.height < alien.locationY){
+                if(player.locationX+player.width > alien.locationX && player.locationX-player.width < alien.locationX && player.locationY+player.height > alien.locationY && player.locationY-player.height < alien.locationY && alien.current_room == gameController.currentRoom){
                     player.life = 0;
-                    gameController.endGame();
+                    System.out.println("blindkill");
+                    //gameController.endGame();
 
                 }
             }
