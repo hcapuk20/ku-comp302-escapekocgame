@@ -143,5 +143,14 @@ public class HelpScreenEventHandler {
     	infoTextDisplayer.setFont(new Font("Pixeloid Sans", 1, 14));
     	infoTextDisplayer.setText("");
     }          
+    
+    public void howToPlayEntered(JLabel howToPlay, HowToPlayInfo htpi) {
+    	howToPlay.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		htpi.setVisible(true);
+    }
+    
+    public void howToPlayExited(HowToPlayInfo htpi) {
+    	htpi.dispose();
+    }
 	
 }

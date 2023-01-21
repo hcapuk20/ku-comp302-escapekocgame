@@ -77,6 +77,8 @@ public class HelpScreen extends JPanel {
     
     private JFrame frame;
     private GameController panel;
+    private JLabel howToPlay;
+    private HowToPlayInfo htpi = new HowToPlayInfo();
      
     public HelpScreen(JFrame f, GameController p) {
     	this.frame = f;
@@ -110,6 +112,7 @@ public class HelpScreen extends JPanel {
 		}
     }
     private void setComponents() {
+    	howToPlay = new JLabel();
     	gameInfoLabel = new JLabel();
         gameInfoSeparator = new JSeparator();
         detailsLabel = new JLabel();
@@ -152,17 +155,19 @@ public class HelpScreen extends JPanel {
         timeWastingAlienText = new JLabel();
         backButton = new JLabel();
     }
+    
     private void setPanelProperties() {
     	setBackground(new Color(51, 51, 51));
         setPreferredSize(new Dimension(1280, 720));
     }
+    
     private void setLabels() {
     	gameInfoLabel.setBackground(new Color(153, 255, 255));
         gameInfoLabel.setFont(new Font("Pixeloid Sans", 1, 18)); 
         gameInfoLabel.setForeground(new Color(255, 255, 51));
         gameInfoLabel.setHorizontalAlignment(SwingConstants.CENTER);
         gameInfoLabel.setText("GAME INFO");
-
+           
         detailsLabel.setFont(new Font("Pixeloid Sans", 1, 12)); 
         detailsLabel.setForeground(new Color(255, 255, 255));
         detailsLabel.setText("Hover over an icon to know more about its controls/details.");
@@ -246,6 +251,7 @@ public class HelpScreen extends JPanel {
         timeWastingAlienText.setFont(new Font("Pixeloid Sans", 1, 12));
         timeWastingAlienText.setText("Time-wasting Alien");
     }
+    
     private void setDecorations() {
     	infoTextPanel.setBackground(new Color(51, 51, 51));
         infoTextPanel.setBorder(new LineBorder(new Color(255, 255, 255), 2, true));
@@ -346,6 +352,16 @@ public class HelpScreen extends JPanel {
             public void mouseExited(MouseEvent evt) {
                 characterIconMouseExited(evt);
             }
+        });
+        
+        howToPlay.setForeground(new Color(255, 255, 255));
+        howToPlay.addMouseListener(new MouseAdapter() {
+        	public void mouseEntered(MouseEvent evt) {
+        		howToPlayMouseEntered(evt);
+        	}
+        	public void mouseExited(MouseEvent evt) {
+        		howToPlayMouseExited(evt);
+        	}
         });
         
         bagIcon.setForeground(new Color(255, 255, 255));
@@ -558,10 +574,12 @@ public class HelpScreen extends JPanel {
 			blindAlienIcon.setIcon(new ImageIcon(ImageIO.read(new File("assets/alien4.png")).getScaledInstance(50,  50, Image.SCALE_DEFAULT)));
 			timeWastingAlienIcon.setIcon(new ImageIcon(ImageIO.read(new File("assets/alien1.png")).getScaledInstance(50,  50, Image.SCALE_DEFAULT)));
 			backButton.setIcon(new ImageIcon(ImageIO.read(new File("assets/help-exit.png")).getScaledInstance(40,  40, Image.SCALE_DEFAULT)));
+			howToPlay.setIcon(new ImageIcon(ImageIO.read(new File("assets/help.png")).getScaledInstance(40,  40, Image.SCALE_DEFAULT)));
         } catch (IOException e) {
         	e.printStackTrace();
         }
     }
+    
     private void setPanelLayout() {
     	GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
@@ -762,8 +780,20 @@ public class HelpScreen extends JPanel {
                 .addComponent(infoTextPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48))
         );
+        
+        howToPlay.setBounds(1220, 25, 40, 40);
+        add(howToPlay);
     }
      
+    private void howToPlayMouseEntered(MouseEvent evt) {
+		help.howToPlayEntered(howToPlay, htpi);
+
+    }
+    private void howToPlayMouseExited(MouseEvent evt) {
+    	help.howToPlayExited(htpi);
+    }
+    
+    
     protected void backButtonMouseClicked(MouseEvent evt) {
     	help.backButtonPressed(frame, panel, this);
 	}
