@@ -1,6 +1,7 @@
 package main.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import constants.Constants;
 import main.models.PowerUp.PowerUp;
 
 import javax.imageio.ImageIO;
@@ -10,6 +11,7 @@ import java.io.File;
 import java.util.ArrayList;
 @JsonIgnoreProperties({"collisionArea","image","up1","up2","down1","down2","left1","left2","right1","right2","up1p","up2p","down1p","down2p","left1p","left2p","right1p","right2p","fullHeart","emptyHeart", "timeIcon"})
 public class Character extends GameObject{
+    private static Character instance = null;
     public BufferedImage up1,up2,down1,down2,left1,left2,right1,right2;
     public BufferedImage up1p,up2p,down1p,down2p,left1p,left2p,right1p,right2p;
     public BufferedImage fullHeart,emptyHeart, timeIcon;
@@ -22,7 +24,7 @@ public class Character extends GameObject{
     public boolean bottleUsed = false;
 
     public ArrayList<PowerUp> bag;
-    public Character(){
+    private Character(){
         try {
             this.fullHeart = ImageIO.read(new File("assets/heart.png"));
             this.emptyHeart = ImageIO.read(new File("assets/heart-empty.png"));
@@ -52,7 +54,7 @@ public class Character extends GameObject{
 
     }
 
-    public Character(int x, int y, int height, int width, int speed){
+    private Character(int x, int y, int height, int width, int speed){
         this.locationX = x;
         this.locationY = y;
         this.height = height;
@@ -95,6 +97,12 @@ public class Character extends GameObject{
         int hitBoxIndex = width/6;
         int hitBoxSize = width - (2 * hitBoxIndex);
 
+    }
+    public static Character getInstance() {
+        if (instance == null) {
+            instance = new Character(150,150, Constants.tileSize,Constants.tileSize,6);
+        }
+        return instance;
     }
     public void printBag(){
         for (GameObject gameObject: bag){
