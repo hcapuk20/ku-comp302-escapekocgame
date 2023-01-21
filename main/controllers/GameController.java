@@ -265,6 +265,7 @@ public class GameController extends JPanel implements Runnable{
         alienController.paint(g);
         //mapController.draw(g);
         currentRoom.draw(g);
+        drawName(g);
 
         characterController.drawLife(g);
         timeController.drawTime(g);
@@ -284,6 +285,12 @@ public class GameController extends JPanel implements Runnable{
         int drawLocX = this.character.locationX -Constants.tileSize;
         int drawLocY = this.character.locationY -Constants.tileSize/2;
         g2.drawString(this.displayedMessage,drawLocX,drawLocY);
+    }
+
+    private void drawName(Graphics g) {
+        g.setColor(Color.white);
+        g.setFont(new Font("GeoSlab703 Md BT", Font.BOLD, 20));
+        g.drawString(currentBuilding.name, Constants.tileSize, Constants.WINDOW_HEIGHT - 15);
     }
 
 }
