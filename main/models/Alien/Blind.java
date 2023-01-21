@@ -19,12 +19,13 @@ public class Blind extends Alien{
     }
 
     public int counter = 0;
-    public Blind(int x, int y, int height, int width, String alien_type, Room currentRoom){
+    public Blind(int x, int y, int height, int width, String alien_type,int roomX,int roomY){
         this.locationX = x;
         this.locationY = y;
         this.height = height;
         this.width = width;
-        this.current_room = currentRoom;
+        this.roomX=roomX;
+        this.roomY=roomY;
         try {
             this.image = ImageIO.read(new File("assets/alien4.png"));
         } catch (IOException e) {

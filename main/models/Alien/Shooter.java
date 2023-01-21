@@ -18,12 +18,13 @@ public class Shooter extends Alien{
         }
     }
     private int count = 0;
-    public Shooter(int x, int y, int height, int width, String alien_type, Room currentRoom) {
+    public Shooter(int x, int y, int height, int width, String alien_type, int roomX, int roomY) {
         this.locationX = x;
         this.locationY = y;
         this.height = height;
         this.width = width;
-        this.current_room = currentRoom;
+        this.roomX=roomX;
+        this.roomY=roomY;
         try {
             this.image = ImageIO.read(new File("assets/alien2.png"));
         } catch (IOException e) {
