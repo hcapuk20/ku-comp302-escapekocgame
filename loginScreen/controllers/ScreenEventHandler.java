@@ -13,7 +13,6 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 
 import loginScreen.DeleteAccountWindow;
-import loginScreen.ForgotPasswordWindow;
 import loginScreen.LoginView;
 import loginScreen.SignUpMenu;
 import main.Main;
@@ -70,28 +69,11 @@ public class ScreenEventHandler {
     	enc.encryptFile(key, userFile, userFile);
 	}
 	
-	public void forgotPasswordEmailField(JTextField emailField) {
-		if (emailField.getText().equals("Email")) {
-			emailField.setText("");
-		}
-	}
 	
-	public void forgotPasswordFrameClick(JTextField emailField) {
-		if (emailField.getText().equals("")) {
-            emailField.setText("Email");
-        }
-	}
+
 	
 	
-	public void forgotPasswordSubmitClick(UserController usc, JTextField emailField, JLabel passwordStatus) {
-		String email = emailField.getText();
-        if (!usc.checkEmailValidity(email) || email.equals("Email") || email.equals("")) {
-            passwordStatus.setText("Invalid email! Try again.");
-        } else if (usc.checkEmailValidity(email)) {
-            passwordStatus.setForeground(new Color(102, 255, 102));
-            passwordStatus.setText("Email sent successfully!");
-        }
-	}
+
 	
 	public void signUpUsernameField(JTextField usernameField, JPasswordField passwordField, JTextField emailField) {
 		if (usernameField.getText().equals("Username")) {
@@ -167,20 +149,6 @@ public class ScreenEventHandler {
         	registerStatus.setText("User already exists!");
         }
         enc.encryptFile(key, userFile, userFile);
-	}
-	
-	public void loginViewCheckPassClick() {
-		ForgotPasswordWindow forgotPassword = new ForgotPasswordWindow();
-        forgotPassword.setVisible(true);
-	}
-	
-	public void loginViewCheckPassEnter(JLabel passwordCheck) {
-		passwordCheck.setText("<HTML><u>Forgot password?</u></HTML>");
-        passwordCheck.setCursor(new Cursor(Cursor.HAND_CURSOR));
-	}
-	
-	public void loginViewCheckPassExit(JLabel passwordCheck) {
-		passwordCheck.setText("Forgot password?");
 	}
 	
 	public void loginViewDeleteAccEnter(JLabel deleteAccountCheck) {
