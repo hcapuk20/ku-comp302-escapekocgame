@@ -61,20 +61,15 @@ public class KeyEventHandler implements KeyListener {
             character.direction = "down";
             character.moving = true;
         }
-        else if(key == KeyEvent.VK_ESCAPE){ //Bartu
+        else if(key == KeyEvent.VK_ESCAPE){
             gameController.paused = !gameController.paused;
             gameController.stop();
-        } else if (key == KeyEvent.VK_Z) {
-            //ProtectionVest pvest = new ProtectionVest(0,0,0,0);
-
-        } else if (key == KeyEvent.VK_L) {
-
-        } else if (key == KeyEvent.VK_M) { //Eren
+        } else if (key == KeyEvent.VK_M) {
             gameController.miniMapController.mClicked();
 
-        } else if (key == KeyEvent.VK_H){ //berfan
+        } else if (key == KeyEvent.VK_H){
             for (PowerUp powerUp: character.bag){
-                if (powerUp instanceof Hint){
+                if (powerUp instanceof Hint && !character.hasKey){
                     gameController.powerUpController.hintUsed = true;
                     gameController.miniMapController.showHint = true;
                     Timer t = new Timer();
@@ -89,7 +84,7 @@ public class KeyEventHandler implements KeyListener {
                     break;
                 }
             }
-        } else if (key == KeyEvent.VK_P){ //berfan
+        } else if (key == KeyEvent.VK_P){
             // hint powerUp
             for (PowerUp powerUp: character.bag){
                 if (powerUp instanceof ProtectionVest){
