@@ -31,7 +31,6 @@ public class ItemInteractionHandler implements MouseListener {
         int tileY = mouseY/tileSize;
 
         if (tileMap[tileX][tileY] == null){
-            System.out.println("No object");
             return false;
         } else if (tileMap[tileX][tileY].interactable){
             GameObject object = tileMap[tileX][tileY];
@@ -41,20 +40,10 @@ public class ItemInteractionHandler implements MouseListener {
                     int playerTileY = gameController.character.locationY / tileSize;
 
                     if (Math.abs(playerTileX - tileX)> 2 || Math.abs(playerTileY - tileY)> 2){
-                        gameController.displayedMessage = "You are not close enough!";
-                        Timer t = new Timer();
-                        t.schedule(new TimerTask() {
-                            @Override
-                            public void run() {
-                                gameController.displayedMessage = "";
-                            }
-                        }, 1000);
                         return false;
                     }
-                    System.out.println("you have clicked on furniture");
                     Furniture fur = (Furniture) tileMap[tileX][tileY];
                     if (fur.hasKey){
-                        System.out.println("Key Found...");
                         gameController.character.hasKey = true;
                         BufferedImage initialImage = fur.image;
                         try {
@@ -71,15 +60,6 @@ public class ItemInteractionHandler implements MouseListener {
                         }, 1000);
 
                         fur.hasKey = false;
-                    } else {
-                        gameController.displayedMessage = "Key not found!";
-                        Timer t = new Timer();
-                        t.schedule(new TimerTask() {
-                            @Override
-                            public void run() {
-                                gameController.displayedMessage = "";
-                            }
-                        }, 1000);
                     }
                 }
             } else if (object instanceof PowerUp){
@@ -87,23 +67,13 @@ public class ItemInteractionHandler implements MouseListener {
                     // right click
                     if (object instanceof ExtraLife){
                         gameController.character.increaseLife();
-                        gameController.displayedMessage = "Health increased!";
                     }
                     else if (object instanceof ExtraTime){
                     	gameController.timeController.increaseTime();
-                        gameController.displayedMessage = "Remaining time increased!";
                     }
                     else{
-                        gameController.displayedMessage = "Picked up power-up!";
                         gameController.character.bag.add((PowerUp) object);
                     }
-                    Timer t = new Timer();
-                    t.schedule(new TimerTask() {
-                        @Override
-                        public void run() {
-                            gameController.displayedMessage = "";
-                        }
-                    }, 1000);
                     gameController.currentRoom.tileMap[tileX][tileY] = null;
                 } else {
                     return false;
@@ -114,14 +84,6 @@ public class ItemInteractionHandler implements MouseListener {
                 int playerTileY = gameController.character.locationY / tileSize;
 
                 if (Math.abs(playerTileX - tileX)> 2 || Math.abs(playerTileY - tileY)> 2){
-                    gameController.displayedMessage = "You are not close enough!";
-                    Timer t = new Timer();
-                    t.schedule(new TimerTask() {
-                        @Override
-                        public void run() {
-                            gameController.displayedMessage = "";
-                        }
-                    }, 1000);
                     return false;
                 }
                 else {
