@@ -62,7 +62,6 @@ public class KeyEventHandler implements KeyListener {
             character.moving = true;
         }
         else if(key == KeyEvent.VK_ESCAPE){ //Bartu
-            System.out.println("pressed escape.");
             gameController.paused = !gameController.paused;
             gameController.stop();
         } else if (key == KeyEvent.VK_Z) {
@@ -97,14 +96,6 @@ public class KeyEventHandler implements KeyListener {
                     ProtectionVest pvest = (ProtectionVest) powerUp;
                     pvest.doEffect(gameController);
                     character.bag.remove(powerUp);
-                    gameController.displayedMessage = "You used Protection Vest!";
-                    Timer t = new Timer();
-                    t.schedule(new TimerTask() {
-                        @Override
-                        public void run() {
-                            gameController.displayedMessage = "";
-                        }
-                    }, 1000);
                     break;
                 }
             }
@@ -114,14 +105,6 @@ public class KeyEventHandler implements KeyListener {
                     PlasticBottle bottle = (PlasticBottle) powerUp;
                     character.bag.remove(powerUp);
                     character.bottleUsed = true;
-                    gameController.displayedMessage = "You used Plastic Bottle!";
-                    Timer t = new Timer();
-                    t.schedule(new TimerTask() {
-                        @Override
-                        public void run() {
-                            gameController.displayedMessage = "";
-                        }
-                    }, 1000);
                     break;
                 }
             }

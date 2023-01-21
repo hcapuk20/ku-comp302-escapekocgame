@@ -36,7 +36,6 @@ public class GameController extends JPanel implements Runnable{
     public int roomCountY = 1;
     public Room currentRoom;
     public JFrame frame;
-    public String displayedMessage = "";
 
     public PowerUpController powerUpController;
 
@@ -172,7 +171,6 @@ public class GameController extends JPanel implements Runnable{
                 delta--;
             }
 
-
             if (spawnPowerUpDelta > 360){
                 number++;
                 if(number%2==0){
@@ -186,15 +184,6 @@ public class GameController extends JPanel implements Runnable{
                     number = 0;
                 }
             }
-            /*
-            if (spawnAlienDelta > 600){
-
-                alienController.spawnAlien();
-                spawnAlienDelta -= 600;
-            }
-
-             */
-
 
         }
     }
@@ -218,7 +207,6 @@ public class GameController extends JPanel implements Runnable{
 
     }
     public void changeBuilding(){
-        System.out.println("Changing Building..");
         Alien.aliens = new Alien[100];
         score += 1;
 
@@ -233,14 +221,6 @@ public class GameController extends JPanel implements Runnable{
             timeController.counterLabel.setVisible(false);
             timeController.activeTimer = false;
             timeController = new TimeController(this, currentBuilding.getTotalFurnitures() * 5);
-            this.displayedMessage = "Congratulations! You moved on to the "+currentBuilding.name;
-            java.util.Timer t = new Timer();
-            t.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    displayedMessage = "";
-                }
-            }, 1000);
         } else {
             endGame();
         }
@@ -249,10 +229,15 @@ public class GameController extends JPanel implements Runnable{
 
     public void endGame(){
 
+        this.paused = true;
+
+
         EndGameController endGameController = new EndGameController(frame, score);
+
 
         frame.add(endGameController);
         endGameController.setBounds(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
+
 
         frame.remove(this);
     }
@@ -274,18 +259,9 @@ public class GameController extends JPanel implements Runnable{
         powerUpController.drawPowerUpEffect(g);
 
         miniMapController.drawMiniMap(g, currentBuilding, roomCountX, roomCountY);
-
-        drawMessage(g);
         //g.dispose();
     }
 
-    public void drawMessage(Graphics g){
-        Graphics2D g2 = (Graphics2D) g;
-        g2.setColor(Color.black);
-        int drawLocX = this.character.locationX -Constants.tileSize;
-        int drawLocY = this.character.locationY -Constants.tileSize/2;
-        g2.drawString(this.displayedMessage,drawLocX,drawLocY);
-    }
 
     private void drawName(Graphics g) {
         g.setColor(Color.white);
