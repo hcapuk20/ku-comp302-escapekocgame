@@ -9,7 +9,10 @@ import main.Main;
 import main.models.*;
 import main.models.Alien.Alien;
 import main.models.Character;
+import pause.PauseObserver;
 import pause.PausePanel;
+import pause.PauseSubject;
+
 import javax.sound.sampled.*;
 
 
@@ -24,6 +27,7 @@ public class GameController extends JPanel implements Runnable{
 
     Thread gameThread;
     public Character character;
+
     CharacterController characterController;
     KeyEventHandler keyListener;
     CollisionChecker collisionChecker;
@@ -45,6 +49,9 @@ public class GameController extends JPanel implements Runnable{
 
     //public Alien[] aliens = new Alien[100];
     public AlienController alienController;
+    PauseSubject pauseSubject;
+    PauseObserver pauseObserver;
+
 
     BagController bagController;
 
@@ -133,6 +140,9 @@ public class GameController extends JPanel implements Runnable{
         this.bagController = new BagController(this);
         this.timeController = new TimeController(this, currentBuilding.getTotalFurnitures() * 5);
         this.setLayout(null);
+        this.pauseSubject = new PauseSubject();
+        this.pauseObserver = new PauseObserver();
+        pauseSubject.registerObserver(pauseObserver);
     }
 
     public void startGame(){
@@ -234,6 +244,7 @@ public class GameController extends JPanel implements Runnable{
     public void endGame(){
 
         this.paused = true;
+        pauseSubject.setPaused(true);
 
 
         EndGameController endGameController = new EndGameController(frame, score);

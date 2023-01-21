@@ -15,6 +15,8 @@ import main.models.PowerUp.PowerUp;
 import main.models.PowerUp.ProtectionVest;
 import main.models.Room;
 import org.json.simple.JSONObject;
+import pause.PauseObserver;
+import pause.PauseSubject;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -32,10 +34,13 @@ import java.util.regex.Pattern;
 public class KeyEventHandler implements KeyListener {
     final private Character character;
     private GameController gameController;
+    PauseSubject pauseSubject = new PauseSubject();
+    PauseObserver pauseObserver = new PauseObserver();
 
     public KeyEventHandler(GameController gameController, Character character){
         this.character = character;
         this.gameController = gameController;
+        pauseSubject.registerObserver(pauseObserver);
     }
     @Override
     public void keyTyped(KeyEvent e) {
@@ -63,6 +68,7 @@ public class KeyEventHandler implements KeyListener {
         }
         else if(key == KeyEvent.VK_ESCAPE){ //Bartu
             gameController.paused = !gameController.paused;
+            pauseSubject.setPaused(true);
             gameController.stop();
         } else if (key == KeyEvent.VK_Z) {
             //ProtectionVest pvest = new ProtectionVest(0,0,0,0);
