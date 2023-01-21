@@ -1,5 +1,6 @@
 package main.models.Alien;
 
+import main.controllers.FurniturePlacementController;
 import main.models.Room;
 
 import javax.imageio.ImageIO;
@@ -15,8 +16,8 @@ public class TimeWasting1 extends TimeWasting implements TimeWastingInterface{
     }
 
 
-    public TimeWasting1(int x, int y, int height, int width, String alien_type, Room currentRoom) {
-        super(x, y, height, width, alien_type, currentRoom);
+    public TimeWasting1(int x, int y, int height, int width, String alien_type, Room currentRoom, int currentBuilding) {
+        super(x, y, height, width, alien_type, currentRoom, currentBuilding);
     }
 
 
@@ -24,8 +25,11 @@ public class TimeWasting1 extends TimeWasting implements TimeWastingInterface{
     public void specialPower(Alien alien) {
 
 
-        //eren
+        FurniturePlacementController furniturePlacementController = new FurniturePlacementController();
+        furniturePlacementController.randomizeKey(currentBuilding);
+
         System.out.println("<30");
+        System.out.println(currentBuilding);
 
 
 
