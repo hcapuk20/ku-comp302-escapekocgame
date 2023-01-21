@@ -55,7 +55,7 @@ public class HelpScreenEventHandler {
     }                                    
 
     public void furnitureIconEntered(JLabel infoTextDisplayer) {                                      
-        infoTextDisplayer.setText("<HTML><b><center>These are the furnitures scattered throughout the buildings, and they contain the keys you need to find to escape! One of these furnitures in your current building will have the key, so good luck finding it!</center></b></HTML>");
+        infoTextDisplayer.setText("<HTML><b><center>These are the furnitures scattered throughout the buildings, and they contain the keys you need to find to escape (which you can find by left clicking)! One of these furnitures in your current building will have the key, so good luck finding it!</center></b></HTML>");
     }                                     
 
     public void furnitureIconExited(JLabel infoTextDisplayer) {                                     
@@ -75,11 +75,11 @@ public class HelpScreenEventHandler {
     }                                    
 
     public void doorIconEntered(JLabel infoTextDisplayer) {                                      
-        infoTextDisplayer.setText("<HTML><b><center>This is part of the doors that you need to escape from after finding the key. You can't speak to the door to convince it to let you through, so make sure to find the key and get close enough to unlock it!</center></b></HTML>");
+        infoTextDisplayer.setText("<HTML><b><center>This is part of the doors that you need to escape from after finding the key (right click to open the doors). You can't speak to the door to convince it to let you through, so make sure to find the key and get close enough to unlock it!</center></b></HTML>");
     }                                     
 
     public void hintIconEntered(JLabel infoTextDisplayer) {                                      
-        infoTextDisplayer.setText("<HTML><b><center>This is the hint power-up. It will tell you if the key is located in the current room you're in. If the key is found, then the furniture containing the key will be clearly highlighted, so mind your surroundings!</center></b></HTML>");
+        infoTextDisplayer.setText("<HTML><b><center>This is the hint power-up (press H to use it). It will tell you if the key is located in the current room you're in. If the key is found, then the furniture containing the key will be clearly highlighted, so mind your surroundings!</center></b></HTML>");
     }                                     
 
     public void hintIconExited(JLabel infoTextDisplayer) {                                     
@@ -103,7 +103,7 @@ public class HelpScreenEventHandler {
     }                                    
 
     public void protectionVestIconEntered(JLabel infoTextDisplayer) {                                      
-        infoTextDisplayer.setText("<HTML><b><center>This is the protection vest power-up. You will get a shield of defense for the shooter alien, so you won't take damage if you get near one. It doesn't last forever, though, so be wary of your surroundings while you bask in the glory of your armor.</center></b></HTML>");
+        infoTextDisplayer.setText("<HTML><b><center>This is the protection vest power-up (use it with P). You will get a shield of defense for the shooter alien, so you won't take damage if you get near one. It doesn't last forever, though, so be wary of your surroundings while you bask in the glory of your armor.</center></b></HTML>");
     }                                     
 
     public void protectionVestIconExited(JLabel infoTextDisplayer) {                                     
@@ -111,7 +111,7 @@ public class HelpScreenEventHandler {
     }                                    
 
     public void plasticBottleIconEntered(JLabel infoTextDisplayer) {                                      
-        infoTextDisplayer.setText("<HTML><b><center>This is the plastic bottle power-up. You can use it to distract a blind alien by pressing \"P\" on your keyboard, and then throw it based on this key configuration: (\"A\": west, \"D\": east, \"W\": north, \"X\": south). Make sure to watch out where you throw it!</center></b></HTML>");
+        infoTextDisplayer.setText("<HTML><b><center>This is the plastic bottle power-up. You can use it to distract a blind alien by pressing \"B\" on your keyboard, and then throw it based on this key configuration: (\"A\": west, \"D\": east, \"W\": north, \"X\": south). Make sure to watch out where you throw it!</center></b></HTML>");
     }                                     
 
     public void plasticBottleIconExited(JLabel infoTextDisplayer) {                                     
