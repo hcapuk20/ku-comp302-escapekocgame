@@ -86,6 +86,12 @@ public class GameController extends JPanel implements Runnable{
 
 
         this.alienController = new AlienController(collisionChecker, this, character);
+        for (Alien a : Alien.aliens){
+            if (a != null){
+                System.out.println(a);
+            }
+
+        }
 
         this.bagController = new BagController(this);
         this.timeController = new TimeController(this, loadTime);

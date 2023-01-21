@@ -20,12 +20,14 @@ public class TimeWasting extends Alien {
             throw new RuntimeException(e);
         }
     }
-    public TimeWasting(int x, int y, int height, int width, String alien_type, Room currentRoom, int currentBuilding) {
+
+    public TimeWasting(int x, int y, int height, int width, String alien_type,int roomX, int roomY,int currentBuilding) {
         this.locationX = x;
         this.locationY = y;
         this.height = height;
         this.width = width;
-        this.current_room = currentRoom;
+        this.roomX=roomX;
+        this.roomY=roomY;
         try {
             this.image = ImageIO.read(new File("assets/alien1.png"));
         } catch (IOException e) {
