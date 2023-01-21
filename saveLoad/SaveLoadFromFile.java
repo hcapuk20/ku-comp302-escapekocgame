@@ -91,7 +91,6 @@ public class SaveLoadFromFile  {
                     }
                 }
             }
-
             GameController gameController = new GameController(jframe,loadChar,loadTime,loadCurrentBuildingCount,loadRoomX,loadRoomY);
             jframe.add(gameController);
             gameController.setBounds(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
