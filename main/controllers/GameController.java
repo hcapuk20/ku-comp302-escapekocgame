@@ -39,6 +39,7 @@ public class GameController extends JPanel implements Runnable{
     public int roomCountY = 1;
     public Room currentRoom;
     public JFrame frame;
+    public  String displayedMessage = "";
 
     public PowerUpController powerUpController;
 
