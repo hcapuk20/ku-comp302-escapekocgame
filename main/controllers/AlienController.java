@@ -92,7 +92,7 @@ public class AlienController implements Runnable {
 
         int randomYTile = rand.nextInt(tileMap[0].length);
 
-        while (tileMap[randomXTile][randomYTile] != null || (gameController.character.locationX / tileSize == randomXTile && gameController.character.locationY / tileSize == randomYTile)){
+        while (tileMap[randomXTile][randomYTile] != null || (gameController.character.locationX / tileSize == randomXTile && gameController.character.locationY / tileSize == randomYTile) || randomYTile * tileSize < 44 || randomYTile * tileSize > WINDOW_HEIGHT-(44 + tileSize) || randomXTile * tileSize < 44 || randomXTile * tileSize > WINDOW_WIDTH-( 44 + tileSize )){
             randomXTile = rand.nextInt(tileMap.length);
             randomYTile = rand.nextInt(tileMap[0].length);
         }
