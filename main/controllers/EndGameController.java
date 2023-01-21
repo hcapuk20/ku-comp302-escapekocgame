@@ -114,11 +114,10 @@ public class EndGameController extends JPanel implements ActionListener{
                 exitButtonAction();
             }
         });
-        exitButton.setBounds((panelWidth - buttonWidth) / 2, (panelHeight - buttonHeight) / 2 + buttonHeight,
-                buttonWidth, buttonHeight);
+        exitButton.setBounds((panelWidth - buttonWidth) / 2, (panelHeight - buttonHeight) / 2, buttonWidth,
+                buttonHeight);
 
         this.add(menuButton);
-        this.add(restartButton);
         this.add(exitButton);
     }
 
@@ -128,6 +127,8 @@ public class EndGameController extends JPanel implements ActionListener{
 
         frame.add(menuPanel);
         menuPanel.setBounds(0, 0, panelWidth, panelHeight);
+
+        this.setVisible(false);
 
         frame.remove(this);
 

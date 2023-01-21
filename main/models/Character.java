@@ -54,6 +54,17 @@ public class Character extends GameObject{
 
     }
 
+    public void initialize() {
+        this.life = 3;
+        this.locationX = 150;
+        this.locationY = 150;
+        this.bag = new ArrayList<>();
+        this.direction = "down";
+        this.moving = false;
+        this.image = down1;
+        this.hasKey = false;
+    }
+
     private Character(int x, int y, int height, int width, int speed){
         this.locationX = x;
         this.locationY = y;

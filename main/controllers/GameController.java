@@ -20,6 +20,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.sql.SQLOutput;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 @JsonIgnoreProperties({"frame"})
@@ -115,6 +116,7 @@ public class GameController extends JPanel implements Runnable{
         this.setBackground(new Color(254, 229, 204));
         this.setDoubleBuffered(true);
         character = Character.getInstance();
+        character.initialize();
         keyListener = new KeyEventHandler(this,character);
         this.addKeyListener(keyListener);
         this.setFocusable(true);
@@ -136,6 +138,7 @@ public class GameController extends JPanel implements Runnable{
 
 
         this.alienController = new AlienController(collisionChecker, this, character);
+        Alien.aliens = new Alien[100];
 
         this.bagController = new BagController(this);
         this.timeController = new TimeController(this, currentBuilding.getTotalFurnitures() * 5);
@@ -244,7 +247,7 @@ public class GameController extends JPanel implements Runnable{
     public void endGame(){
 
         this.paused = true;
-        pauseSubject.setPaused(true);
+        //pauseSubject.setPaused(true);
 
 
         EndGameController endGameController = new EndGameController(frame, score);
