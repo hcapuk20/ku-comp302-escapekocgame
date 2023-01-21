@@ -107,7 +107,7 @@ public class GameController extends JPanel implements Runnable{
         this.setPreferredSize(new Dimension(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT));
         this.setBackground(new Color(254, 229, 204));
         this.setDoubleBuffered(true);
-        character = new Character(150,150,Constants.tileSize,Constants.tileSize,6);
+        character = Character.getInstance();
         keyListener = new KeyEventHandler(this,character);
         this.addKeyListener(keyListener);
         this.setFocusable(true);
