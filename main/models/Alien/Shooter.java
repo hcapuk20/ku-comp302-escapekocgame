@@ -1,6 +1,7 @@
 package main.models.Alien;
 
 import constants.Constants;
+import main.controllers.GameController;
 import main.models.Room;
 import main.models.Character;
 
@@ -43,7 +44,8 @@ public class Shooter extends Alien{
 
             if(player.locationX < this.locationX+4 * Constants.tileSize && player.locationX > this.locationX-4 * Constants.tileSize && player.locationY < this.locationY+4 * Constants.tileSize && player.locationY > this.locationY-4 * Constants.tileSize && this.roomX == roomX && this.roomY == roomY ){
                // checks if the player in the range of shooter alien.
-                if (player.vulnerable){
+                if (player.vulnerable && player.life != 0){
+                    GameController.playSound("assets/sounds/hit-effect.wav");
                     player.life --;
                 }
 

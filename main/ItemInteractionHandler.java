@@ -45,6 +45,7 @@ public class ItemInteractionHandler implements MouseListener {
                     Furniture fur = (Furniture) tileMap[tileX][tileY];
                     if (fur.hasKey){
                         gameController.character.hasKey = true;
+                        gameController.playSound("assets/sounds/key-pickup.wav");
                         BufferedImage initialImage = fur.image;
                         try {
                             fur.image = ImageIO.read(new File("assets/key.png"));
@@ -60,6 +61,18 @@ public class ItemInteractionHandler implements MouseListener {
                         }, 1000);
 
                         fur.hasKey = false;
+
+                    } else {
+                        gameController.playSound("assets/sounds/empty-object.wav");
+                        gameController.displayedMessage = "Key not found!";
+                        Timer t = new Timer();
+                        t.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                gameController.displayedMessage = "";
+                            }
+                        }, 1000);
+
                     }
                 }
             } else if (object instanceof PowerUp){
@@ -88,6 +101,7 @@ public class ItemInteractionHandler implements MouseListener {
                 }
                 else {
                     if (gameController.character.hasKey){
+                        gameController.playSound("assets/sounds/door-opening.wav");
                         gameController.character.hasKey = false;
                         gameController.changeBuilding();
                     }

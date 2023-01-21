@@ -10,9 +10,12 @@ import main.models.*;
 import main.models.Alien.Alien;
 import main.models.Character;
 import pause.PausePanel;
+import javax.sound.sampled.*;
+
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.sql.SQLOutput;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -267,6 +270,17 @@ public class GameController extends JPanel implements Runnable{
         g.setColor(Color.white);
         g.setFont(new Font("GeoSlab703 Md BT", Font.BOLD, 20));
         g.drawString(currentBuilding.name, Constants.tileSize, Constants.WINDOW_HEIGHT - 15);
+    }
+    public static void playSound(String soundFile) {
+        try {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundFile).getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+        } catch (Exception ex) {
+            System.out.println("Error with playing sound.");
+            ex.printStackTrace();
+        }
     }
 
 }
