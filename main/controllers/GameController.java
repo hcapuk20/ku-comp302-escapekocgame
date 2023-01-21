@@ -122,7 +122,7 @@ public class GameController extends JPanel implements Runnable{
         this.alienController = new AlienController(collisionChecker, this, character);
 
         this.bagController = new BagController(this);
-        this.timeController = new TimeController(this, 500);
+        this.timeController = new TimeController(this, currentBuilding.getTotalFurnitures() * 5);
         this.setLayout(null);
     }
 
